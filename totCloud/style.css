@@ -1,0 +1,65 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+*/
+@font-face {
+    font-family: myFont;
+    src: url(https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: myFont;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+form {
+    width: 500px;
+    margin: auto;
+    border: 2px solid #ccc;
+    padding: 40px;
+    background: A2C7E5;
+    border-radius: 15px;
+
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+input,
+label {
+    display: block;
+    width: 95%;
+    margin: 10px auto;
+
+}
+
+input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.btn {
+    width: 50%;
+    cursor: pointer;
+    background: #aa7e7e;
+    border-color: #aa7e7e;
+
+    &:hover {
+        background: #4e636d;
+        border-color: #4e636d;
+        color: wheat;
+    }
+}
