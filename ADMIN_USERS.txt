@@ -1,0 +1,5 @@
+CORREO + PASSWORD PARA LOS USUARIOS ADMIN DE PREUBA
+CORREU                                  PASSWORD
+imanFTotCloud@.es.tc                    12345
+LuisTTotCloud.es.tc                     mypassword
+claudiamTotCloud@.es.tc                 code123
