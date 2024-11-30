@@ -23,6 +23,9 @@ if (!empty($_POST["submitButton"])) {
     if ($datos = $result->fetch_object()) {
         if (password_verify($password, $datos->constrasenyaHash)) {
             echo "WELCOME HOME";
+            echo "bienvenida";
+            header("Location: home.php");
+
         } else {
             echo '<div class="alert alert-danger">ACCESS DENIED</div>';
         }
