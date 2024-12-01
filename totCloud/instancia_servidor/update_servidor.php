@@ -1,15 +1,15 @@
 <?php
-include "../connexio.php";
 include "../funcions.php";
-include "../atributsClasses/instancia_bd.php";
+include "../connexio.php";
+include "../atributsClasses/instancia_servidor.php"; 
 
 $db = new Database($conn);
-$file = "llista_bd.php";
+$file = "llista_servidor.php";
 
 // Verificar si los parámetros GET están definidos y no están vacíos
 if (!empty($_GET[$pk]) && !empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_GET[$a3])
 && !empty($_GET[$a4]) && !empty($_GET[$a5]) && !empty($_GET[$a6]) && !empty($_GET[$a7])
-&& !empty($_GET[$a8]) && !empty($_GET[$a9]) && !empty($_GET[$a10]) && !empty($_GET[$a11])) {
+&& !empty($_GET[$a8]) && !empty($_GET[$a9])) {
     // Recoger valores GET
     $bk = $_GET[$pk];
     $b1 = $_GET[$a1];
@@ -21,16 +21,15 @@ if (!empty($_GET[$pk]) && !empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_G
     $b7 = $_GET[$a7];
     $b8 = $_GET[$a8];
     $b9 = $_GET[$a9];
-    $b10 = $_GET[$a10];
-    $b11 = $_GET[$a11];
 
     // Crear la consulta SQL
-    $re1 = 'INSERT INTO instancia_bd ($pk, $a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8, $a9, $a10, $a11) 
-    VALUES ("'.$bk.'", "'.$b1.'", "'.$b2.'", "'.$b3.'", "'.$b4.'", "'.$b5.'", "'.$b6.'", "'.$b7.'", 
-    "'.$b8.'", "'.$b9.'", "'.$b10.'", "'.$b11.'")';
+    $re1 = 'UPDATE instancia_servidor SET $a1 = "'.$b1.'", a2 = "'.$b2.'", $a3 = "'.$b3.'",
+    $a4 = "'.$b4.'", $a5 = "'.$b5.'", $a6 = "'.$b6.'", $a7 = "'.$b7.'", $a8 = "'.$b8.'", $a9 = "'.$b9.'"
+    WHERE $pk = "'.$bk.'"';
 
     $db->consultar($re1);
     $db->regresar($file);
+
 } else {
     echo "Por favor, rellena todos los campos.";
 }
