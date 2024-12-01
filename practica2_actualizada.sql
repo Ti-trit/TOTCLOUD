@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2024 at 09:46 PM
+-- Generation Time: Dec 01, 2024 at 09:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -961,6 +961,12 @@ ALTER TABLE `instancia_bd`
   MODIFY `idInstanciaBD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `instancia_bucket`
+--
+ALTER TABLE `instancia_bucket`
+  MODIFY `idBucket` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `instancia_servidor`
 --
 ALTER TABLE `instancia_servidor`
@@ -1062,7 +1068,6 @@ ALTER TABLE `instancia_bd`
 -- Constraints for table `instancia_bucket`
 --
 ALTER TABLE `instancia_bucket`
-  ADD CONSTRAINT `fk_bucket_servei` FOREIGN KEY (`idBucket`) REFERENCES `servei` (`idServei`),
   ADD CONSTRAINT `fk_regio_bucket` FOREIGN KEY (`nomReg`) REFERENCES `regio` (`nomReg`),
   ADD CONSTRAINT `fk_servei_bucket` FOREIGN KEY (`idServei`) REFERENCES `servei` (`idServei`);
 
