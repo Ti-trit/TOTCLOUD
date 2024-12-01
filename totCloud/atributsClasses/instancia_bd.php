@@ -1,5 +1,5 @@
 <?php
-$pk = "idInstancia";
+$pk = "idInstanciaBD";
 $a1 = "idBDServei";
 $a2 = "nomMaster";
 $a3 = "nomBD";
