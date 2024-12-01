@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <link rel = "stylesheet" type = "text/css" href="style.css">
+    <link rel = "stylesheet" type = "text/css" href="estilos/style.css">
 </head>
 <body>
     <div class="wrapper">
