@@ -1,6 +1,6 @@
 <?php
-$pk = "nomBucket";
-$a1 = "periodeBloqueig";
-$a2 = "idBucket";
+$a1 = "nomBucket";
+$a2 = "periodeBloqueig";
+$pk = "idBucket";
 $a3 = "nomReg";
 ?>

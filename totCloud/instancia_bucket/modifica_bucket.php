@@ -16,7 +16,7 @@ Modificar Bucket
     <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?>>
         Nom bucket:<input name="<?php echo $a1; ?>"><br>
         Periode bloqueig:<input name="<?php echo $a2; ?>"><br>
-        Nom registre:<input name="<?php echo $a3; ?>"><br>
+        Nom regió:<input name="<?php echo $a3; ?>"><br>
     <input type="submit" value="Modificar">
     </form>
 </body>
