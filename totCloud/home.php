@@ -6,13 +6,28 @@
     <link rel="stylesheet" type="text/css" href="estils/home.css">
     <title>Home</title>
 </head>
+<?php
+session_start(); // Asegúrate de llamar session_start() para acceder a las variables de sesión
+
+// Comprobar si hay un mensaje de logout
+if (isset($_SESSION['logout_message'])) {
+    // Mostrar el mensaje en pantalla
+    echo '<div class="alert alert-success" role="alert">' . htmlspecialchars($_SESSION['logout_message']) . '</div>';
+    
+    // Eliminar el mensaje después de mostrarlo para que no persista
+    unset($_SESSION['logout_message']);
+   
+
+}
+?>
+
 <body>
     <header>
         <nav class="navbar">
             <ul>
                 <li class="brand"><strong>TotCloud</strong></li>
                 <li class="logout">
-                    <a href="logout.php">
+                    <a href="LogOut.php">
                         <span class="icon-user">&#128100;</span> Log Out
                     </a>
                 </li>

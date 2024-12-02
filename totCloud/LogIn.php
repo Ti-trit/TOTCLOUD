@@ -1,5 +1,9 @@
 <?php
-if (!empty($_POST["submitButton"])) {
+    session_start();
+
+    
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Conexión a la base de datos
     $conexion = new mysqli("localhost", "root", "", "PRACTICA2", "3306");
     $conexion->set_charset("utf8");
@@ -19,19 +23,28 @@ if (!empty($_POST["submitButton"])) {
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+   // $login_err = "";
     if ($datos = $result->fetch_object()) {
         if (password_verify($password, $datos->constrasenyaHash)) {
-            echo "WELCOME HOME";
-            echo "bienvenida";
+
+            $_SESSION["loggedin"]=true;
+            $_SESSION["correo"]=$email;
+            
             header("Location: home.php");
 
         } else {
-            echo '<div class="alert alert-danger">ACCESS DENIED</div>';
+         //  $login_err = "ACCESS DENIED";
+           $_SESSION["status"]= "ACCES DENIED";
+           header("Location: index.php");
+           exit();
         }
-    } else {
-        echo '<div class="alert alert-danger">EMAIL NOT FOUND</div>';
+    } 
+    else {
+        $_SESSION["status"]= "INVALID USERNAME OR PASSWORD";
+        header("Location: index.php");
+        exit();
     }
+   
    
 }
 ?>
