@@ -1,18 +1,16 @@
 <?php
+
+require "connexio.php";
     session_start();
 
     
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Conexión a la base de datos
-    $conexion = new mysqli("localhost", "root", "", "PRACTICA2", "3306");
-    $conexion->set_charset("utf8");
-
     // Obtener datos del formulario
     $email = $_POST["emailField"];
     $password = $_POST["passwordField"];
     // Consulta SQL para obtener la contraseña más reciente
-    $stmt = $conexion->prepare("SELECT h.constrasenyaHash
+    $stmt = $conn->prepare("SELECT h.constrasenyaHash
     FROM persona p
     JOIN personal pl ON p.idPersona = pl.idPersonalCloud
     JOIN HISTORIAL_CONTRASENYA h ON pl.idPersonalCloud = h.IdPersona

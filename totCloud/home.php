@@ -7,17 +7,13 @@
     <title>Home</title>
 </head>
 <?php
-session_start(); // Asegúrate de llamar session_start() para acceder a las variables de sesión
+session_start(); 
+include "connexio.php";
 
-// Comprobar si hay un mensaje de logout
+// Mostrar el mensaje de logout si existe
 if (isset($_SESSION['logout_message'])) {
-    // Mostrar el mensaje en pantalla
     echo '<div class="alert alert-success" role="alert">' . htmlspecialchars($_SESSION['logout_message']) . '</div>';
-    
-    // Eliminar el mensaje después de mostrarlo para que no persista
     unset($_SESSION['logout_message']);
-   
-
 }
 ?>
 
@@ -41,14 +37,26 @@ if (isset($_SESSION['logout_message'])) {
     <section>
         <h2>SaaS</h2>
         <div class="saas">
-            
-                <div class="saas_content">
-                    <a href="./database.html">DataBase</a>
-                </div>
-            </php>
-            <div class="saas_content">
-                <a href="./buckets.html">Buckets</a>
-            </div>
+            <?php
+            // Definir los servicios
+            $services = [
+                'DATABASE' => "./database.html",
+                'CLOUD STORAGE' => "./buckets.html",
+            ];
+
+            // Consultar y mostrar servicios disponibles
+            foreach ($services as $category => $link) {
+                $stmt = $conn->prepare("SELECT s.disponible FROM SERVEI s WHERE s.categoria = ?");
+                $stmt->bind_param("s", $category);
+                $stmt->execute();
+                $resultado = $stmt->get_result();
+                $datos = $resultado->fetch_object();
+
+                if ($datos && $datos->disponible == 1) {
+                    echo '<div class="saas_content"><a href="' . htmlspecialchars($link) . '">' . htmlspecialchars($category) . '</a></div>';
+                }
+            }
+            ?>
         </div>
     </section>
     <section>
@@ -59,3 +67,5 @@ if (isset($_SESSION['logout_message'])) {
             </div>
         </div>
     </section>
+</body>
+</html>
