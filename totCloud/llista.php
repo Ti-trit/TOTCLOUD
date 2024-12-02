@@ -4,9 +4,10 @@ class Llista {
     private $conn;
     private $table;
 
-    public function __construct($conn, $table) {
+    public function __construct($conn, $table, $idxPK) {
         $this->conn = $conn;
         $this->table = $table;
+        $this->idxPK = $idxPK;
     }
 
     // Mostrar todos los registros de la tabla
@@ -40,7 +41,7 @@ class Llista {
             }
 
             // Generar URLs de modificación y eliminación usando la plantilla i reemplazando {id} por el valor real de la clave primaria
-            $primaryKeyValue = $reg[$columns[0]];  // Suponemos que la primera columna es la clave primaria
+            $primaryKeyValue = $reg[$columns[$this->idxPK]];  // La clave primaria es el contenido de la columna a especificar
             $modifyUrl = str_replace("{id}", $primaryKeyValue, $l1);
             $deleteUrl  = str_replace("{id}", $primaryKeyValue, $l2);
 

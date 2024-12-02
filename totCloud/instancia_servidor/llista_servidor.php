@@ -1,11 +1,11 @@
 <?php
 include "../llista.php";
 include "../connexio.php";
-include "../atributsClasses/instancia_bucket.php"; 
+include "../atributsClasses/instancia_servidor.php"; 
 
 class LlistaServidor extends Llista {
     public function __construct($conn) {
-        parent::__construct($conn, "instancia_servidor");  
+        parent::__construct($conn, "instancia_servidor",2);  
     }
 }
 

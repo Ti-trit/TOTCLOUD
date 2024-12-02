@@ -23,9 +23,9 @@ if (!empty($_GET[$pk]) && !empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_G
     $b9 = $_GET[$a9];
 
     // Crear la consulta SQL
-    $re1 = 'UPDATE instancia_servidor SET $a1 = "'.$b1.'", a2 = "'.$b2.'", $a3 = "'.$b3.'",
-    $a4 = "'.$b4.'", $a5 = "'.$b5.'", $a6 = "'.$b6.'", $a7 = "'.$b7.'", $a8 = "'.$b8.'", $a9 = "'.$b9.'"
-    WHERE $pk = "'.$bk.'"';
+    $re1 = "UPDATE instancia_servidor SET $a1 = '$b1', $a2 = '$b2', $a3 = '$b3',
+    $a4 = '$b4', $a5 = '$b5', $a6 = '$b6', $a7 = '$b7', $a8 = '$b8',  
+    $a9 = '$b9' WHERE $pk = '$bk'";
 
     $db->consultar($re1);
     $db->regresar($file);

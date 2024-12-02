@@ -5,7 +5,7 @@ include "../atributsClasses/instancia_bd.php";
 
 class LlistaBD extends Llista {
     public function __construct($conn) {
-        parent::__construct($conn, "instancia_bd");  
+        parent::__construct($conn, "instancia_bd",0);  
     }
 }
 

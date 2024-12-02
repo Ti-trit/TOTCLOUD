@@ -5,7 +5,7 @@ include "../atributsClasses/instancia_bucket.php";
 
 class LlistaBucket extends Llista {
     public function __construct($conn) {
-        parent::__construct($conn, "instancia_bucket");  
+        parent::__construct($conn, "instancia_bucket",2);   //2 = columna que contiene PK  
     }
 }
 

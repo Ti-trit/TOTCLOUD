@@ -12,7 +12,7 @@
     }
     ?>
 Modificar Bucket
-    <form action="update_bd.php">
+    <form action="update_bucket.php">
     <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?>>
         Nom bucket:<input name="<?php echo $a1; ?>"><br>
         Periode bloqueig:<input name="<?php echo $a2; ?>"><br>

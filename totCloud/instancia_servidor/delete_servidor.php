@@ -12,7 +12,7 @@ if (!empty($_GET[$pk])) {
     $k = $_GET[$pk];
 
     // Crear la consulta SQL
-    $re1 = 'DELETE FROM instancia_servidor WHERE $pk = "'.$k.'"';
+    $re1 = "DELETE FROM instancia_servidor WHERE $pk = '$k'";
 
     $db->consultar($re1);
     $db->regresar($file);
