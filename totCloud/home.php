@@ -40,8 +40,8 @@ if (isset($_SESSION['logout_message'])) {
             <?php
             // Definir los servicios
             $services = [
-                'DATABASE' => "./database.html",
-                'CLOUD STORAGE' => "./buckets.html",
+                'DATABASE' => "./instancia_bd/",
+                'CLOUD STORAGE' => "./instancia_bucket/",
             ];
 
             // Consultar y mostrar servicios disponibles
@@ -63,7 +63,7 @@ if (isset($_SESSION['logout_message'])) {
         <h2>PaaS</h2>
         <div class="paas">
             <div class="paas_content">
-                <a href="./server.html">Server</a>
+                <a href="./instancia_servidor/">Server</a>
             </div>
         </div>
     </section>
