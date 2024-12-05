@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2024 a las 22:23:35
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Dec 05, 2024 at 03:23 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `practica2`
+-- Database: `practica2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ami`
+-- Table structure for table `ami`
 --
 
 CREATE TABLE `ami` (
@@ -35,7 +35,7 @@ CREATE TABLE `ami` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `ami`
+-- Dumping data for table `ami`
 --
 
 INSERT INTO `ami` (`nomAmi`, `descripcioAMI`, `arquitectura`, `idAMI`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `ami` (`nomAmi`, `descripcioAMI`, `arquitectura`, `idAMI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `arxiu`
+-- Table structure for table `arxiu`
 --
 
 CREATE TABLE `arxiu` (
@@ -61,7 +61,7 @@ CREATE TABLE `arxiu` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `carpeta`
+-- Table structure for table `carpeta`
 --
 
 CREATE TABLE `carpeta` (
@@ -73,7 +73,7 @@ CREATE TABLE `carpeta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cataleg`
+-- Table structure for table `cataleg`
 --
 
 CREATE TABLE `cataleg` (
@@ -82,7 +82,7 @@ CREATE TABLE `cataleg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `cataleg`
+-- Dumping data for table `cataleg`
 --
 
 INSERT INTO `cataleg` (`descripcio`, `idCataleg`) VALUES
@@ -92,30 +92,31 @@ INSERT INTO `cataleg` (`descripcio`, `idCataleg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clau_sessio`
+-- Table structure for table `clau_sessio`
 --
 
 CREATE TABLE `clau_sessio` (
   `nomFitxer` varchar(64) NOT NULL,
   `idClauSessio` int(11) NOT NULL,
-  `tipusClau` varchar(16) DEFAULT NULL
+  `tipusClau` varchar(16) DEFAULT NULL,
+  `nomClau` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `clau_sessio`
+-- Dumping data for table `clau_sessio`
 --
 
-INSERT INTO `clau_sessio` (`nomFitxer`, `idClauSessio`, `tipusClau`) VALUES
-('file1.txt', 12345, 'RSA-3072'),
-('file2.txt', 12346, 'AES-128'),
-('file3.txt', 12347, 'ECDSA-P256'),
-('file4.txt', 12348, 'RSA-2048'),
-('file5.txt', 12349, 'AES-256');
+INSERT INTO `clau_sessio` (`nomFitxer`, `idClauSessio`, `tipusClau`, `nomClau`) VALUES
+('fichero_clave', 1, 'RSA', 'miclave'),
+('fichero2', 2, 'RSA', 'clave_servidor_1'),
+('fichero2', 3, 'ED25519', 'clave_servidor_ED'),
+('fichero_clave', 4, 'ED25519', 'claveEC2'),
+('key_login', 5, 'ED25519', 'MiclaveEC2');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `configuracio`
+-- Table structure for table `configuracio`
 --
 
 CREATE TABLE `configuracio` (
@@ -129,7 +130,7 @@ CREATE TABLE `configuracio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `configuracio`
+-- Dumping data for table `configuracio`
 --
 
 INSERT INTO `configuracio` (`idConfig`, `numCPU`, `RAM`, `xarxa`, `preuPerHora`, `nom`, `IP`) VALUES
@@ -140,7 +141,7 @@ INSERT INTO `configuracio` (`idConfig`, `numCPU`, `RAM`, `xarxa`, `preuPerHora`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `configuracio_usuaris`
+-- Table structure for table `configuracio_usuaris`
 --
 
 CREATE TABLE `configuracio_usuaris` (
@@ -151,7 +152,7 @@ CREATE TABLE `configuracio_usuaris` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `emmagatzamatge`
+-- Table structure for table `emmagatzamatge`
 --
 
 CREATE TABLE `emmagatzamatge` (
@@ -161,7 +162,7 @@ CREATE TABLE `emmagatzamatge` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `emmagatzamatge`
+-- Dumping data for table `emmagatzamatge`
 --
 
 INSERT INTO `emmagatzamatge` (`tipus`, `emgAssignat`, `idEmmg`) VALUES
@@ -173,7 +174,7 @@ INSERT INTO `emmagatzamatge` (`tipus`, `emgAssignat`, `idEmmg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grup_admin`
+-- Table structure for table `grup_admin`
 --
 
 CREATE TABLE `grup_admin` (
@@ -187,7 +188,7 @@ CREATE TABLE `grup_admin` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grup_no_admin`
+-- Table structure for table `grup_no_admin`
 --
 
 CREATE TABLE `grup_no_admin` (
@@ -201,7 +202,7 @@ CREATE TABLE `grup_no_admin` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grup_seguretat`
+-- Table structure for table `grup_seguretat`
 --
 
 CREATE TABLE `grup_seguretat` (
@@ -215,7 +216,7 @@ CREATE TABLE `grup_seguretat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `grup_seguretat`
+-- Dumping data for table `grup_seguretat`
 --
 
 INSERT INTO `grup_seguretat` (`nom`, `descripcio`, `descrpicioSource`, `idGS`, `tipusSource`, `tipus`, `Protocol`) VALUES
@@ -227,7 +228,7 @@ INSERT INTO `grup_seguretat` (`nom`, `descripcio`, `descrpicioSource`, `idGS`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial_contrasenya`
+-- Table structure for table `historial_contrasenya`
 --
 
 CREATE TABLE `historial_contrasenya` (
@@ -239,7 +240,7 @@ CREATE TABLE `historial_contrasenya` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `historial_contrasenya`
+-- Dumping data for table `historial_contrasenya`
 --
 
 INSERT INTO `historial_contrasenya` (`constrasenyaHash`, `dataCreacio`, `idHistorial`, `idInstanciaBD`, `IdPersona`) VALUES
@@ -253,7 +254,7 @@ INSERT INTO `historial_contrasenya` (`constrasenyaHash`, `dataCreacio`, `idHisto
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `infraestructura`
+-- Table structure for table `infraestructura`
 --
 
 CREATE TABLE `infraestructura` (
@@ -264,7 +265,7 @@ CREATE TABLE `infraestructura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instancia_bd`
+-- Table structure for table `instancia_bd`
 --
 
 CREATE TABLE `instancia_bd` (
@@ -273,7 +274,6 @@ CREATE TABLE `instancia_bd` (
   `nomMaster` varchar(64) NOT NULL,
   `nomBD` varchar(64) NOT NULL,
   `grupParametresBD` varchar(64) NOT NULL,
-  `CopiaSeguretat` bit(1) NOT NULL,
   `periodeRetencioCS` int(11) DEFAULT NULL,
   `tipusMotor` varchar(32) NOT NULL,
   `idSubXar` int(11) NOT NULL,
@@ -283,20 +283,20 @@ CREATE TABLE `instancia_bd` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `instancia_bd`
+-- Dumping data for table `instancia_bd`
 --
 
-INSERT INTO `instancia_bd` (`idInstanciaBD`, `idBDServei`, `nomMaster`, `nomBD`, `grupParametresBD`, `CopiaSeguretat`, `periodeRetencioCS`, `tipusMotor`, `idSubXar`, `idConfig`, `idGS`, `idEmmg`) VALUES
-(1, 1, 'admin1', 'Database1', 'default', b'0', 30, 'MariaDB', 1, 2, 1, 1),
-(2, 1, 'admin2', 'Database2', 'optimized', b'0', 7, 'MySQL', 1, 3, 2, 2),
-(3, 1, 'admin3', 'Database3', 'high-performance', b'0', NULL, 'PostgreSQL', 3, 2, 3, 3),
-(4, 1, 'admin4', 'Database4', 'secure', b'0', 14, 'SQLite', 1, 2, 4, 4),
-(5, 1, 'admin5', 'Database5', 'balanced', b'0', NULL, 'MariaDB', 2, 2, 2, 1);
+INSERT INTO `instancia_bd` (`idInstanciaBD`, `idBDServei`, `nomMaster`, `nomBD`, `grupParametresBD`, `periodeRetencioCS`, `tipusMotor`, `idSubXar`, `idConfig`, `idGS`, `idEmmg`) VALUES
+(1, 1, 'admin1', 'Database1', 'default', 30, 'MariaDB', 1, 2, 1, 1),
+(2, 1, 'admin2', 'Database2', 'optimized', 7, 'MySQL', 1, 3, 2, 2),
+(3, 1, 'admin3', 'Database3', 'high-performance', NULL, 'PostgreSQL', 3, 2, 3, 3),
+(4, 1, 'admin4', 'Database4', 'secure', 14, 'SQLite', 1, 2, 4, 4),
+(5, 1, 'admin5', 'Database5', 'balanced', NULL, 'MariaDB', 2, 2, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instancia_bucket`
+-- Table structure for table `instancia_bucket`
 --
 
 CREATE TABLE `instancia_bucket` (
@@ -310,7 +310,7 @@ CREATE TABLE `instancia_bucket` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instancia_servidor`
+-- Table structure for table `instancia_servidor`
 --
 
 CREATE TABLE `instancia_servidor` (
@@ -329,7 +329,7 @@ CREATE TABLE `instancia_servidor` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mateniment_personal`
+-- Table structure for table `mateniment_personal`
 --
 
 CREATE TABLE `mateniment_personal` (
@@ -340,7 +340,7 @@ CREATE TABLE `mateniment_personal` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `motor_bd`
+-- Table structure for table `motor_bd`
 --
 
 CREATE TABLE `motor_bd` (
@@ -348,7 +348,7 @@ CREATE TABLE `motor_bd` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `motor_bd`
+-- Dumping data for table `motor_bd`
 --
 
 INSERT INTO `motor_bd` (`tipusMotor`) VALUES
@@ -360,7 +360,7 @@ INSERT INTO `motor_bd` (`tipusMotor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `organitzacio`
+-- Table structure for table `organitzacio`
 --
 
 CREATE TABLE `organitzacio` (
@@ -373,7 +373,7 @@ CREATE TABLE `organitzacio` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permisos_grup_administrador`
+-- Table structure for table `permisos_grup_administrador`
 --
 
 CREATE TABLE `permisos_grup_administrador` (
@@ -384,7 +384,7 @@ CREATE TABLE `permisos_grup_administrador` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permisos_grup_no_administrador`
+-- Table structure for table `permisos_grup_no_administrador`
 --
 
 CREATE TABLE `permisos_grup_no_administrador` (
@@ -395,7 +395,7 @@ CREATE TABLE `permisos_grup_no_administrador` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Table structure for table `persona`
 --
 
 CREATE TABLE `persona` (
@@ -409,7 +409,7 @@ CREATE TABLE `persona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `persona`
+-- Dumping data for table `persona`
 --
 
 INSERT INTO `persona` (`nom`, `llinatges`, `correuPersonal`, `dataNaixement`, `identificador`, `correuAcces`, `idPersona`) VALUES
@@ -420,7 +420,7 @@ INSERT INTO `persona` (`nom`, `llinatges`, `correuPersonal`, `dataNaixement`, `i
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `personal`
+-- Table structure for table `personal`
 --
 
 CREATE TABLE `personal` (
@@ -431,18 +431,18 @@ CREATE TABLE `personal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `personal`
+-- Dumping data for table `personal`
 --
 
 INSERT INTO `personal` (`adreca`, `telefon`, `dataAlta`, `idPersonalCloud`) VALUES
-(NULL, '123456789', '0000-00-00', 1),
-(NULL, '234567891', '0000-00-00', 2),
-(NULL, '345678912', '0000-00-00', 3);
+(NULL, '123456789', '2023-10-01', 1),
+(NULL, '234567891', '2020-09-17', 2),
+(NULL, '345678912', '2024-12-01', 3);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `privilegi`
+-- Table structure for table `privilegi`
 --
 
 CREATE TABLE `privilegi` (
@@ -453,7 +453,7 @@ CREATE TABLE `privilegi` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `protocol`
+-- Table structure for table `protocol`
 --
 
 CREATE TABLE `protocol` (
@@ -462,7 +462,7 @@ CREATE TABLE `protocol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `protocol`
+-- Dumping data for table `protocol`
 --
 
 INSERT INTO `protocol` (`tipus`, `Protocol`) VALUES
@@ -473,7 +473,7 @@ INSERT INTO `protocol` (`tipus`, `Protocol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `protocol_range_port`
+-- Table structure for table `protocol_range_port`
 --
 
 CREATE TABLE `protocol_range_port` (
@@ -482,7 +482,7 @@ CREATE TABLE `protocol_range_port` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `protocol_range_port`
+-- Dumping data for table `protocol_range_port`
 --
 
 INSERT INTO `protocol_range_port` (`Protocol`, `PortRange`) VALUES
@@ -495,7 +495,7 @@ INSERT INTO `protocol_range_port` (`Protocol`, `PortRange`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `regio`
+-- Table structure for table `regio`
 --
 
 CREATE TABLE `regio` (
@@ -504,7 +504,7 @@ CREATE TABLE `regio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `regio`
+-- Dumping data for table `regio`
 --
 
 INSERT INTO `regio` (`nomReg`, `disponible`) VALUES
@@ -517,7 +517,7 @@ INSERT INTO `regio` (`nomReg`, `disponible`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `servei`
+-- Table structure for table `servei`
 --
 
 CREATE TABLE `servei` (
@@ -530,7 +530,7 @@ CREATE TABLE `servei` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `servei`
+-- Dumping data for table `servei`
 --
 
 INSERT INTO `servei` (`categoria`, `nom`, `disponible`, `block_public_access`, `preuMensual`, `idServei`) VALUES
@@ -540,7 +540,7 @@ INSERT INTO `servei` (`categoria`, `nom`, `disponible`, `block_public_access`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `source`
+-- Table structure for table `source`
 --
 
 CREATE TABLE `source` (
@@ -549,7 +549,7 @@ CREATE TABLE `source` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `source`
+-- Dumping data for table `source`
 --
 
 INSERT INTO `source` (`tipusSource`, `source`) VALUES
@@ -560,7 +560,7 @@ INSERT INTO `source` (`tipusSource`, `source`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `subxarxa`
+-- Table structure for table `subxarxa`
 --
 
 CREATE TABLE `subxarxa` (
@@ -572,7 +572,7 @@ CREATE TABLE `subxarxa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `subxarxa`
+-- Dumping data for table `subxarxa`
 --
 
 INSERT INTO `subxarxa` (`nomSubXarxa`, `descripcio`, `idVPC`, `idSubXar`, `nomReg`) VALUES
@@ -583,30 +583,26 @@ INSERT INTO `subxarxa` (`nomSubXarxa`, `descripcio`, `idVPC`, `idSubXar`, `nomRe
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipus_clau`
+-- Table structure for table `tipus_clau`
 --
 
 CREATE TABLE `tipus_clau` (
   `tipus` varchar(16) NOT NULL,
-  `formatFitxet` varchar(4) NOT NULL,
-  `nomClau` varchar(256) NOT NULL
+  `formatFitxet` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `tipus_clau`
+-- Dumping data for table `tipus_clau`
 --
 
-INSERT INTO `tipus_clau` (`tipus`, `formatFitxet`, `nomClau`) VALUES
-('AES-128', 'CSV', 'aes_key_128'),
-('AES-256', 'TXT', 'aes_key_256'),
-('ECDSA-P256', 'XML', 'ecdsa_key_p256'),
-('RSA-2048', 'PDF', 'rsa_key_2048'),
-('RSA-3072', 'JSON', 'rsa_key_3072');
+INSERT INTO `tipus_clau` (`tipus`, `formatFitxet`) VALUES
+('ED25519', 'ppk'),
+('RSA', 'pem');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipus_organitzacio`
+-- Table structure for table `tipus_organitzacio`
 --
 
 CREATE TABLE `tipus_organitzacio` (
@@ -617,7 +613,7 @@ CREATE TABLE `tipus_organitzacio` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuari`
+-- Table structure for table `usuari`
 --
 
 CREATE TABLE `usuari` (
@@ -630,7 +626,7 @@ CREATE TABLE `usuari` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuari_no_admin`
+-- Table structure for table `usuari_no_admin`
 --
 
 CREATE TABLE `usuari_no_admin` (
@@ -641,7 +637,7 @@ CREATE TABLE `usuari_no_admin` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `versio`
+-- Table structure for table `versio`
 --
 
 CREATE TABLE `versio` (
@@ -651,7 +647,7 @@ CREATE TABLE `versio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `versio`
+-- Dumping data for table `versio`
 --
 
 INSERT INTO `versio` (`nomVersio`, `idVersio`, `tipusMotor`) VALUES
@@ -669,68 +665,68 @@ INSERT INTO `versio` (`nomVersio`, `idVersio`, `tipusMotor`) VALUES
 ('13.12.8', 12, 'PostgreSQL');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `ami`
+-- Indexes for table `ami`
 --
 ALTER TABLE `ami`
   ADD PRIMARY KEY (`idAMI`);
 
 --
--- Indices de la tabla `arxiu`
+-- Indexes for table `arxiu`
 --
 ALTER TABLE `arxiu`
   ADD PRIMARY KEY (`idArxiu`);
 
 --
--- Indices de la tabla `carpeta`
+-- Indexes for table `carpeta`
 --
 ALTER TABLE `carpeta`
   ADD PRIMARY KEY (`idCarpeta`);
 
 --
--- Indices de la tabla `cataleg`
+-- Indexes for table `cataleg`
 --
 ALTER TABLE `cataleg`
   ADD PRIMARY KEY (`idCataleg`);
 
 --
--- Indices de la tabla `clau_sessio`
+-- Indexes for table `clau_sessio`
 --
 ALTER TABLE `clau_sessio`
   ADD PRIMARY KEY (`idClauSessio`),
   ADD KEY `fk_tipus_clau` (`tipusClau`);
 
 --
--- Indices de la tabla `configuracio`
+-- Indexes for table `configuracio`
 --
 ALTER TABLE `configuracio`
   ADD PRIMARY KEY (`idConfig`);
 
 --
--- Indices de la tabla `configuracio_usuaris`
+-- Indexes for table `configuracio_usuaris`
 --
 ALTER TABLE `configuracio_usuaris`
   ADD PRIMARY KEY (`idCataleg`,`idUsuari`),
   ADD KEY `FK_Usuari` (`idUsuari`);
 
 --
--- Indices de la tabla `emmagatzamatge`
+-- Indexes for table `emmagatzamatge`
 --
 ALTER TABLE `emmagatzamatge`
   ADD PRIMARY KEY (`idEmmg`);
 
 --
--- Indices de la tabla `grup_admin`
+-- Indexes for table `grup_admin`
 --
 ALTER TABLE `grup_admin`
   ADD PRIMARY KEY (`idGrupA`),
   ADD KEY `fk_ORG_GA` (`idOrg`);
 
 --
--- Indices de la tabla `grup_no_admin`
+-- Indexes for table `grup_no_admin`
 --
 ALTER TABLE `grup_no_admin`
   ADD PRIMARY KEY (`idGrupNA`),
@@ -738,7 +734,7 @@ ALTER TABLE `grup_no_admin`
   ADD KEY `fk_GNA_creador` (`idUsuariCreador`);
 
 --
--- Indices de la tabla `grup_seguretat`
+-- Indexes for table `grup_seguretat`
 --
 ALTER TABLE `grup_seguretat`
   ADD PRIMARY KEY (`idGS`),
@@ -747,7 +743,7 @@ ALTER TABLE `grup_seguretat`
   ADD KEY `fk_GS_ProtocolRange` (`Protocol`);
 
 --
--- Indices de la tabla `historial_contrasenya`
+-- Indexes for table `historial_contrasenya`
 --
 ALTER TABLE `historial_contrasenya`
   ADD PRIMARY KEY (`idHistorial`),
@@ -755,13 +751,13 @@ ALTER TABLE `historial_contrasenya`
   ADD KEY `fk_PERSONA_CONTR` (`IdPersona`);
 
 --
--- Indices de la tabla `infraestructura`
+-- Indexes for table `infraestructura`
 --
 ALTER TABLE `infraestructura`
   ADD PRIMARY KEY (`idInfr`);
 
 --
--- Indices de la tabla `instancia_bd`
+-- Indexes for table `instancia_bd`
 --
 ALTER TABLE `instancia_bd`
   ADD PRIMARY KEY (`idInstanciaBD`),
@@ -773,7 +769,7 @@ ALTER TABLE `instancia_bd`
   ADD KEY `fk_BD_motor` (`tipusMotor`);
 
 --
--- Indices de la tabla `instancia_bucket`
+-- Indexes for table `instancia_bucket`
 --
 ALTER TABLE `instancia_bucket`
   ADD PRIMARY KEY (`idBucket`),
@@ -781,7 +777,7 @@ ALTER TABLE `instancia_bucket`
   ADD KEY `fk_servei_bucket` (`idServei`);
 
 --
--- Indices de la tabla `instancia_servidor`
+-- Indexes for table `instancia_servidor`
 --
 ALTER TABLE `instancia_servidor`
   ADD PRIMARY KEY (`idInstancia_servidor`),
@@ -794,109 +790,109 @@ ALTER TABLE `instancia_servidor`
   ADD KEY `fk_servidor_CS` (`idClauSessio`);
 
 --
--- Indices de la tabla `mateniment_personal`
+-- Indexes for table `mateniment_personal`
 --
 ALTER TABLE `mateniment_personal`
   ADD PRIMARY KEY (`idPersonalCloud`,`idCataleg`),
   ADD KEY `fk_cat_man` (`idCataleg`);
 
 --
--- Indices de la tabla `motor_bd`
+-- Indexes for table `motor_bd`
 --
 ALTER TABLE `motor_bd`
   ADD PRIMARY KEY (`tipusMotor`);
 
 --
--- Indices de la tabla `organitzacio`
+-- Indexes for table `organitzacio`
 --
 ALTER TABLE `organitzacio`
   ADD PRIMARY KEY (`idOrg`),
   ADD KEY `fk_ORG_tipusORG` (`tipusOrg`);
 
 --
--- Indices de la tabla `permisos_grup_administrador`
+-- Indexes for table `permisos_grup_administrador`
 --
 ALTER TABLE `permisos_grup_administrador`
   ADD PRIMARY KEY (`idGrupNA`,`nom`),
   ADD KEY `fk_previ` (`nom`);
 
 --
--- Indices de la tabla `permisos_grup_no_administrador`
+-- Indexes for table `permisos_grup_no_administrador`
 --
 ALTER TABLE `permisos_grup_no_administrador`
   ADD PRIMARY KEY (`idGrupA`,`nom`),
   ADD KEY `fk_previlegi` (`nom`);
 
 --
--- Indices de la tabla `persona`
+-- Indexes for table `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`);
 
 --
--- Indices de la tabla `personal`
+-- Indexes for table `personal`
 --
 ALTER TABLE `personal`
   ADD PRIMARY KEY (`idPersonalCloud`);
 
 --
--- Indices de la tabla `privilegi`
+-- Indexes for table `privilegi`
 --
 ALTER TABLE `privilegi`
   ADD PRIMARY KEY (`nom`);
 
 --
--- Indices de la tabla `protocol`
+-- Indexes for table `protocol`
 --
 ALTER TABLE `protocol`
   ADD PRIMARY KEY (`tipus`),
   ADD UNIQUE KEY `Protocol` (`Protocol`);
 
 --
--- Indices de la tabla `protocol_range_port`
+-- Indexes for table `protocol_range_port`
 --
 ALTER TABLE `protocol_range_port`
   ADD PRIMARY KEY (`Protocol`,`PortRange`);
 
 --
--- Indices de la tabla `regio`
+-- Indexes for table `regio`
 --
 ALTER TABLE `regio`
   ADD PRIMARY KEY (`nomReg`);
 
 --
--- Indices de la tabla `servei`
+-- Indexes for table `servei`
 --
 ALTER TABLE `servei`
   ADD PRIMARY KEY (`idServei`);
 
 --
--- Indices de la tabla `source`
+-- Indexes for table `source`
 --
 ALTER TABLE `source`
   ADD PRIMARY KEY (`tipusSource`);
 
 --
--- Indices de la tabla `subxarxa`
+-- Indexes for table `subxarxa`
 --
 ALTER TABLE `subxarxa`
   ADD PRIMARY KEY (`idSubXar`),
   ADD KEY `fk_regio_subxarxa` (`nomReg`);
 
 --
--- Indices de la tabla `tipus_clau`
+-- Indexes for table `tipus_clau`
 --
 ALTER TABLE `tipus_clau`
   ADD PRIMARY KEY (`tipus`);
 
 --
--- Indices de la tabla `tipus_organitzacio`
+-- Indexes for table `tipus_organitzacio`
 --
 ALTER TABLE `tipus_organitzacio`
   ADD PRIMARY KEY (`tipusOrg`);
 
 --
--- Indices de la tabla `usuari`
+-- Indexes for table `usuari`
 --
 ALTER TABLE `usuari`
   ADD PRIMARY KEY (`idUsuari`),
@@ -904,169 +900,169 @@ ALTER TABLE `usuari`
   ADD KEY `fk_USUARI_GRupA` (`idGrupA`);
 
 --
--- Indices de la tabla `usuari_no_admin`
+-- Indexes for table `usuari_no_admin`
 --
 ALTER TABLE `usuari_no_admin`
   ADD PRIMARY KEY (`idUsuari`,`idGrupNA`),
   ADD KEY `fk_GrupNA` (`idGrupNA`);
 
 --
--- Indices de la tabla `versio`
+-- Indexes for table `versio`
 --
 ALTER TABLE `versio`
   ADD PRIMARY KEY (`idVersio`),
   ADD KEY `fk_tipus_motor` (`tipusMotor`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `ami`
+-- AUTO_INCREMENT for table `ami`
 --
 ALTER TABLE `ami`
   MODIFY `idAMI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `arxiu`
+-- AUTO_INCREMENT for table `arxiu`
 --
 ALTER TABLE `arxiu`
   MODIFY `idArxiu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `carpeta`
+-- AUTO_INCREMENT for table `carpeta`
 --
 ALTER TABLE `carpeta`
   MODIFY `idCarpeta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `cataleg`
+-- AUTO_INCREMENT for table `cataleg`
 --
 ALTER TABLE `cataleg`
   MODIFY `idCataleg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `clau_sessio`
+-- AUTO_INCREMENT for table `clau_sessio`
 --
 ALTER TABLE `clau_sessio`
-  MODIFY `idClauSessio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12350;
+  MODIFY `idClauSessio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12354;
 
 --
--- AUTO_INCREMENT de la tabla `configuracio`
+-- AUTO_INCREMENT for table `configuracio`
 --
 ALTER TABLE `configuracio`
   MODIFY `idConfig` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `emmagatzamatge`
+-- AUTO_INCREMENT for table `emmagatzamatge`
 --
 ALTER TABLE `emmagatzamatge`
   MODIFY `idEmmg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `grup_admin`
+-- AUTO_INCREMENT for table `grup_admin`
 --
 ALTER TABLE `grup_admin`
   MODIFY `idGrupA` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `grup_no_admin`
+-- AUTO_INCREMENT for table `grup_no_admin`
 --
 ALTER TABLE `grup_no_admin`
   MODIFY `idGrupNA` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `grup_seguretat`
+-- AUTO_INCREMENT for table `grup_seguretat`
 --
 ALTER TABLE `grup_seguretat`
   MODIFY `idGS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `historial_contrasenya`
+-- AUTO_INCREMENT for table `historial_contrasenya`
 --
 ALTER TABLE `historial_contrasenya`
   MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `instancia_bd`
+-- AUTO_INCREMENT for table `instancia_bd`
 --
 ALTER TABLE `instancia_bd`
   MODIFY `idInstanciaBD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `instancia_bucket`
+-- AUTO_INCREMENT for table `instancia_bucket`
 --
 ALTER TABLE `instancia_bucket`
   MODIFY `idBucket` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `instancia_servidor`
+-- AUTO_INCREMENT for table `instancia_servidor`
 --
 ALTER TABLE `instancia_servidor`
   MODIFY `idInstancia_servidor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `organitzacio`
+-- AUTO_INCREMENT for table `organitzacio`
 --
 ALTER TABLE `organitzacio`
   MODIFY `idOrg` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `persona`
+-- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
   MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `servei`
+-- AUTO_INCREMENT for table `servei`
 --
 ALTER TABLE `servei`
   MODIFY `idServei` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `subxarxa`
+-- AUTO_INCREMENT for table `subxarxa`
 --
 ALTER TABLE `subxarxa`
   MODIFY `idSubXar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `versio`
+-- AUTO_INCREMENT for table `versio`
 --
 ALTER TABLE `versio`
   MODIFY `idVersio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `clau_sessio`
+-- Constraints for table `clau_sessio`
 --
 ALTER TABLE `clau_sessio`
   ADD CONSTRAINT `fk_tipus_clau` FOREIGN KEY (`tipusClau`) REFERENCES `tipus_clau` (`tipus`);
 
 --
--- Filtros para la tabla `configuracio_usuaris`
+-- Constraints for table `configuracio_usuaris`
 --
 ALTER TABLE `configuracio_usuaris`
   ADD CONSTRAINT `FK_Usuari` FOREIGN KEY (`idUsuari`) REFERENCES `usuari` (`idUsuari`),
   ADD CONSTRAINT `fk_cataleg` FOREIGN KEY (`idCataleg`) REFERENCES `cataleg` (`idCataleg`);
 
 --
--- Filtros para la tabla `grup_admin`
+-- Constraints for table `grup_admin`
 --
 ALTER TABLE `grup_admin`
   ADD CONSTRAINT `fk_ORG_GA` FOREIGN KEY (`idOrg`) REFERENCES `organitzacio` (`idOrg`);
 
 --
--- Filtros para la tabla `grup_no_admin`
+-- Constraints for table `grup_no_admin`
 --
 ALTER TABLE `grup_no_admin`
   ADD CONSTRAINT `fk_GNA_creador` FOREIGN KEY (`idUsuariCreador`) REFERENCES `usuari` (`idUsuari`),
   ADD CONSTRAINT `fk_ORG_GNA` FOREIGN KEY (`idOrg`) REFERENCES `organitzacio` (`idOrg`);
 
 --
--- Filtros para la tabla `grup_seguretat`
+-- Constraints for table `grup_seguretat`
 --
 ALTER TABLE `grup_seguretat`
   ADD CONSTRAINT `fk_GS_ProtocolRange` FOREIGN KEY (`Protocol`) REFERENCES `protocol_range_port` (`Protocol`),
@@ -1074,20 +1070,20 @@ ALTER TABLE `grup_seguretat`
   ADD CONSTRAINT `fk_GS_tipusGS` FOREIGN KEY (`tipus`) REFERENCES `protocol` (`tipus`);
 
 --
--- Filtros para la tabla `historial_contrasenya`
+-- Constraints for table `historial_contrasenya`
 --
 ALTER TABLE `historial_contrasenya`
   ADD CONSTRAINT `fk_PERSONA_CONTR` FOREIGN KEY (`IdPersona`) REFERENCES `persona` (`idPersona`),
   ADD CONSTRAINT `fk_const_BD` FOREIGN KEY (`idInstanciaBD`) REFERENCES `instancia_bd` (`idInstanciaBD`);
 
 --
--- Filtros para la tabla `infraestructura`
+-- Constraints for table `infraestructura`
 --
 ALTER TABLE `infraestructura`
   ADD CONSTRAINT `FK_INFRA_CATALEG` FOREIGN KEY (`idInfr`) REFERENCES `cataleg` (`idCataleg`);
 
 --
--- Filtros para la tabla `instancia_bd`
+-- Constraints for table `instancia_bd`
 --
 ALTER TABLE `instancia_bd`
   ADD CONSTRAINT `fk_BD_CONFIG` FOREIGN KEY (`idConfig`) REFERENCES `configuracio` (`idConfig`),
@@ -1098,14 +1094,14 @@ ALTER TABLE `instancia_bd`
   ADD CONSTRAINT `fk_servei_BD` FOREIGN KEY (`idBDServei`) REFERENCES `servei` (`idServei`);
 
 --
--- Filtros para la tabla `instancia_bucket`
+-- Constraints for table `instancia_bucket`
 --
 ALTER TABLE `instancia_bucket`
   ADD CONSTRAINT `fk_regio_bucket` FOREIGN KEY (`nomReg`) REFERENCES `regio` (`nomReg`),
   ADD CONSTRAINT `fk_servei_bucket` FOREIGN KEY (`idServei`) REFERENCES `servei` (`idServei`);
 
 --
--- Filtros para la tabla `instancia_servidor`
+-- Constraints for table `instancia_servidor`
 --
 ALTER TABLE `instancia_servidor`
   ADD CONSTRAINT `fk_servidor_AMI` FOREIGN KEY (`idAMI`) REFERENCES `ami` (`idAMI`),
@@ -1117,58 +1113,58 @@ ALTER TABLE `instancia_servidor`
   ADD CONSTRAINT `fk_servidor_subx` FOREIGN KEY (`idSubXar`) REFERENCES `subxarxa` (`idSubXar`);
 
 --
--- Filtros para la tabla `mateniment_personal`
+-- Constraints for table `mateniment_personal`
 --
 ALTER TABLE `mateniment_personal`
   ADD CONSTRAINT `fk_cat_man` FOREIGN KEY (`idCataleg`) REFERENCES `cataleg` (`idCataleg`),
   ADD CONSTRAINT `fk_pers_manten` FOREIGN KEY (`idPersonalCloud`) REFERENCES `personal` (`idPersonalCloud`);
 
 --
--- Filtros para la tabla `organitzacio`
+-- Constraints for table `organitzacio`
 --
 ALTER TABLE `organitzacio`
   ADD CONSTRAINT `fk_ORG_tipusORG` FOREIGN KEY (`tipusOrg`) REFERENCES `tipus_organitzacio` (`tipusOrg`);
 
 --
--- Filtros para la tabla `permisos_grup_administrador`
+-- Constraints for table `permisos_grup_administrador`
 --
 ALTER TABLE `permisos_grup_administrador`
   ADD CONSTRAINT `FK_grupNAPermisos` FOREIGN KEY (`idGrupNA`) REFERENCES `grup_no_admin` (`idGrupNA`),
   ADD CONSTRAINT `fk_previ` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
 
 --
--- Filtros para la tabla `permisos_grup_no_administrador`
+-- Constraints for table `permisos_grup_no_administrador`
 --
 ALTER TABLE `permisos_grup_no_administrador`
   ADD CONSTRAINT `FK_grupA` FOREIGN KEY (`idGrupA`) REFERENCES `grup_admin` (`idGrupA`),
   ADD CONSTRAINT `fk_previlegi` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
 
 --
--- Filtros para la tabla `personal`
+-- Constraints for table `personal`
 --
 ALTER TABLE `personal`
   ADD CONSTRAINT `fk_personal_persona` FOREIGN KEY (`idPersonalCloud`) REFERENCES `persona` (`idPersona`);
 
 --
--- Filtros para la tabla `protocol_range_port`
+-- Constraints for table `protocol_range_port`
 --
 ALTER TABLE `protocol_range_port`
   ADD CONSTRAINT `fk_protocol_tipus` FOREIGN KEY (`Protocol`) REFERENCES `protocol` (`Protocol`);
 
 --
--- Filtros para la tabla `servei`
+-- Constraints for table `servei`
 --
 ALTER TABLE `servei`
   ADD CONSTRAINT `FK_SERVRI_CATALEG` FOREIGN KEY (`idServei`) REFERENCES `cataleg` (`idCataleg`);
 
 --
--- Filtros para la tabla `subxarxa`
+-- Constraints for table `subxarxa`
 --
 ALTER TABLE `subxarxa`
   ADD CONSTRAINT `fk_regio_subxarxa` FOREIGN KEY (`nomReg`) REFERENCES `regio` (`nomReg`);
 
 --
--- Filtros para la tabla `usuari`
+-- Constraints for table `usuari`
 --
 ALTER TABLE `usuari`
   ADD CONSTRAINT `fk_USUARI_GRupA` FOREIGN KEY (`idGrupA`) REFERENCES `grup_admin` (`idGrupA`),
@@ -1176,14 +1172,14 @@ ALTER TABLE `usuari`
   ADD CONSTRAINT `fk_usuari_personla` FOREIGN KEY (`idUsuari`) REFERENCES `persona` (`idPersona`);
 
 --
--- Filtros para la tabla `usuari_no_admin`
+-- Constraints for table `usuari_no_admin`
 --
 ALTER TABLE `usuari_no_admin`
   ADD CONSTRAINT `fk_GrupNA` FOREIGN KEY (`idGrupNA`) REFERENCES `grup_no_admin` (`idGrupNA`),
   ADD CONSTRAINT `fk_UsuariNoAdmin` FOREIGN KEY (`idUsuari`) REFERENCES `usuari` (`idUsuari`);
 
 --
--- Filtros para la tabla `versio`
+-- Constraints for table `versio`
 --
 ALTER TABLE `versio`
   ADD CONSTRAINT `fk_tipus_motor` FOREIGN KEY (`tipusMotor`) REFERENCES `motor_bd` (`tipusMotor`);
