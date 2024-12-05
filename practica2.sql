@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2024 at 03:23 PM
+-- Generation Time: Dec 05, 2024 at 03:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -262,6 +262,13 @@ CREATE TABLE `infraestructura` (
   `idInfr` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `infraestructura`
+--
+
+INSERT INTO `infraestructura` (`nomInfr`, `idInfr`) VALUES
+('servidors', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -329,10 +336,10 @@ CREATE TABLE `instancia_servidor` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mateniment_personal`
+-- Table structure for table `manteniment_personal`
 --
 
-CREATE TABLE `mateniment_personal` (
+CREATE TABLE `manteniment_personal` (
   `idCataleg` int(11) NOT NULL,
   `idPersonalCloud` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -378,7 +385,7 @@ CREATE TABLE `organitzacio` (
 
 CREATE TABLE `permisos_grup_administrador` (
   `nom` varchar(64) NOT NULL,
-  `idGrupNA` int(11) NOT NULL
+  `idGrupA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -389,7 +396,7 @@ CREATE TABLE `permisos_grup_administrador` (
 
 CREATE TABLE `permisos_grup_no_administrador` (
   `nom` varchar(64) NOT NULL,
-  `idGrupA` int(11) NOT NULL
+  `idGrupNA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -413,9 +420,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`nom`, `llinatges`, `correuPersonal`, `dataNaixement`, `identificador`, `correuAcces`, `idPersona`) VALUES
-('claudia', 'martinez', 'KIKsomthing@gmail.com', '0000-00-00', 'Y6839853E', 'claudiamTotCloud@.es.tc', 1),
-('iman', 'fernandez', 'imanf@gmail.com', '0000-00-00', 'h1234567y', 'imanFTotCloud@.es.tc', 2),
-('luis', 'gonzales', 'luisG@gmail.com', '0000-00-00', 'h1234765y', 'LuisTTotCloud.es.tc', 3);
+('claudia', 'martinez', 'KIKsomthing@gmail.com', '1998-12-23', 'Y6839853E', 'claudiamTotCloud@.es.tc', 1),
+('iman', 'fernandez', 'imanf@gmail.com', '2000-01-27', 'h1234567y', 'imanFTotCloud@.es.tc', 2),
+('luis', 'gonzales', 'luisG@gmail.com', '1975-09-15', 'h1234765y', 'LuisTTotCloud.es.tc', 3);
 
 -- --------------------------------------------------------
 
@@ -790,9 +797,9 @@ ALTER TABLE `instancia_servidor`
   ADD KEY `fk_servidor_CS` (`idClauSessio`);
 
 --
--- Indexes for table `mateniment_personal`
+-- Indexes for table `manteniment_personal`
 --
-ALTER TABLE `mateniment_personal`
+ALTER TABLE `manteniment_personal`
   ADD PRIMARY KEY (`idPersonalCloud`,`idCataleg`),
   ADD KEY `fk_cat_man` (`idCataleg`);
 
@@ -813,15 +820,15 @@ ALTER TABLE `organitzacio`
 -- Indexes for table `permisos_grup_administrador`
 --
 ALTER TABLE `permisos_grup_administrador`
-  ADD PRIMARY KEY (`idGrupNA`,`nom`),
-  ADD KEY `fk_previ` (`nom`);
+  ADD PRIMARY KEY (`idGrupA`,`nom`),
+  ADD KEY `fk_previlegi` (`nom`);
 
 --
 -- Indexes for table `permisos_grup_no_administrador`
 --
 ALTER TABLE `permisos_grup_no_administrador`
-  ADD PRIMARY KEY (`idGrupA`,`nom`),
-  ADD KEY `fk_previlegi` (`nom`);
+  ADD PRIMARY KEY (`idGrupNA`,`nom`),
+  ADD KEY `fk_previ` (`nom`);
 
 --
 -- Indexes for table `persona`
@@ -1113,9 +1120,9 @@ ALTER TABLE `instancia_servidor`
   ADD CONSTRAINT `fk_servidor_subx` FOREIGN KEY (`idSubXar`) REFERENCES `subxarxa` (`idSubXar`);
 
 --
--- Constraints for table `mateniment_personal`
+-- Constraints for table `manteniment_personal`
 --
-ALTER TABLE `mateniment_personal`
+ALTER TABLE `manteniment_personal`
   ADD CONSTRAINT `fk_cat_man` FOREIGN KEY (`idCataleg`) REFERENCES `cataleg` (`idCataleg`),
   ADD CONSTRAINT `fk_pers_manten` FOREIGN KEY (`idPersonalCloud`) REFERENCES `personal` (`idPersonalCloud`);
 
@@ -1129,15 +1136,15 @@ ALTER TABLE `organitzacio`
 -- Constraints for table `permisos_grup_administrador`
 --
 ALTER TABLE `permisos_grup_administrador`
-  ADD CONSTRAINT `FK_grupNAPermisos` FOREIGN KEY (`idGrupNA`) REFERENCES `grup_no_admin` (`idGrupNA`),
-  ADD CONSTRAINT `fk_previ` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
+  ADD CONSTRAINT `FK_grupA` FOREIGN KEY (`idGrupA`) REFERENCES `grup_admin` (`idGrupA`),
+  ADD CONSTRAINT `fk_previlegi` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
 
 --
 -- Constraints for table `permisos_grup_no_administrador`
 --
 ALTER TABLE `permisos_grup_no_administrador`
-  ADD CONSTRAINT `FK_grupA` FOREIGN KEY (`idGrupA`) REFERENCES `grup_admin` (`idGrupA`),
-  ADD CONSTRAINT `fk_previlegi` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
+  ADD CONSTRAINT `FK_grupNAPermisos` FOREIGN KEY (`idGrupNA`) REFERENCES `grup_no_admin` (`idGrupNA`),
+  ADD CONSTRAINT `fk_previ` FOREIGN KEY (`nom`) REFERENCES `privilegi` (`nom`);
 
 --
 -- Constraints for table `personal`
