@@ -1,0 +1,25 @@
+demana poder tener una una manera per saber quines dades s'han canviat d'una copia a una altra
+podem tenir tantes copies que volem
+
+primera opcion con triggers
+
+És només de la configuracio dels usuaris
+Per tant les taules que mos interessan són: 
+HISTORIAL_CONTRASENYA(constrasenyaHash, dataCreacio, #idHistorial, idInstanciaBD, IdPersona)
+CLAU_SESSIO(nomClau, nomFitxer, #idClauSessio, tipusClau)
+
+AMI(nomAMI, descripcioAMI, arquitectura, #idAMI) --EL CAMPO descripcioAMI el decidem noltres
+
+CONFIGURACIO(numCPU, RAM, xarxa, preuPerHora, nom, IP, #idConfig) //aqui l'usuari tria els atributs: numCPU, RAM, xarxa, nom, i IP. I la resta ho omplim noltres
+INSTANCIA_SERVIDOR(nomServ, dataCreacio, #idInstancia_servidor,idServidorInfra, idSubXar,  idConfig, idGS, idEmmg, idClauSessio, idAMI) //aqui ell nomes fica el nom del servidor
+INSTANCIA_BD(#idInstanciaBD, nomMaster, nomBD, grupParametresBD, periodeRetencioCS, tipusMotor, idBDServei, idSubXar, idConfig, idGS, idEmmg) // el ids el posem noltres
+
+SUBXARXA(nomSubXarxa, descripcio, idVPC, #idSubXar, nomReg) // noltres posem idSuxarx
+INSTANCIA_BUCKET(nomBucket, periodeBloqueig, #idBucket, nomReg, idServei) //noltrs posem idBucket i idServei
+
+CARPETA(nom, encriptat, #idCarpeta) //id el posem noltres
+ARXIU(nom, block_public_access, tipusPermis, #idArxiu)//id el posem noltres
+
+EMMAGATZAMATGE(tipus, emgAssignat, #idEmmg)//id el posem noltres
+GRUP_SEGURETAT(nom, descripcio, descrpicioSource, #idGS, tipusSource, tipus, Protocol) //id el posem noltres
+SOURCE(#tipusSource, source) // 
