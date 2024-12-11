@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2024 at 03:46 PM
+-- Generation Time: Dec 11, 2024 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,6 +61,50 @@ CREATE TABLE `arxiu` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `audit_table_user`
+--
+
+CREATE TABLE `audit_table_user` (
+  `id` int(11) NOT NULL,
+  `taula_modificada` varchar(255) DEFAULT NULL,
+  `fila_antigua` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`fila_antigua`)),
+  `fila_nova` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`fila_nova`)),
+  `tipus_modificacio` varchar(16) DEFAULT NULL,
+  `data_modificacio` datetime DEFAULT NULL,
+  `trx_timestamp` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `audit_table_user`
+--
+
+INSERT INTO `audit_table_user` (`id`, `taula_modificada`, `fila_antigua`, `fila_nova`, `tipus_modificacio`, `data_modificacio`, `trx_timestamp`) VALUES
+(1, 'CLAU_SESSIO', NULL, '{\"nomFitxer\": \"meuFileProva3\", \"idClauSessio\": \"8\", \"tipusClau\": \"RSA\", \"nomClau\": \"clauProva3\"}', 'INSERT', '2024-12-11 14:11:13', '2024-12-11 14:11:13'),
+(2, 'INSTANCIA_BD', '{\"idInstanciaBD\": \"1\", \"idBDServei\": \"1\", \"nomMaster\": \"admin1\", \"nomBD\": \"Database1\", \"grupParametresBD\": \"default\", \"periodeRetencioCS\": \"30\", \"tipusMotor\": \"MariaDB\", \"idSubXar\": \"1\", \"idConfig\": \"2\", \"idGS\": \"1\", \"idEmmg\": \"1\"}', '{\"idInstanciaBD\": \"1\", \"idBDServei\": \"1\", \"nomMaster\": \"admin1\", \"nomBD\": \"Database1\", \"grupParametresBD\": \"optimized\", \"periodeRetencioCS\": \"30\", \"tipusMotor\": \"MariaDB\", \"idSubXar\": \"1\", \"idConfig\": \"2\", \"idGS\": \"1\", \"idEmmg\": \"1\"}', 'UPDATE', '2024-12-11 14:14:14', '2024-12-11 14:14:14'),
+(3, 'INSTANCIA_BUCKET', NULL, '{\"nomBucket\": \"first_bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', 'INSERT', '2024-12-11 14:18:59', '2024-12-11 14:18:59'),
+(4, 'INSTANCIA_BUCKET', '{\"nomBucket\": \"first_bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', '{\"nomBucket\": \"First_Corrected_Bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', 'UPDATE', '2024-12-11 14:21:00', '2024-12-11 14:21:00'),
+(5, 'INSTANCIA_BUCKET', '{\"nomBucket\": \"First_Corrected_Bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', NULL, 'DELETE', '2024-12-11 14:21:43', '2024-12-11 14:21:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `audit_table_user_copy`
+--
+
+CREATE TABLE `audit_table_user_copy` (
+  `id` int(11) NOT NULL,
+  `taula_modificada` varchar(255) DEFAULT NULL,
+  `fila_antigua` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`fila_antigua`)),
+  `fila_nova` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`fila_nova`)),
+  `tipus_modificacio` varchar(16) DEFAULT NULL,
+  `data_modificacio` datetime DEFAULT NULL,
+  `trx_timestamp` datetime DEFAULT NULL,
+  `fecha_copia` date DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `carpeta`
 --
 
@@ -111,7 +155,20 @@ INSERT INTO `clau_sessio` (`nomFitxer`, `idClauSessio`, `tipusClau`, `nomClau`) 
 ('fichero2', 2, 'RSA', 'clave_servidor_1'),
 ('fichero2', 3, 'ED25519', 'clave_servidor_ED'),
 ('fichero_clave', 4, 'ED25519', 'claveEC2'),
-('key_login', 5, 'ED25519', 'MiclaveEC2');
+('key_login', 5, 'ED25519', 'MiclaveEC2'),
+('meuFileProva', 6, 'RSA', 'clauProva'),
+('meuFileProva2', 7, 'RSA', 'clauProva2');
+
+--
+-- Triggers `clau_sessio`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_CLAU_SESSIO_after_insert` AFTER INSERT ON `clau_sessio` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('CLAU_SESSIO', NULL, JSON_OBJECT('nomFitxer', IFNULL(NEW.`nomFitxer`, 'NULL'), 'idClauSessio', IFNULL(NEW.`idClauSessio`, 'NULL'), 'tipusClau', IFNULL(NEW.`tipusClau`, 'NULL'), 'nomClau', IFNULL(NEW.`nomClau`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -225,6 +282,17 @@ INSERT INTO `grup_seguretat` (`nom`, `descripcio`, `descrpicioSource`, `idGS`, `
 ('DNSGroup', 'Allows DNS traffic', 'Elastic IP access', 3, 'S3', 'P2', 'UDP'),
 ('PingGroup', 'Allows ICMP ping traffic', 'Instance diagnostics', 4, 'S1', 'P3', 'ICMP');
 
+--
+-- Triggers `grup_seguretat`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_GRUP_SEGURETAT_after_insert` AFTER INSERT ON `grup_seguretat` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('GRUP_SEGURETAT', NULL, JSON_OBJECT('nom', IFNULL(NEW.`nom`, 'NULL'), 'descripcio', IFNULL(NEW.`descripcio`, 'NULL'), 'descrpicioSource', IFNULL(NEW.`descrpicioSource`, 'NULL'), 'idGS', IFNULL(NEW.`idGS`, 'NULL'), 'tipusSource', IFNULL(NEW.`tipusSource`, 'NULL'), 'tipus', IFNULL(NEW.`tipus`, 'NULL'), 'Protocol', IFNULL(NEW.`Protocol`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -294,11 +362,36 @@ CREATE TABLE `instancia_bd` (
 --
 
 INSERT INTO `instancia_bd` (`idInstanciaBD`, `idBDServei`, `nomMaster`, `nomBD`, `grupParametresBD`, `periodeRetencioCS`, `tipusMotor`, `idSubXar`, `idConfig`, `idGS`, `idEmmg`) VALUES
-(1, 1, 'admin1', 'Database1', 'default', 30, 'MariaDB', 1, 2, 1, 1),
+(1, 1, 'admin1', 'Database1', 'optimized', 30, 'MariaDB', 1, 2, 1, 1),
 (2, 1, 'admin2', 'Database2', 'optimized', 7, 'MySQL', 1, 3, 2, 2),
 (3, 1, 'admin3', 'Database3', 'high-performance', NULL, 'PostgreSQL', 3, 2, 3, 3),
 (4, 1, 'admin4', 'Database4', 'secure', 14, 'SQLite', 1, 2, 4, 4),
 (5, 1, 'admin5', 'Database5', 'balanced', NULL, 'MariaDB', 2, 2, 2, 1);
+
+--
+-- Triggers `instancia_bd`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BD_after_delete` AFTER DELETE ON `instancia_bd` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BD', JSON_OBJECT('idInstanciaBD', IFNULL(OLD.`idInstanciaBD`, 'NULL'), 'idBDServei', IFNULL(OLD.`idBDServei`, 'NULL'), 'nomMaster', IFNULL(OLD.`nomMaster`, 'NULL'), 'nomBD', IFNULL(OLD.`nomBD`, 'NULL'), 'grupParametresBD', IFNULL(OLD.`grupParametresBD`, 'NULL'), 'periodeRetencioCS', IFNULL(OLD.`periodeRetencioCS`, 'NULL'), 'tipusMotor', IFNULL(OLD.`tipusMotor`, 'NULL'), 'idSubXar', IFNULL(OLD.`idSubXar`, 'NULL'), 'idConfig', IFNULL(OLD.`idConfig`, 'NULL'), 'idGS', IFNULL(OLD.`idGS`, 'NULL'), 'idEmmg', IFNULL(OLD.`idEmmg`, 'NULL')), NULL, 'DELETE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BD_after_insert` AFTER INSERT ON `instancia_bd` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BD', NULL, JSON_OBJECT('idInstanciaBD', IFNULL(NEW.`idInstanciaBD`, 'NULL'), 'idBDServei', IFNULL(NEW.`idBDServei`, 'NULL'), 'nomMaster', IFNULL(NEW.`nomMaster`, 'NULL'), 'nomBD', IFNULL(NEW.`nomBD`, 'NULL'), 'grupParametresBD', IFNULL(NEW.`grupParametresBD`, 'NULL'), 'periodeRetencioCS', IFNULL(NEW.`periodeRetencioCS`, 'NULL'), 'tipusMotor', IFNULL(NEW.`tipusMotor`, 'NULL'), 'idSubXar', IFNULL(NEW.`idSubXar`, 'NULL'), 'idConfig', IFNULL(NEW.`idConfig`, 'NULL'), 'idGS', IFNULL(NEW.`idGS`, 'NULL'), 'idEmmg', IFNULL(NEW.`idEmmg`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BD_after_update` AFTER UPDATE ON `instancia_bd` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BD', JSON_OBJECT('idInstanciaBD', IFNULL(OLD.`idInstanciaBD`, 'NULL'), 'idBDServei', IFNULL(OLD.`idBDServei`, 'NULL'), 'nomMaster', IFNULL(OLD.`nomMaster`, 'NULL'), 'nomBD', IFNULL(OLD.`nomBD`, 'NULL'), 'grupParametresBD', IFNULL(OLD.`grupParametresBD`, 'NULL'), 'periodeRetencioCS', IFNULL(OLD.`periodeRetencioCS`, 'NULL'), 'tipusMotor', IFNULL(OLD.`tipusMotor`, 'NULL'), 'idSubXar', IFNULL(OLD.`idSubXar`, 'NULL'), 'idConfig', IFNULL(OLD.`idConfig`, 'NULL'), 'idGS', IFNULL(OLD.`idGS`, 'NULL'), 'idEmmg', IFNULL(OLD.`idEmmg`, 'NULL')), JSON_OBJECT('idInstanciaBD', IFNULL(NEW.`idInstanciaBD`, 'NULL'), 'idBDServei', IFNULL(NEW.`idBDServei`, 'NULL'), 'nomMaster', IFNULL(NEW.`nomMaster`, 'NULL'), 'nomBD', IFNULL(NEW.`nomBD`, 'NULL'), 'grupParametresBD', IFNULL(NEW.`grupParametresBD`, 'NULL'), 'periodeRetencioCS', IFNULL(NEW.`periodeRetencioCS`, 'NULL'), 'tipusMotor', IFNULL(NEW.`tipusMotor`, 'NULL'), 'idSubXar', IFNULL(NEW.`idSubXar`, 'NULL'), 'idConfig', IFNULL(NEW.`idConfig`, 'NULL'), 'idGS', IFNULL(NEW.`idGS`, 'NULL'), 'idEmmg', IFNULL(NEW.`idEmmg`, 'NULL')), 'UPDATE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -313,6 +406,31 @@ CREATE TABLE `instancia_bucket` (
   `nomReg` varchar(64) DEFAULT NULL,
   `idServei` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `instancia_bucket`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BUCKET_after_delete` AFTER DELETE ON `instancia_bucket` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BUCKET', JSON_OBJECT('nomBucket', IFNULL(OLD.`nomBucket`, 'NULL'), 'periodeBloqueig', IFNULL(OLD.`periodeBloqueig`, 'NULL'), 'idBucket', IFNULL(OLD.`idBucket`, 'NULL'), 'nomReg', IFNULL(OLD.`nomReg`, 'NULL'), 'idServei', IFNULL(OLD.`idServei`, 'NULL')), NULL, 'DELETE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BUCKET_after_insert` AFTER INSERT ON `instancia_bucket` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BUCKET', NULL, JSON_OBJECT('nomBucket', IFNULL(NEW.`nomBucket`, 'NULL'), 'periodeBloqueig', IFNULL(NEW.`periodeBloqueig`, 'NULL'), 'idBucket', IFNULL(NEW.`idBucket`, 'NULL'), 'nomReg', IFNULL(NEW.`nomReg`, 'NULL'), 'idServei', IFNULL(NEW.`idServei`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_BUCKET_after_update` AFTER UPDATE ON `instancia_bucket` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_BUCKET', JSON_OBJECT('nomBucket', IFNULL(OLD.`nomBucket`, 'NULL'), 'periodeBloqueig', IFNULL(OLD.`periodeBloqueig`, 'NULL'), 'idBucket', IFNULL(OLD.`idBucket`, 'NULL'), 'nomReg', IFNULL(OLD.`nomReg`, 'NULL'), 'idServei', IFNULL(OLD.`idServei`, 'NULL')), JSON_OBJECT('nomBucket', IFNULL(NEW.`nomBucket`, 'NULL'), 'periodeBloqueig', IFNULL(NEW.`periodeBloqueig`, 'NULL'), 'idBucket', IFNULL(NEW.`idBucket`, 'NULL'), 'nomReg', IFNULL(NEW.`nomReg`, 'NULL'), 'idServei', IFNULL(NEW.`idServei`, 'NULL')), 'UPDATE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -332,6 +450,31 @@ CREATE TABLE `instancia_servidor` (
   `idClauSessio` int(11) NOT NULL,
   `idAMI` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `instancia_servidor`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_SERVIDOR_after_delete` AFTER DELETE ON `instancia_servidor` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_SERVIDOR', JSON_OBJECT('nomServ', IFNULL(OLD.`nomServ`, 'NULL'), 'dataCreacio', IFNULL(OLD.`dataCreacio`, 'NULL'), 'idInstancia_servidor', IFNULL(OLD.`idInstancia_servidor`, 'NULL'), 'idServidorInfra', IFNULL(OLD.`idServidorInfra`, 'NULL'), 'idSubXar', IFNULL(OLD.`idSubXar`, 'NULL'), 'idConfig', IFNULL(OLD.`idConfig`, 'NULL'), 'idGS', IFNULL(OLD.`idGS`, 'NULL'), 'idEmmg', IFNULL(OLD.`idEmmg`, 'NULL'), 'idClauSessio', IFNULL(OLD.`idClauSessio`, 'NULL'), 'idAMI', IFNULL(OLD.`idAMI`, 'NULL')), NULL, 'DELETE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_SERVIDOR_after_insert` AFTER INSERT ON `instancia_servidor` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_SERVIDOR', NULL, JSON_OBJECT('nomServ', IFNULL(NEW.`nomServ`, 'NULL'), 'dataCreacio', IFNULL(NEW.`dataCreacio`, 'NULL'), 'idInstancia_servidor', IFNULL(NEW.`idInstancia_servidor`, 'NULL'), 'idServidorInfra', IFNULL(NEW.`idServidorInfra`, 'NULL'), 'idSubXar', IFNULL(NEW.`idSubXar`, 'NULL'), 'idConfig', IFNULL(NEW.`idConfig`, 'NULL'), 'idGS', IFNULL(NEW.`idGS`, 'NULL'), 'idEmmg', IFNULL(NEW.`idEmmg`, 'NULL'), 'idClauSessio', IFNULL(NEW.`idClauSessio`, 'NULL'), 'idAMI', IFNULL(NEW.`idAMI`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_INSTANCIA_SERVIDOR_after_update` AFTER UPDATE ON `instancia_servidor` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('INSTANCIA_SERVIDOR', JSON_OBJECT('nomServ', IFNULL(OLD.`nomServ`, 'NULL'), 'dataCreacio', IFNULL(OLD.`dataCreacio`, 'NULL'), 'idInstancia_servidor', IFNULL(OLD.`idInstancia_servidor`, 'NULL'), 'idServidorInfra', IFNULL(OLD.`idServidorInfra`, 'NULL'), 'idSubXar', IFNULL(OLD.`idSubXar`, 'NULL'), 'idConfig', IFNULL(OLD.`idConfig`, 'NULL'), 'idGS', IFNULL(OLD.`idGS`, 'NULL'), 'idEmmg', IFNULL(OLD.`idEmmg`, 'NULL'), 'idClauSessio', IFNULL(OLD.`idClauSessio`, 'NULL'), 'idAMI', IFNULL(OLD.`idAMI`, 'NULL')), JSON_OBJECT('nomServ', IFNULL(NEW.`nomServ`, 'NULL'), 'dataCreacio', IFNULL(NEW.`dataCreacio`, 'NULL'), 'idInstancia_servidor', IFNULL(NEW.`idInstancia_servidor`, 'NULL'), 'idServidorInfra', IFNULL(NEW.`idServidorInfra`, 'NULL'), 'idSubXar', IFNULL(NEW.`idSubXar`, 'NULL'), 'idConfig', IFNULL(NEW.`idConfig`, 'NULL'), 'idGS', IFNULL(NEW.`idGS`, 'NULL'), 'idEmmg', IFNULL(NEW.`idEmmg`, 'NULL'), 'idClauSessio', IFNULL(NEW.`idClauSessio`, 'NULL'), 'idAMI', IFNULL(NEW.`idAMI`, 'NULL')), 'UPDATE', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -587,6 +730,17 @@ INSERT INTO `subxarxa` (`nomSubXarxa`, `descripcio`, `idVPC`, `idSubXar`, `nomRe
 ('subxarxa2', NULL, 'vpc-0f1e2d3c4b5a67890', 2, 'eu-west-2'),
 ('subxarxa3', NULL, 'vpc-67890abcdef12345g', 3, 'eu-west-2');
 
+--
+-- Triggers `subxarxa`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_SUBXARXA_after_insert` AFTER INSERT ON `subxarxa` FOR EACH ROW BEGIN
+            INSERT INTO audit_table_user (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp)
+            VALUES ('SUBXARXA', NULL, JSON_OBJECT('nomSubXarxa', IFNULL(NEW.`nomSubXarxa`, 'NULL'), 'descripcio', IFNULL(NEW.`descripcio`, 'NULL'), 'idVPC', IFNULL(NEW.`idVPC`, 'NULL'), 'idSubXar', IFNULL(NEW.`idSubXar`, 'NULL'), 'nomReg', IFNULL(NEW.`nomReg`, 'NULL')), 'INSERT', NOW(), CURRENT_TIMESTAMP);
+        END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -686,6 +840,18 @@ ALTER TABLE `ami`
 --
 ALTER TABLE `arxiu`
   ADD PRIMARY KEY (`idArxiu`);
+
+--
+-- Indexes for table `audit_table_user`
+--
+ALTER TABLE `audit_table_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `audit_table_user_copy`
+--
+ALTER TABLE `audit_table_user_copy`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `carpeta`
@@ -937,6 +1103,18 @@ ALTER TABLE `arxiu`
   MODIFY `idArxiu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `audit_table_user`
+--
+ALTER TABLE `audit_table_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `audit_table_user_copy`
+--
+ALTER TABLE `audit_table_user_copy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `carpeta`
 --
 ALTER TABLE `carpeta`
@@ -952,7 +1130,7 @@ ALTER TABLE `cataleg`
 -- AUTO_INCREMENT for table `clau_sessio`
 --
 ALTER TABLE `clau_sessio`
-  MODIFY `idClauSessio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12354;
+  MODIFY `idClauSessio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12352;
 
 --
 -- AUTO_INCREMENT for table `configuracio`
@@ -1000,7 +1178,7 @@ ALTER TABLE `instancia_bd`
 -- AUTO_INCREMENT for table `instancia_bucket`
 --
 ALTER TABLE `instancia_bucket`
-  MODIFY `idBucket` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idBucket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `instancia_servidor`
@@ -1190,6 +1368,27 @@ ALTER TABLE `usuari_no_admin`
 --
 ALTER TABLE `versio`
   ADD CONSTRAINT `fk_tipus_motor` FOREIGN KEY (`tipusMotor`) REFERENCES `motor_bd` (`tipusMotor`);
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `copy_audit_incremental` ON SCHEDULE EVERY 1 DAY STARTS '2024-12-11 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    -- Copiar registros nuevos desde la tabla de auditoría a la tabla de copias
+    INSERT INTO audit_table_user_copy (taula_modificada, fila_antiga, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, fecha_copia)
+    SELECT taula_modificada, fila_antiga, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, CURRENT_DATE
+    FROM audit_table_user AS audit
+    WHERE NOT EXISTS (
+        SELECT 1 
+        FROM audit_table_user_copy AS copia
+        WHERE copia.taula_modificada = audit.taula_modificada
+          AND copia.data_modificacio = audit.data_modificacio
+          AND copia.tipus_modificacio = audit.tipus_modificacio
+    );
+
+END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
