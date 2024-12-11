@@ -12,7 +12,7 @@ $insertOnlyTables = ['CLAU_SESSIO', 'SUBXARXA', 'GRUP_SEGURETAT']; // Tablas a l
 
 foreach ($tables as $table) {
     // Primero obtenemos las columnas de la tabla actual para formar el JSON dinámicamente
-    $columnsQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{$table}' AND TABLE_SCHEMA = 'parquing'";
+    $columnsQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{$table}' AND TABLE_SCHEMA = 'practica2'";
     $columnsResult = $mysqli->query($columnsQuery);
 
     if ($columnsResult === FALSE) {
@@ -27,10 +27,13 @@ foreach ($tables as $table) {
 
     // Crear la parte de JSON_OBJECT para insertar y actualizar
     $columnJsonInsert = implode(", ", array_map(function($col) { 
-        return "IFNULL(NEW.`$col`, 'NULL')"; 
+        return "'$col', IFNULL(NEW.`$col`, 'NULL')"; 
     }, $columns));
-        $columnJsonUpdate = implode(", ", array_map(function($col) { return "OLD.`$col`"; }, $columns));
-
+    
+    $columnJsonUpdate = implode(", ", array_map(function($col) { 
+        return "'$col', IFNULL(OLD.`$col`, 'NULL')"; 
+    }, $columns));
+    
     // Si la tabla está en la lista de tablas para solo INSERT
     if (in_array($table, $insertOnlyTables)) {
         $triggerSQL_insert = "
