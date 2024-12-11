@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 02:26 PM
+-- Generation Time: Dec 11, 2024 at 10:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -101,6 +101,17 @@ CREATE TABLE `audit_table_user_copy` (
   `trx_timestamp` datetime DEFAULT NULL,
   `fecha_copia` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `audit_table_user_copy`
+--
+
+INSERT INTO `audit_table_user_copy` (`id`, `taula_modificada`, `fila_antigua`, `fila_nova`, `tipus_modificacio`, `data_modificacio`, `trx_timestamp`, `fecha_copia`) VALUES
+(1, 'CLAU_SESSIO', NULL, '{\"nomFitxer\": \"meuFileProva3\", \"idClauSessio\": \"8\", \"tipusClau\": \"RSA\", \"nomClau\": \"clauProva3\"}', 'INSERT', '2024-12-11 14:11:13', '2024-12-11 14:11:13', '2024-12-11'),
+(2, 'INSTANCIA_BD', '{\"idInstanciaBD\": \"1\", \"idBDServei\": \"1\", \"nomMaster\": \"admin1\", \"nomBD\": \"Database1\", \"grupParametresBD\": \"default\", \"periodeRetencioCS\": \"30\", \"tipusMotor\": \"MariaDB\", \"idSubXar\": \"1\", \"idConfig\": \"2\", \"idGS\": \"1\", \"idEmmg\": \"1\"}', '{\"idInstanciaBD\": \"1\", \"idBDServei\": \"1\", \"nomMaster\": \"admin1\", \"nomBD\": \"Database1\", \"grupParametresBD\": \"optimized\", \"periodeRetencioCS\": \"30\", \"tipusMotor\": \"MariaDB\", \"idSubXar\": \"1\", \"idConfig\": \"2\", \"idGS\": \"1\", \"idEmmg\": \"1\"}', 'UPDATE', '2024-12-11 14:14:14', '2024-12-11 14:14:14', '2024-12-11'),
+(3, 'INSTANCIA_BUCKET', NULL, '{\"nomBucket\": \"first_bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', 'INSERT', '2024-12-11 14:18:59', '2024-12-11 14:18:59', '2024-12-11'),
+(4, 'INSTANCIA_BUCKET', '{\"nomBucket\": \"first_bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', '{\"nomBucket\": \"First_Corrected_Bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', 'UPDATE', '2024-12-11 14:21:00', '2024-12-11 14:21:00', '2024-12-11'),
+(5, 'INSTANCIA_BUCKET', '{\"nomBucket\": \"First_Corrected_Bucket\", \"periodeBloqueig\": \"NULL\", \"idBucket\": \"1\", \"nomReg\": \"eu-west-3\", \"idServei\": \"2\"}', NULL, 'DELETE', '2024-12-11 14:21:43', '2024-12-11 14:21:43', '2024-12-11');
 
 -- --------------------------------------------------------
 
@@ -317,7 +328,8 @@ INSERT INTO `historial_contrasenya` (`constrasenyaHash`, `dataCreacio`, `idHisto
 ('$2a$12$6.JIv7NijR1AOxOTVxf3E.74oTnR.4I6sNOPWxRnh4VG.VsPlCM8i', '2022-10-20', 3, NULL, 2),
 ('$2a$12$HeX73a16lJpkQiIgyFnS6OXl1TPEonsr6F7fzEcb9TOQno5xWu4Yi', '2020-01-01', 4, NULL, 2),
 ('$2a$12$RadDMrl7/GE3Ky5Cm6bb3e8JBfTj04onhFtljQa7uUefswb8.bn7C', '2023-04-03', 5, NULL, 3),
-('$2a$12$X2DoGOLkuxBs3h1.m7APLeWxazHjwIgYb4naDuFnyXBkPs6R8vnfy', '2019-04-06', 6, NULL, 3);
+('$2a$12$X2DoGOLkuxBs3h1.m7APLeWxazHjwIgYb4naDuFnyXBkPs6R8vnfy', '2019-04-06', 6, NULL, 3),
+('$2a$12$5aQb1rO.7HQw140p3Ms71uMgcq.UEhCsIuTI7pKSWUOaOE9gkUKMe\r\n', '2024-12-11', 7, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -565,7 +577,8 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`nom`, `llinatges`, `correuPersonal`, `dataNaixement`, `identificador`, `correuAcces`, `idPersona`) VALUES
 ('claudia', 'martinez', 'KIKsomthing@gmail.com', '1998-12-23', 'Y6839853E', 'claudiamTotCloud@.es.tc', 1),
 ('iman', 'fernandez', 'imanf@gmail.com', '2000-01-27', 'h1234567y', 'imanFTotCloud@.es.tc', 2),
-('luis', 'gonzales', 'luisG@gmail.com', '1975-09-15', 'h1234765y', 'LuisTTotCloud.es.tc', 3);
+('luis', 'gonzales', 'luisG@gmail.com', '1975-09-15', 'h1234765y', 'LuisTTotCloud.es.tc', 3),
+('Antoni', 'Mas Mulet', 'antoniMasMulet@gmail.com', '1975-09-15', '172655e', 'antoniMasMulTotCloud@.es.tc ', 4);
 
 -- --------------------------------------------------------
 
@@ -726,7 +739,7 @@ CREATE TABLE `subxarxa` (
 --
 
 INSERT INTO `subxarxa` (`nomSubXarxa`, `descripcio`, `idVPC`, `idSubXar`, `nomReg`) VALUES
-('Subxarxa1', NULL, 'vpc-0a1b2c3d4e5f67890', 1, 'eu-west-1'),
+('Subxarxa1', 'Subxarxa ubicada a la regió eu-west-1', 'vpc-0a1b2c3d4e5f67890', 1, 'eu-west-1'),
 ('subxarxa2', NULL, 'vpc-0f1e2d3c4b5a67890', 2, 'eu-west-2'),
 ('subxarxa3', NULL, 'vpc-67890abcdef12345g', 3, 'eu-west-2');
 
@@ -1112,7 +1125,7 @@ ALTER TABLE `audit_table_user`
 -- AUTO_INCREMENT for table `audit_table_user_copy`
 --
 ALTER TABLE `audit_table_user_copy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `carpeta`
@@ -1166,7 +1179,7 @@ ALTER TABLE `grup_seguretat`
 -- AUTO_INCREMENT for table `historial_contrasenya`
 --
 ALTER TABLE `historial_contrasenya`
-  MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `instancia_bd`
@@ -1196,7 +1209,7 @@ ALTER TABLE `organitzacio`
 -- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `servei`
@@ -1373,19 +1386,15 @@ DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`localhost` EVENT `copy_audit_incremental` ON SCHEDULE EVERY 1 DAY STARTS '2024-12-11 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    -- Copiar registros nuevos desde la tabla de auditoría a la tabla de copias
-    INSERT INTO audit_table_user_copy (taula_modificada, fila_antiga, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, fecha_copia)
-    SELECT taula_modificada, fila_antiga, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, CURRENT_DATE
-    FROM audit_table_user AS audit
-    WHERE NOT EXISTS (
-        SELECT 1 
-        FROM audit_table_user_copy AS copia
-        WHERE copia.taula_modificada = audit.taula_modificada
-          AND copia.data_modificacio = audit.data_modificacio
-          AND copia.tipus_modificacio = audit.tipus_modificacio
-    );
+CREATE DEFINER=`root`@`localhost` EVENT `backup_incremental_user_audit` ON SCHEDULE EVERY 1 DAY STARTS '2024-12-11 22:53:13' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    -- Borra los registros anteriores en la tabla de backup (audit_table_user_copy)
+    DELETE FROM audit_table_user_copy;
 
+    -- Inserta los registros cambiados en los últimos 5 minutos desde la tabla de auditoría original (audit_table_user)
+    INSERT INTO audit_table_user_copy (taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, fecha_copia)
+    SELECT taula_modificada, fila_antigua, fila_nova, tipus_modificacio, data_modificacio, trx_timestamp, CURRENT_TIMESTAMP
+    FROM audit_table_user
+    WHERE data_modificacio >= NOW() - INTERVAL 1 DAY;  -- Filtra por los últimos 5 minutos 
 END$$
 
 DELIMITER ;
