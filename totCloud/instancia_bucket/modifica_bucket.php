@@ -1,5 +1,6 @@
 <?php
 include "../connexio.php";
+include "../funcions.php";
 include "../atributsClasses/instancia_bucket.php";
 
 // Inicializa la conexión a la base de datos
@@ -46,10 +47,10 @@ if ($resultado && $resultado->num_rows > 0) {
         </select><br><br>
 
         Nom regió:
-        <select name="<?php echo $a4; ?>">
-            <option value="3" <?php echo $datos[$a4] == 3 ? 'selected' : ''; ?>>eu-west 1</option>
-            <option value="4" <?php echo $datos[$a4] == 4 ? 'selected' : ''; ?>>eu-west 2</option>
-            <option value="5" <?php echo $datos[$a4] == 5 ? 'selected' : ''; ?>>eu-west 3</option>
+        <select name="<?php echo $a3; ?>">
+            <option value="eu-west-1" <?php echo $datos[$a4] == "eu-west-1" ? 'selected' : ''; ?>>eu-west 1</option>
+            <option value="eu-west-2" <?php echo $datos[$a4] == "eu-west-2" ? 'selected' : ''; ?>>eu-west 2</option>
+            <option value="eu-west-3" <?php echo $datos[$a4] == "eu-west-3" ? 'selected' : ''; ?>>eu-west 3</option>
         </select><br><br>
 
     <input type="submit" value="MODIFICAR">

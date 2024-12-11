@@ -1,6 +1,7 @@
 <?php
 
 include "../connexio.php";
+include "../funcions.php";
 include "../atributsClasses/instancia_servidor.php"; 
 
 $db = new Database($conn);

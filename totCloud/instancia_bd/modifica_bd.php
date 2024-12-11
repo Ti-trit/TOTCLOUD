@@ -1,6 +1,7 @@
 <?php
 
 include "../connexio.php";
+include "../funcions.php";
 include "../atributsClasses/instancia_bd.php"; 
 
 $db = new Database($conn);
@@ -29,6 +30,17 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar BD</title>
+    <script>
+        function toggleRetentionPeriod() {
+            const checkbox = document.getElementById('backupCheckbox');
+            const retentionPeriod = document.getElementById('retentionPeriod');
+            if (checkbox.checked) {
+                retentionPeriod.style.display = 'block';
+            } else {
+                retentionPeriod.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Modificar base de dades</h1>
@@ -50,18 +62,20 @@ if ($resultado && $resultado->num_rows > 0) {
             <option value="balanced" <?php echo $datos[$a4] == "balanced" ? 'selected' : ''; ?>>Balancejat</option>
         </select><br><br>
 
-        Copia de seguretat:
-        <select name="<?php echo $a5; ?>">
-            <option value="NULL" <?php echo $datos[$a5] == "NULL" ? 'selected' : ''; ?>>No</option>
-            <option value="NOT NULL" <?php echo $datos[$a5] == "NOT NULL" ? 'selected' : ''; ?>>Sí</option>
-        </select><br><br>
+        <label>
+            <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1" onchange="toggleRetentionPeriod()">
+            Copia de seguretat
+        </label><br><br>
+        
+        <div id="retentionPeriod" style="display: none;">
+            Període retenció:
+            <select name="<?php echo $a5; ?>">
+                <option value="7">1 setmana</option>
+                <option value="14">2 setmanes</option>
+                <option value="30">1 mes</option>
+            </select>
+        </div><br><br>
 
-        Periode retenció:
-        <select name="<?php echo $a5; ?>">
-            <option value="7" <?php echo $datos[$a5] == "7" ? 'selected' : ''; ?>>1 semana</option>
-            <option value="14" <?php echo $datos[$a5] == "14" ? 'selected' : ''; ?>>2 semana</option>
-            <option value="30" <?php echo $datos[$a5] == "30" ? 'selected' : ''; ?>>1 mes</option>
-        </select><br><br>
 
         Motor base de dades:
         <select name="<?php echo $a7; ?>">

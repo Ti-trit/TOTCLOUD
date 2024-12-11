@@ -1,7 +1,8 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <?php include "../atributsClasses/instancia_servidor.php"; ?>
+    <?php 
+    include "../atributsClasses/instancia_servidor.php"; 
+    ?>
     <title>Crear Servidor</title>
 </head>
 <body>

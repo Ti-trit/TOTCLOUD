@@ -16,35 +16,35 @@ $db->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="home.css">
-    <title>Home Servidor</title>
+    <title>Home BD</title>
 </head>
 
 <body>
     <section>
-        <h2>Buckets</h2>
-        <div class="buckets">
+        <h2>Base de dades</h2>
+        <div class="bd">
             <div>
-                Pots crear i consultar els teus servidors disponibles
+                Pots crear i consultar les teves bases de dades disponibles
             </div>
-            <div class="manteniment_buckets">
-                <div class="crear_bucket">
-                    <a href="./alta_bucket.php/">CREAR BUCKET</a>
+            <div class="manteniment_bd">
+                <div class="crear_bd">
+                    <a href="alta_bd.php">CREAR BASE DE DADES</a>
                 </div>
-                <div class="consultar_bucket">
-                <a href="#" id="consultarBucket">CONSULTAR BUCKETS</a>
+                <div class="consultar_bd">
+                <a href="#" id="consultarBD">CONSULTAR BASES DE DADES</a>
                 </div>
             </div>
         </div>
     </section>
     <script>
         const numRows = <?php echo $numRows; ?>;
-        const consultarServidorLink = document.getElementById("consultarBucket");
+        const consultarServidorLink = document.getElementById("consultarBD");
 
         consultarServidorLink.addEventListener("click", function (event) {
             if (numRows > 0) {
-                window.location.href = "./llista_bucket.php/";
+                window.location.href = "llista_bd.php";
             } else {
-                alert("Encara no tens cap servidor creat.");
+                alert("Encara no tens cap base de dades creada.");
                 event.preventDefault();
             }
         });

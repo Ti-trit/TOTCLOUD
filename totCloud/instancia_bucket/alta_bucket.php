@@ -6,8 +6,8 @@
         <title>CREAR BUCKET</title>
     </head>
     <body>
-        <form action="insert_bucket.php" method="GET">
-            <h2>Crear servidor</h2>
+        <form action="/php/TOTCLOUD/totcloud/instancia_bucket/insert_bucket.php" method="GET">
+            <h2>Crear bucket</h2>
 
             Nom bucket:
             <input name="<?php echo $a1; ?>"><br><br>
@@ -21,9 +21,9 @@
 
             Nom regió:
             <select name="<?php echo $a3; ?>">
-                <option value="3">eu-west 1</option>
-                <option value="4">eu-west 2</option>
-                <option value="5">eu-west 3</option>
+                <option value="eu-west-1">eu-west 1</option>
+                <option value="eu-west-2">eu-west 2</option>
+                <option value="eu-west-3">eu-west 3</option>
             </select><br><br>
 
             <input type="submit" value="AFEGIR">
