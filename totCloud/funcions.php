@@ -8,11 +8,19 @@ class Database {
     }
 
     public function consultar($consulta){
-        if (mysqli_query($this->conn, $consulta)) {
-            echo "Consulta realizada correctamente";
-        } else {
-            echo "Error en la consulta: " . mysqli_error($this->conn);
+        $resultado = $this->conn->query($consulta);
+        if ($resultado === false) {
+            echo "Error en la consulta: " . $this->conn->error;
         }
+        return $resultado;
+    }
+
+    public function contarFilas($query) {
+        $resultado = $this->consultar($query);
+        if ($resultado) {
+            return $resultado->num_rows;
+        }
+        return 0;
     }
 
     public function regresar($file){
