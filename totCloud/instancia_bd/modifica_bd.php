@@ -44,7 +44,7 @@ if ($resultado && $resultado->num_rows > 0) {
 </head>
 <body>
     <h1>Modificar base de dades</h1>
-    <form action="update_bd.php" method="GET">
+    <form action="/php/TOTCLOUD/totcloud/instancia_bd/update_bd.php" method="GET">
         <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?>>
         
         Nom master:

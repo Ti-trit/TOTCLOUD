@@ -17,7 +17,7 @@
         </script>
     <body>
         <h2>Crear base de dades</h2>
-        <form action="insert_bd.php" method="GET">
+        <form action="/php/TOTCLOUD/totcloud/instancia_bd/insert_bd.php" method="GET">
 
             Nom master:
             <input name="<?php echo $a2; ?>"><br><br>

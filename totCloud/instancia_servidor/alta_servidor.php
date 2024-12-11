@@ -6,7 +6,7 @@
     <title>Crear Servidor</title>
 </head>
 <body>
-    <form action="insert_servidor.php" method="GET">
+    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/insert_servidor.php" method="GET">
         <h2>Crear servidor</h2>
         
         Nom servidor: 

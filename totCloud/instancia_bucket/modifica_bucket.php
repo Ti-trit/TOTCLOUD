@@ -33,7 +33,7 @@ if ($resultado && $resultado->num_rows > 0) {
 </head>
 <body>
     <h1>Modificar bucket</h1>
-    <form action="update_bucket.php" method="GET">
+    <form action="/php/TOTCLOUD/totcloud/instancia_bucket/update_bucket.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
 
         Nom bucket:

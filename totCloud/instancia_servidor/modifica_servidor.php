@@ -31,7 +31,7 @@ if ($resultado && $resultado->num_rows > 0) {
 </head>
 <body>
     <h1>Modificar servidor</h1>
-    <form action="update_servidor.php" method="GET">
+    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/update_servidor.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
 
         Nom servidor:

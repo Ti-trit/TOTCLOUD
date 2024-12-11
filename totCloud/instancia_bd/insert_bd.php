@@ -6,9 +6,9 @@ include "../atributsClasses/instancia_bd.php";
 $db = new Database($conn);
 $file = "llista_bd.php";
 
-if(!empty($_GET[$a5])){
-    $b5 = $_GET[$a5];
-}else{
+if (!empty($_GET[$a6])) {
+    $b5 = !empty($_GET[$a5]) ? $_GET[$a5] : "NULL";
+} else {
     $b5 = "NULL";
 }
 
