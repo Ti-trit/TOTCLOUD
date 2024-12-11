@@ -1,3 +1,4 @@
+
 DELIMITER //
 
 CREATE EVENT copy_audit_incremental
