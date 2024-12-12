@@ -8,7 +8,7 @@ BEGIN
     DECLARE columns_cursor CURSOR FOR 
         SELECT TABLE_NAME
         FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_SCHEMA = DATABASE(); -- Filtra solo la base de datos actual
+        WHERE TABLE_SCHEMA = DATABASE(); 
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
