@@ -30,12 +30,12 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Servidor</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
 </head>
 
 <body>
     <h1>Modificar servidor</h1>
-    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/update_servidor.php" method="GET">
+    <form action="update_servidor.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
 
         Nom servidor:

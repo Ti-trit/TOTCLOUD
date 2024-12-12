@@ -31,7 +31,7 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar BD</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
     <script>
         function toggleRetentionPeriod() {
             const checkbox = document.getElementById('backupCheckbox');
@@ -46,7 +46,7 @@ if ($resultado && $resultado->num_rows > 0) {
 </head>
 <body>
     <h1>Modificar base de dades</h1>
-    <form action="/php/TOTCLOUD/totcloud/instancia_bd/update_bd.php" method="GET">
+    <form action="../update_bd.php" method="GET">
         <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?>>
         
         Nom master:

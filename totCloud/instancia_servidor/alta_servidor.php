@@ -6,11 +6,11 @@
     include "../header.php";
     ?>
     <title>Crear Servidor</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
 </head>
 
 <body>
-    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/insert_servidor.php" method="GET">
+    <form action="insert_servidor.php" method="GET">
         <h2>Crear servidor</h2>
 
         Nom servidor:

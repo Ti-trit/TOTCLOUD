@@ -5,7 +5,7 @@
         include "../header.php";
         ?>
         <title>CREAR BASE DE DADES</title>
-        <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+        <link rel="stylesheet" type="text/css" href="../home.css">
         <script>
             function toggleRetentionPeriod() {
                 const checkbox = document.getElementById('backupCheckbox');
@@ -19,7 +19,7 @@
         </script>
     <body>
         <h2>Crear base de dades</h2>
-        <form action="/php/TOTCLOUD/totcloud/instancia_bd/insert_bd.php" method="GET">
+        <form action="insert_bd.php" method="GET">
 
             Nom master:
             <input name="<?php echo $a2; ?>"><br><br>

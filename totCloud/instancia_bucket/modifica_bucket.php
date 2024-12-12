@@ -32,12 +32,12 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Bucket</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
 </head>
 
 <body>
     <h1>Modificar bucket</h1>
-    <form action="/php/TOTCLOUD/totcloud/instancia_bucket/update_bucket.php" method="GET">
+    <form action="update_bucket.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
 
         Nom bucket:

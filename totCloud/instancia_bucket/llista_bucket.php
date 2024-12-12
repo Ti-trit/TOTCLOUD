@@ -10,7 +10,7 @@ include "../header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instancia Bucket</title>
-    <link rel="stylesheet" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" href="../home.css">
 </head>
 
 <body>

@@ -6,11 +6,11 @@
     include "../header.php";
     ?>
     <title>CREAR BUCKET</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
 </head>
 
 <body>
-    <form action="/php/TOTCLOUD/totcloud/instancia_bucket/insert_bucket.php" method="GET">
+    <form action="insert_bucket.php" method="GET">
         <h2>Crear bucket</h2>
 
         Nom bucket:
