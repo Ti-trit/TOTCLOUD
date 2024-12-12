@@ -1,9 +1,9 @@
 <?php
 
 require "connexio.php";
-    session_start();
+session_start();
 
-    
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Obtener datos del formulario
@@ -17,32 +17,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     WHERE p.correuAcces = ?
     ORDER BY h.dataCreacio DESC
     LIMIT 1");
-    
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-   // $login_err = "";
+    // $login_err = "";
     if ($datos = $result->fetch_object()) {
         if (password_verify($password, $datos->constrasenyaHash)) {
 
-            $_SESSION["loggedin"]=true;
-            $_SESSION["correo"]=$email;
-            
+            $_SESSION["loggedin"] = true;
+            $_SESSION["correo"] = $email;
+
             header("Location: home.php");
 
         } else {
-         //  $login_err = "ACCESS DENIED";
-           $_SESSION["status"]= "ACCES DENIED";
-           header("Location: index.php");
-           exit();
+            //  $login_err = "ACCESS DENIED";
+            $_SESSION["status"] = "ACCES DENIED";
+            header("Location: index.php");
+            exit();
         }
-    } 
-    else {
-        $_SESSION["status"]= "INVALID USERNAME OR PASSWORD";
+    } else {
+        $_SESSION["status"] = "INVALID USERNAME OR PASSWORD";
         header("Location: index.php");
         exit();
     }
-   
-   
+
+
 }
 ?>

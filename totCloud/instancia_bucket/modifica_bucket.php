@@ -26,11 +26,13 @@ if ($resultado && $resultado->num_rows > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Bucket</title>
 </head>
+
 <body>
     <h1>Modificar bucket</h1>
     <form action="/php/TOTCLOUD/totcloud/instancia_bucket/update_bucket.php" method="GET">
@@ -53,6 +55,6 @@ if ($resultado && $resultado->num_rows > 0) {
             <option value="eu-west-3" <?php echo $datos[$a4] == "eu-west-3" ? 'selected' : ''; ?>>eu-west 3</option>
         </select><br><br>
 
-    <input type="submit" value="MODIFICAR">
+        <input type="submit" value="MODIFICAR">
     </form>
 </body>

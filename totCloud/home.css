@@ -1,143 +1,135 @@
 @import url(https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap);
 
 body {
-    margin: 0;
-    font-family: 'Urbanist', sans-serif;
+  margin: 0;
+  font-family: "Urbanist", sans-serif;
 }
 
 body:not(header) {
-    margin: auto;
+  margin: auto;
 }
 
 nav {
-    background: #118eeb;
-    padding: 5.5px;
-    top: 0;
-    margin: 0;
+  background: #118eeb;
+  padding: 5.5px;
+  top: 0;
+  margin: 0;
 
-    ul {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        li {
-            list-style-type: none;
-        }
+    li {
+      list-style-type: none;
     }
+  }
 
-    a {
-        text-decoration: none;
-        color: #000;
-    }
-
-
+  a {
+    text-decoration: none;
+    color: #000;
+  }
 }
 
 .welcome-message {
-    color: black;
-
+  color: black;
 }
 
 .style1 {
-    color: blue;
-    font-weight: bold;
-    font-size: 18px;
-
+  color: blue;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-
 .header {
-    background: #0c162c;
-    height: 100vh;
-    color: white;
-    display: flex;
-    font-size: 2.1em;
-    div:first-child {
-        margin: auto;
-        justify-content: center;
-        padding: 40px;
-    }
+  background: #0c162c;
+  height: 100vh;
+  color: white;
+  display: flex;
+  font-size: 2.1em;
+  div:first-child {
+    margin: auto;
+    justify-content: center;
+    padding: 40px;
+  }
 }
 
 /* .logout{
     margin-top:8px;
 } */
 section {
-    margin: 30px auto;
+  margin: 30px auto;
 
-    h2 {
-        text-align: center;
-        margin: auto;
-        padding: 5px;
-        font-size: 2.5em;
-        font-weight: bold;
-        font-family: 'Urbanist', sans-serif;
-        border-bottom: 2px solid black;
-        width: fit-content;
-    }
+  h2 {
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: "Urbanist", sans-serif;
+    border-bottom: 2px solid black;
+    width: fit-content;
+  }
 
-    /* display: flex;
+  /* display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 100px; */
 
-
-
-    .paas,
-    .saas {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        font-weight: bold;
-        font-size: 1.4em;
-        div:first-child{
-            margin: 25px auto;
-            color: blue;
-        }
-
+  .paas,
+  .saas {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 1.4em;
+    div:first-child {
+      margin: 25px auto;
+      color: blue;
     }
-    .services{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        gap: 10px;
-        padding: 10px;
-        margin: 20px auto;
+  }
+  .services {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px;
+    margin: 20px auto;
+  }
+
+  .saas_content,
+  .paas_content {
+    background-repeat: no-repeat;
+    width: 350px;
+    /* background: #e8b7b7; */
+    margin: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    -webkit-box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
+
+    a {
+      text-decoration: none;
+      color: aliceblue;
     }
 
-    .saas_content,
-    .paas_content {
-        background-repeat: no-repeat;
-        width: 350px;
-        /* background: #e8b7b7; */
-        margin: 10px;
-        border-radius: 10px;
-        padding: 15px;
-        height: 200px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background: #000;
-        -webkit-box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
-        box-shadow: 5px 6px 34px -8px rgba(0, 0, 0, 0.75);
-
-        a {
-            text-decoration: none;
-            color: aliceblue;
-        }
-
-        &:not(a) {
-            filter: brightness(50%);
-        }
-
-        &:hover {
-            a {
-                transform: scale(1.5);
-            }
-        }
+    &:not(a) {
+      filter: brightness(50%);
     }
+
+    &:hover {
+      a {
+        transform: scale(1.5);
+      }
+    }
+  }
 }
 
 /* .pass_content {
@@ -153,7 +145,24 @@ section {
     } */
 
 .saas_content {
-    background-image: url(./images/saas.png);
-    /* opacity: 0.8; */
+  background-image: url(./images/saas.png);
+  /* opacity: 0.8; */
+}
 
+.modify-link {
+  text-decoration: none;
+  color: blue;
+}
+
+.modify-link:hover {
+  color: darkblue;
+}
+
+.delete-link {
+  text-decoration: none;
+  color: red;
+}
+
+.delete-link:hover {
+  color: darkred;
 }

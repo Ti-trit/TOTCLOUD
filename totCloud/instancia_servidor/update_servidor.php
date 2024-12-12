@@ -1,15 +1,17 @@
 <?php
 include "../funcions.php";
 include "../connexio.php";
-include "../atributsClasses/instancia_servidor.php"; 
+include "../atributsClasses/instancia_servidor.php";
 
 $db = new Database($conn);
 $file = "llista_servidor.php";
 
 // Verificar si los parámetros GET están definidos y no están vacíos
-if (!empty($_GET[$pk]) && !empty($_GET[$a1]) && !empty($_GET[$a2]) 
-&& !empty($_GET[$a4]) && !empty($_GET[$a5]) && !empty($_GET[$a6]) 
-&& !empty($_GET[$a7]) && !empty($_GET[$a8]) && !empty($_GET[$a9])) {
+if (
+    !empty($_GET[$pk]) && !empty($_GET[$a1]) && !empty($_GET[$a2])
+    && !empty($_GET[$a4]) && !empty($_GET[$a5]) && !empty($_GET[$a6])
+    && !empty($_GET[$a7]) && !empty($_GET[$a8]) && !empty($_GET[$a9])
+) {
     // Recoger valores GET
     $bk = $_GET[$pk];
     $b1 = $_GET[$a1];

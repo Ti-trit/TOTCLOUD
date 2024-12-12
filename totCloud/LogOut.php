@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 $_SESSION['logout_message'] = 'Has cerrado sesión correctamente.';

@@ -29,7 +29,8 @@ session_start();
         </nav>
         <div class="header">
             <div>
-                <p>TotCloud offers cutting-edge <strong>Platform as a Service (PaaS)</strong> and <strong>Software as a Service (SaaS)</strong> solutions.</p>
+                <p>TotCloud offers cutting-edge <strong>Platform as a Service (PaaS)</strong> and <strong>Software as a
+                        Service (SaaS)</strong> solutions.</p>
                 <!-- <ul>
                     <li><strong>PaaS </strong> - Create and manage virtual environments similar to AWS EC2, enabling seamless application deployment and scalability.</li>
                     <li><strong>SaaS </strong> - Enjoy services like secure cloud storage (similar to AWS S3) and managed databases (similar to AWS RDS) to streamline your operations.</li>
@@ -43,7 +44,8 @@ session_start();
         <h2>SaaS</h2>
         <div class="saas">
             <div>
-                Enjoy services like secure cloud storage (similar to AWS S3) and managed databases (similar to AWS RDS) to streamline your operations.
+                Enjoy services like secure cloud storage (similar to AWS S3) and managed databases (similar to AWS RDS)
+                to streamline your operations.
             </div>
 
             <div class="services">
@@ -77,7 +79,8 @@ session_start();
         <h2>PaaS</h2>
         <div class="paas">
             <div>
-                Create and manage virtual environments similar to AWS EC2, enabling seamless application deployment and scalability. </div>
+                Create and manage virtual environments similar to AWS EC2, enabling seamless application deployment and
+                scalability. </div>
 
             <div class="services">
                 <div class="paas_content">

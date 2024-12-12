@@ -1,7 +1,7 @@
 <?php
 include "../funcions.php";
 include "../connexio.php";
-include "../atributsClasses/instancia_bucket.php"; 
+include "../atributsClasses/instancia_bucket.php";
 
 $db = new Database($conn);
 $file = "llista_bucket.php";

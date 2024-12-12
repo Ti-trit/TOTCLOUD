@@ -7,9 +7,11 @@ $db = new Database($conn);
 $file = "llista_servidor.php";
 
 // Verificar si los parámetros GET están definidos y no están vacíos
-if (!empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_GET[$a4]) 
-&& !empty($_GET[$a5]) && !empty($_GET[$a6]) && !empty($_GET[$a7])
-&& !empty($_GET[$a8]) && !empty($_GET[$a9])) {
+if (
+    !empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_GET[$a4])
+    && !empty($_GET[$a5]) && !empty($_GET[$a6]) && !empty($_GET[$a7])
+    && !empty($_GET[$a8]) && !empty($_GET[$a9])
+) {
     // Recoger valores GET
     $b1 = $_GET[$a1];
     $b2 = $_GET[$a2];
@@ -23,7 +25,7 @@ if (!empty($_GET[$a1]) && !empty($_GET[$a2]) && !empty($_GET[$a4])
     // Crear la consulta SQL
     $re1 = "INSERT INTO instancia_servidor ($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8, $a9) 
     VALUES ('$b1', '$b2', '1', '$b4', '$b5', '$b6', '$b7', '$b8', '$b9')";
-    
+
     $db->consultar($re1);
     $db->regresar($file);
 } else {

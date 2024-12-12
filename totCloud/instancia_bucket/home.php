@@ -31,7 +31,7 @@ $db->close();
                     <a href="./alta_bucket.php/">CREAR BUCKET</a>
                 </div>
                 <div class="consultar_buckets">
-                <a href="#" id="consultarBucket">CONSULTAR BUCKETS</a>
+                    <a href="#" id="consultarBucket">CONSULTAR BUCKETS</a>
                 </div>
             </div>
         </div>

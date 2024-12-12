@@ -15,11 +15,27 @@ $db->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
     <title>Home Servidor</title>
 </head>
 
 <body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li class="style1"><strong>TotCloud</strong></li>
+                <a href="/php/TOTCLOUD/totcloud/home.php">
+                    <li class="welcome-message">
+                        Welcome, Admin <span class="style1"><?php echo $_SESSION["nomAdmin"]; ?></span>
+                    </li>
+                    <li class="logout">
+                        <a href="/php/TOTCLOUD/totcloud/LogOut.php">
+                            <span class="icon-user">&#128100;</span> <strong>Log Out</strong>
+                        </a>
+                    </li>
+            </ul>
+        </nav>
+    </header>
     <section>
         <h2>Servidors</h2>
         <div class="servidors">
@@ -31,7 +47,7 @@ $db->close();
                     <a href="./alta_servidor.php/">CREAR SERVIDOR</a>
                 </div>
                 <div class="consultar_servidor">
-                <a href="#" id="consultarServidor">CONSULTAR SERVIDORES</a>
+                    <a href="#" id="consultarServidor">CONSULTAR SERVIDORES</a>
                 </div>
             </div>
         </div>

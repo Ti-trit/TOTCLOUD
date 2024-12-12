@@ -9,5 +9,5 @@ $conn = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
 
 // Comprobar la conexión
 if ($conn->connect_error) {
-    echo "Error de conexión: " .$conn->connect_error;
-} 
+    echo "Error de conexión: " . $conn->connect_error;
+}

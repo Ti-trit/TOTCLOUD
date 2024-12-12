@@ -2,7 +2,7 @@
 
 include "../connexio.php";
 include "../funcions.php";
-include "../atributsClasses/instancia_servidor.php"; 
+include "../atributsClasses/instancia_servidor.php";
 
 $db = new Database($conn);
 
@@ -24,11 +24,13 @@ if ($resultado && $resultado->num_rows > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Servidor</title>
 </head>
+
 <body>
     <h1>Modificar servidor</h1>
     <form action="/php/TOTCLOUD/totcloud/instancia_servidor/update_servidor.php" method="GET">
@@ -88,8 +90,9 @@ if ($resultado && $resultado->num_rows > 0) {
         <input type="submit" value="MODIFICAR">
     </form>
 </body>
+
 </html>
 
 <?php
-$db->close(); 
+$db->close();
 ?>
