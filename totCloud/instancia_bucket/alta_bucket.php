@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../home.css">
+
     <!-- <title>CREAR BUCKET</title> -->
 </head>
 
@@ -26,10 +28,10 @@ while ($reg = mysqli_fetch_assoc($result)) {
 ?>
     <form action="insert_bucket.php" method="POST">
 
-        Nom bucket:
+        Nom bucket
         <input name="<?php echo $a1; ?>"><br><br>
 
-        Periode bloqueig:
+        Periode bloqueig
         <select name="<?php echo $a2; ?>">
             <option value="NULL">Sense</option>
             <option value="30">30 dies</option>
@@ -46,7 +48,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
             ?>
         </select><br><br>
 
-        <input type="submit" value="AFEGIR">
+        <input type="submit" value="AFEGIR" class="custom-button">
     </form>
 </body>
 

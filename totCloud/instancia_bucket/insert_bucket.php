@@ -20,6 +20,7 @@ if (!empty($_POST[$a1]) && !empty($_POST[$a2]) && !empty($_POST[$a3])) {
 
     $db->consultar($re1);
     $db->regresar($file);
+   
 } else {
     echo "Por favor, rellena todos los campos.";
 }
