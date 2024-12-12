@@ -46,10 +46,10 @@ include "../header.php";
 
         // Generar URLs de modificación y eliminación
         $k = $reg[$pk];
-        $modifyUrl = "<a class='modify-link' href='/php/TOTCLOUD/totcloud/instancia_bucket/modifica_bucket.php?$pk=$k'>
+        $modifyUrl = "<a class='modify-link' href='modifica_bucket.php?$pk=$k'>
                     <span class='modify'>&#9999;</span>
                     </a>";
-        $deleteUrl = "<a class='delete-link' href='/php/TOTCLOUD/totcloud/instancia_bucket/delete_bucket.php?$pk=$k'>
+        $deleteUrl = "<a class='delete-link' href='delete_bucket.php?$pk=$k'>
                     <span class='delete'>&#10060;</span>
                     </a>";
         echo "<TD>$modifyUrl</TD>";
