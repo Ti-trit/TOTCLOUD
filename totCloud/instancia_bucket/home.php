@@ -1,6 +1,7 @@
 <?php
 include "../connexio.php";
 include "../funcions.php";
+include "../header.php";
 
 $db = new Database($conn);
 
@@ -15,7 +16,7 @@ $db->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
     <title>Home Bucket</title>
 </head>
 
@@ -38,9 +39,9 @@ $db->close();
     </section>
     <script>
         const numRows = <?php echo $numRows; ?>;
-        const consultarServidorLink = document.getElementById("consultarBucket");
+        const consultaLink = document.getElementById("consultarBucket");
 
-        consultarServidorLink.addEventListener("click", function (event) {
+        consultaLink.addEventListener("click", function (event) {
             if (numRows > 0) {
                 window.location.href = "./llista_bucket.php/";
             } else {

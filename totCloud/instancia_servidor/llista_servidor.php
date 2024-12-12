@@ -1,6 +1,7 @@
 <?php
 include "../connexio.php";
 include "../atributsClasses/instancia_servidor.php";
+include "../header.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,9 +15,6 @@ include "../atributsClasses/instancia_servidor.php";
 
 <body>
     <?php
-    include "../connexio.php";
-    include "../atributsClasses/instancia_servidor.php";
-
     // Consulta principal
     $consulta = "SELECT i.$pk, i.$a1 AS NomServidor, i.$a2 AS DataCreacio, s.nomSubxarxa AS Subxarxa, 
              c.nom AS Configuracio, gs.nom AS GrupSeguretat, e.tipus AS Emmagatzematge,

@@ -1,6 +1,7 @@
 <?php
 include "../connexio.php";
 include "../funcions.php";
+include "../header.php";
 
 $db = new Database($conn);
 
@@ -15,7 +16,7 @@ $db->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
     <title>Home BD</title>
 </head>
 
@@ -31,16 +32,16 @@ $db->close();
                     <a href="alta_bd.php">CREAR BASE DE DADES</a>
                 </div>
                 <div class="consultar_bd">
-                <a href="#" id="consultarBD">CONSULTAR BASES DE DADES</a>
+                    <a href="#" id="consultarBD">CONSULTAR BASES DE DADES</a>
                 </div>
             </div>
         </div>
     </section>
     <script>
         const numRows = <?php echo $numRows; ?>;
-        const consultarServidorLink = document.getElementById("consultarBD");
+        const consultaLink = document.getElementById("consultarBD");
 
-        consultarServidorLink.addEventListener("click", function (event) {
+        consultaLink.addEventListener("click", function (event) {
             if (numRows > 0) {
                 window.location.href = "llista_bd.php";
             } else {

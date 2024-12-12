@@ -1,6 +1,7 @@
 <?php
 include "../connexio.php";
 include "../atributsClasses/instancia_bucket.php";
+include "../header.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,9 +46,12 @@ include "../atributsClasses/instancia_bucket.php";
 
         // Generar URLs de modificación y eliminación
         $k = $reg[$pk];
-        $modifyUrl = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/modifica_bucket.php?$pk=$k'>Modificar</a>";
-        $deleteUrl = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/delete_bucket.php?$pk=$k'>Eliminar</a>";
-
+        $modifyUrl = "<a class='modify-link' href='/php/TOTCLOUD/totcloud/instancia_bd/modifica_bd.php?$pk=$k'>
+                    <span class='modify'>&#9999;</span>
+                    </a>";
+        $deleteUrl = "<a class='delete-link' href='/php/TOTCLOUD/totcloud/instancia_bd/delete_bd.php?$pk=$k'>
+                    <span class='delete'>&#10060;</span>
+                    </a>";
         echo "<TD>$modifyUrl</TD>";
         echo "<TD>$deleteUrl</TD>";
         echo "</TR>";

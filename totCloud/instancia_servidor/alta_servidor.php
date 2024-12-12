@@ -3,6 +3,7 @@
 <head>
     <?php
     include "../atributsClasses/instancia_servidor.php";
+    include "../header.php";
     ?>
     <title>Crear Servidor</title>
 </head>

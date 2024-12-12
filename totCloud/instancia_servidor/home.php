@@ -1,6 +1,7 @@
 <?php
 include "../connexio.php";
 include "../funcions.php";
+include "../header.php";
 
 $db = new Database($conn);
 
@@ -20,22 +21,6 @@ $db->close();
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li class="style1"><strong>TotCloud</strong></li>
-                <a href="/php/TOTCLOUD/totcloud/home.php">
-                    <li class="welcome-message">
-                        Welcome, Admin <span class="style1"><?php echo $_SESSION["nomAdmin"]; ?></span>
-                    </li>
-                    <li class="logout">
-                        <a href="/php/TOTCLOUD/totcloud/LogOut.php">
-                            <span class="icon-user">&#128100;</span> <strong>Log Out</strong>
-                        </a>
-                    </li>
-            </ul>
-        </nav>
-    </header>
     <section>
         <h2>Servidors</h2>
         <div class="servidors">
@@ -54,9 +39,9 @@ $db->close();
     </section>
     <script>
         const numRows = <?php echo $numRows; ?>;
-        const consultarServidorLink = document.getElementById("consultarServidor");
+        const consultarLink = document.getElementById("consultarServidor");
 
-        consultarServidorLink.addEventListener("click", function (event) {
+        consultarLink.addEventListener("click", function (event) {
             if (numRows > 0) {
                 window.location.href = "./llista_servidor.php/";
             } else {

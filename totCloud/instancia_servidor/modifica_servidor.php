@@ -3,6 +3,7 @@
 include "../connexio.php";
 include "../funcions.php";
 include "../atributsClasses/instancia_servidor.php";
+include "../header.php";
 
 $db = new Database($conn);
 

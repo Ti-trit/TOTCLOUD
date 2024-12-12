@@ -3,6 +3,7 @@
 <head>
     <?php
     include "../atributsClasses/instancia_bucket.php";
+    include "../header.php";
     ?>
     <title>CREAR BUCKET</title>
 </head>

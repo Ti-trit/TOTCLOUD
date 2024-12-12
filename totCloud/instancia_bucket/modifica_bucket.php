@@ -2,6 +2,7 @@
 include "../connexio.php";
 include "../funcions.php";
 include "../atributsClasses/instancia_bucket.php";
+include "../header.php";
 
 // Inicializa la conexión a la base de datos
 $db = new Database($conn);

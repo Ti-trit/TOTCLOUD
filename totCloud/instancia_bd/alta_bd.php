@@ -2,6 +2,7 @@
     <head>
         <?php
         include "../atributsClasses/instancia_bd.php"; 
+        include "../header.php";
         ?>
         <title>CREAR BASE DE DADES</title>
         <script>

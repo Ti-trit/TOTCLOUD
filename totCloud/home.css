@@ -148,21 +148,3 @@ section {
   background-image: url(./images/saas.png);
   /* opacity: 0.8; */
 }
-
-.modify-link {
-  text-decoration: none;
-  color: blue;
-}
-
-.modify-link:hover {
-  color: darkblue;
-}
-
-.delete-link {
-  text-decoration: none;
-  color: red;
-}
-
-.delete-link:hover {
-  color: darkred;
-}
