@@ -1,4 +1,15 @@
+<?php
+include "../connexio.php";
+include "../funcions.php";
+include "../header.php";
 
+$db = new Database($conn);
+
+$query = "SELECT * FROM instancia_bucket";
+$numRows = $db->contarFilas($query);
+
+$db->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,18 +27,8 @@
             <div>
                 Pots crear i consultar els teus buckets disponibles
             </div>
-            <?php
-include "../connexio.php";
-include "../funcions.php";
-include "../header.php";
+           
 
-$db = new Database($conn);
-
-$query = "SELECT * FROM instancia_bucket";
-$numRows = $db->contarFilas($query);
-
-$db->close();
-?>
             <div class="manteniment_buckets">
                 <div class="crear_bucket">
                     <a href="./alta_bucket.php">CREAR BUCKET</a>
