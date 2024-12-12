@@ -67,7 +67,6 @@
             <select name="<?php echo $a9; ?>">
                 <option value="2">Bàsica</option>
                 <option value="1">Avançada</option>
-                <option value="3">Completa</option>
             </select><br><br>
 
             Grup de seguretat:

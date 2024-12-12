@@ -96,7 +96,6 @@ if ($resultado && $resultado->num_rows > 0) {
         <select name="<?php echo $a9; ?>">
             <option value="2" <?php echo $datos[$a9] == 2 ? 'selected' : ''; ?>>Bàsica</option>
             <option value="1" <?php echo $datos[$a9] == 1 ? 'selected' : ''; ?>>Avançada</option>
-            <option value="3" <?php echo $datos[$a9] == 3 ? 'selected' : ''; ?>>Completa</option>
         </select><br><br>
 
         Grup de seguretat:
