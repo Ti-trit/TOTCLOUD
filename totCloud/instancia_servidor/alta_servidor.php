@@ -6,6 +6,7 @@
     include "../header.php";
     ?>
     <title>Crear Servidor</title>
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
 </head>
 
 <body>

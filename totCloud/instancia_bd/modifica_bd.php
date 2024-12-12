@@ -31,6 +31,7 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar BD</title>
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
     <script>
         function toggleRetentionPeriod() {
             const checkbox = document.getElementById('backupCheckbox');

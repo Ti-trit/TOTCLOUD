@@ -5,6 +5,7 @@
         include "../header.php";
         ?>
         <title>CREAR BASE DE DADES</title>
+        <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
         <script>
             function toggleRetentionPeriod() {
                 const checkbox = document.getElementById('backupCheckbox');
