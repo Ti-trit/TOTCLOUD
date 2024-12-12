@@ -1,8 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>CREAR BUCKET</title> -->
+</head>
+
+<body>
+    <h2>Crear bucket</h2>
 <?php
 include "../connexio.php";
 include "../funcions.php";
 include "../atributsClasses/instancia_bucket.php";
-include "../header.php";
+//include "../header.php";
 
 $db = new Database($conn);
 $query = "SELECT $a3 FROM regio WHERE disponible = 1";
@@ -13,19 +24,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
     $array[] = $reg[$a3];
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
-    <title>CREAR BUCKET</title>
-</head>
-
-<body>
-    <h2>Crear bucket</h2>
-    <form action="/php/TOTCLOUD/totcloud/instancia_bucket/insert_bucket.php" method="GET">
+    <form action="insert_bucket.php" method="POST">
 
         Nom bucket:
         <input name="<?php echo $a1; ?>"><br><br>
