@@ -45,6 +45,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
         Periode bloqueig:
         <select name="<?php echo $a2; ?>">
+            <option value="NULL" <?php echo $datos[$a2] == 0 ? 'selected' : ''; ?>>Sense</option>
             <option value="30" <?php echo $datos[$a2] == 30 ? 'selected' : ''; ?>>30 dies</option>
             <option value="90" <?php echo $datos[$a2] == 90 ? 'selected' : ''; ?>>90 dies</option>
             <option value="365" <?php echo $datos[$a2] == 365 ? 'selected' : ''; ?>>1 any</option>
