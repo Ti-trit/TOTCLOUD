@@ -1,17 +1,44 @@
 <?php
-include "../llista.php";
 include "../connexio.php";
 include "../atributsClasses/instancia_bucket.php";
 
-class LlistaBucket extends Llista {
-    public function __construct($conn) {
-        parent::__construct($conn, "instancia_bucket",2);   //2 = columna que contiene PK  
-    }
+// Consulta principal
+$consulta = "SELECT i.$pk, i.$a1 AS NomBucket, i.$a2 AS PeriodeBloqueig, 
+             i.$a3 AS Regio FROM instancia_bucket i";
+
+$resultat = mysqli_query($conn, $consulta);
+
+// Encabezados personalizados
+$columns = ["Nom bucket", "Període bloqueig (dies)", "Regió"];
+
+// Construir la tabla HTML
+echo "<TABLE border='1'>";
+echo "<TR>";
+
+// Encabezados de columna
+foreach ($columns as $col) {
+    echo "<TD>" . $col . "</TD>";
 }
+echo "<TD>Modificar</TD>";
+echo "<TD>Eliminar</TD>";
+echo "</TR>";
 
-$l1 = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/modifica_bucket.php?$pk={id}'>Modificar</a>";
-$l2 = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/delete_bucket.php?$pk={id}'>Eliminar</a>";
-$l3 = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/alta_bucket.php'>Agregar nuevo registro</a>";
+// Filas de datos
+while ($reg = mysqli_fetch_assoc($resultat)) {
+    echo "<TR>";
+    // Mostrar columnas específicas
+    echo "<TD>" . $reg['NomBucket'] . "</TD>";
+    echo "<TD>" . $reg['PeriodeBloqueig'] . "</TD>";
+    echo "<TD>" . $reg['Regio'] . "</TD>";
 
-$table = new LlistaBucket($conn);
-$table->showTable($l1,$l2,$l3);
+    // Generar URLs de modificación y eliminación
+    $k = $reg[$pk];
+    $modifyUrl = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/modifica_bucket.php?$pk=$k'>Modificar</a>";
+    $deleteUrl = "<a href='/php/TOTCLOUD/totcloud/instancia_bucket/delete_bucket.php?$pk=$k'>Eliminar</a>";
+
+    echo "<TD>$modifyUrl</TD>";
+    echo "<TD>$deleteUrl</TD>";
+    echo "</TR>";
+}
+echo "</TABLE>";
+?>
