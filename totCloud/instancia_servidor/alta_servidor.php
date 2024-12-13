@@ -13,15 +13,15 @@
 
     $db = new Database($conn);
 
-        $query = "SELECT nomReg FROM regio WHERE disponible = 1";
-        $result = $db->consultar($query);
-        $array = array();
+    $query = "SELECT nomReg FROM regio WHERE disponible = 1";
+    $result = $db->consultar($query);
+    $array = array();
 
-        while ($reg = mysqli_fetch_assoc($result)) {
-            $array[] = $reg['nomReg'];
-        }
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $array[] = $reg['nomReg'];
+    }
 
-       
+
     $query = "SELECT source FROM source";
     $result = $db->consultar($query);
     $arr7 = array();
@@ -47,7 +47,7 @@
         $arr10[] = $reg["tipus"];
     }
 
-  
+
 
     $query = "SELECT descripcioAMI, arquitectura FROM AMI";
     $result = $db->consultar($query);
@@ -79,37 +79,37 @@
         Nom servidor
         <input name="nomServidor" required><br><br>
 
-     
+
 
         Subxarxa<br><br>
 
 
-    nom 
-    <input name="nomSUBXS" required><br><br >
+        nom
+        <input name="nomSUBXS" required><br><br>
 
-    descripcio 
-    <input name="descripcioSUBXS" required><br><br >
-    id VPC 
-    <input name="idVPCS" required><br><br>
-    Nom regió 
-   
+        descripcio
+        <input name="descripcioSUBXS" required><br><br>
+        id VPC
+        <input name="idVPCS" required><br><br>
+        Nom regió
 
-         <select name="nomRegSUBXS" required>
+
+        <select name="nomRegSUBXS" required>
             <?php
             foreach ($array as $region) {
                 echo "<option value='$region'>$region</option>";
             }
             ?>
-         </select><br><br> 
+        </select><br><br>
 
-        
+
         Configuració:
         <select name="configS" required>
             <?php
-              $arr3 = ['db.t3.micro', 'db.t3.small','db.t3.medium','db.m5.large'];
-              $arr4 =['2','3', '4', '2'];
-              $arr5 = ['1', '2', '4', '8'];
-              $arr6 = ['3,00$', '5,00$','5,00$', '10,00$'];
+            $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
+            $arr4 = ['2', '3', '4', '2'];
+            $arr5 = ['1', '2', '4', '8'];
+            $arr6 = ['3,00$', '5,00$', '5,00$', '10,00$'];
             for ($i = 0; $i < count($arr3); $i++) {
                 echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}'>
                         Nom: {$arr3[$i]} | Nº CPU: {$arr4[$i]} | RAM: {$arr5[$i]} | PreuPerHora: {$arr6[$i]}
@@ -130,7 +130,7 @@
         Descripcio:
         <input name="descripcioGSS"><br><br>
         Source:
-        <select name="sourceS"required>
+        <select name="sourceS" required>
             <?php
             for ($i = 0; $i < count($arr7); $i++) {
                 echo "<option value='{$arr7[$i]}'>
@@ -140,7 +140,7 @@
             ?>
         </select><br><br>
         Protocol
-        <select name="protocolS"required>
+        <select name="protocolS" required>
             <?php
             for ($i = 0; $i < count($arr8); $i++) {
                 echo "<option value='{$arr8[$i]}'>
@@ -152,22 +152,22 @@
 
         Emmagatzematge <br><br>
         Memoria assignada (GiB)
-            <input name="MemoriaEMGS" required><br><br>
+        <input name="MemoriaEMGS" required><br><br>
 
-         Emmagatzament
-            
-            <select name="tipusEmgS" required>
-                <option value="GP1 (General Purpose SSD)">GP1 (General Purpose SSD)</option>
-                <option value="GP2 (General Purpose SSD)">GP2 (General Purpose SSD)</option>
-                <option value="GP3 (General Purpose SSD">GP3 (General Purpose SSD)</option>
-                <option value="IO1 (Provisioned IOPS SSD)">IO1 (Provisioned IOPS SSD)</option>
-            </select><br><br>
+        Emmagatzament
+
+        <select name="tipusEmgS" required>
+            <option value="GP1 (General Purpose SSD)">GP1 (General Purpose SSD)</option>
+            <option value="GP2 (General Purpose SSD)">GP2 (General Purpose SSD)</option>
+            <option value="GP3 (General Purpose SSD">GP3 (General Purpose SSD)</option>
+            <option value="IO1 (Provisioned IOPS SSD)">IO1 (Provisioned IOPS SSD)</option>
+        </select><br><br>
 
         Clau de sessió <br><br>
         Nom fitxer
-        <input name="nomFitxer"required><br><br>
+        <input name="nomFitxer" required><br><br>
         Tipus clau:
-        <select name="tipusClau"required>
+        <select name="tipusClau" required>
             <?php
             for ($i = 0; $i < count($arr10); $i++) {
                 echo "<option value='{$arr10[$i]}'>
@@ -177,12 +177,12 @@
             ?>
         </select><br><br>
 
-        
+
         Nom clau
-        <input name="nomClau"required><br><br>
+        <input name="nomClau" required><br><br>
 
         AMI
-        <select name="AMI"required>
+        <select name="AMI" required>
             <?php
             for ($i = 0; $i < count($arr11); $i++) {
                 echo "<option value='{$arr11[$i]}|{$arr12[$i]}'>

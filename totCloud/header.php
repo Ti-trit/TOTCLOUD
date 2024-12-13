@@ -7,7 +7,7 @@ if (!isset($_SESSION["nomAdmin"])) {
 <header>
     <nav class="navbar">
         <ul>
-            <a href="home.php" class="style1">
+            <a href="../home.php" class="style1">
                 <strong>TotCloud</strong>
             </a>
             <li class="welcome-message">
