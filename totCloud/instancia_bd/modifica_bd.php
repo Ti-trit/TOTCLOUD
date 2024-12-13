@@ -95,33 +95,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
 
 
-
-
-        <?php
-        // // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
-        // $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
-        // $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
-        // $arr4 = ['2', '3', '4', '2'];
-        // $arr5 = ['1', '2', '4', '8'];
-        // $arr6 = ['2,085', '5,00', '5,000', '10'];
-        
-        // // Separamos las partes del valor seleccionado (si está definido)
-        // $valorSeleccionadoArray = explode('|', $configSeleccionada);
-        // ?>
-
-        <!-- Configuració
-        <select name="config" required>
-            <?php
-            // // Recorremos todas las opciones y las mostramos, agregando el atributo 'selected' si coincide
-            // for ($i = 0; $i < count($arr3); $i++) {
-            //     $valor = "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}";
-            //     $selected = ($valor === $configSeleccionada) ? 'selected' : '';  // Verifica si esta opción es la seleccionada
-            //     echo "<option value='$valor' $selected>
-            //             Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
-            //         </option>";
-            // }
-            ?>
-        </select><br><br> -->
+       
         <input type="submit" value="MODIFICAR">
     </form>
 </body>

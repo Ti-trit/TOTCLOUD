@@ -116,11 +116,7 @@
 
         Subxarxa<br><br>
 
-        <!-- <select name="<?//php echo $a8; ?>">
-    <option value="1">Subxarxa 1</option>
-    <option value="2">Subxarxa 2</option>
-    <option value="3">Subxarxa 3</option>
-</select><br><br> -->
+      
         nom
         <input name="nomSUBX" required><br><br>
 
@@ -156,8 +152,7 @@
 
         <select name="config" required>
             <?php
-            // $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
-            //$result = $db->consultar($query);
+         
             $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
             $arr4 = ['2', '3', '4', '2'];
             $arr5 = ['1', '2', '4', '8'];

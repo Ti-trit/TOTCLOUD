@@ -29,7 +29,7 @@ $db->close();
             </div>
             <div class="services">
                 <div class="saas_content">
-                    <a href="./alta_servidor.php/">CREAR SERVIDOR</a>
+                    <a href="alta_servidor.php">CREAR SERVIDOR</a>
                 </div>
                 <div class="paas_content">
                     <a href="#" id="consultarServidor">CONSULTAR SERVIDORS</a>

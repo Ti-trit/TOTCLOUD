@@ -38,7 +38,6 @@ function esIdentificadorVPCValido($idVPC) {
         echo '<div class="alert alert-danger" role = "alert"> IP NO VALIDA 
         LA IP DEBE SER IPv4/IPv6 </div>';
 
-
         exit;
 
     }
@@ -51,10 +50,9 @@ function esIdentificadorVPCValido($idVPC) {
     }
 
 
-
     // Crear la consulta SQL
     $re1 = "INSERT INTO configuracio (numCPU, RAM, xarxa, preuPerHora, nom, IP) 
-    VALUES ('$d1', '$d2', '$d3', NULL, '$d5', NULL)";
+    VALUES ('$d1', '$d2', '$d3', NULL, '$d5', '$IPBD')";
 
 
     $db->consultar($re1);
