@@ -15,7 +15,7 @@ if (!isset($_GET[$pk]) || empty($_GET[$pk])) {
 $k = $_GET[$pk];
 
 // Consulta para obtener los datos del servidor a modificar
-$query = "SELECT * FROM instancia_bd WHERE $pk = $k";
+$query = "SELECT * FROM instancia_bd WHERE idInstanciaBD = $k";
 $resultado = $db->consultar($query);
 
 if ($resultado && $resultado->num_rows > 0) {
@@ -47,31 +47,50 @@ if ($resultado && $resultado->num_rows > 0) {
 <body>
     <h1>Modificar base de dades</h1>
     <form action="update_bd.php" method="GET">
-        <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?>>
+        <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?> >
         
         Nom master:
-        <input name="<?php echo $a2; ?>" value="<?php echo htmlspecialchars($datos[$a2]); ?>"><br><br>
+        <input name="nomMaster" value="<?php echo htmlspecialchars($datos[$a2]); ?>" requiered> <br><br>
 
         Nom base de dades:
-        <input name="<?php echo $a3; ?>" value="<?php echo htmlspecialchars($datos[$a3]); ?>"><br><br>
+        <input name="nomBD" value="<?php echo htmlspecialchars($datos[$a3]); ?>" required><br><br>
 
         Grup de paràmetres:
-        <select name="<?php echo $a4; ?>">
-            <option value="default" <?php echo $datos[$a4] == "default" ? 'selected' : ''; ?>>Per defecte</option>
-            <option value="optimized" <?php echo $datos[$a4] == "optimized" ? 'selected' : ''; ?>>Optimitzat</option>
-            <option value="high-performance" <?php echo $datos[$a4] == "high-performance" ? 'selected' : ''; ?>>Alt rendiment</option>
-            <option value="secure" <?php echo $datos[$a4] == "secure" ? 'selected' : ''; ?>>Segur</option>
-            <option value="balanced" <?php echo $datos[$a4] == "balanced" ? 'selected' : ''; ?>>Balancejat</option>
-        </select><br><br>
+        <?php
+// Definir las opciones como un array
+$opciones = [
+    "default.oracle-ee-19" => "default.oracle-ee-19",
+    "default.sqlserver-se-15" => "default.sqlserver-se-15",
+    "default.postgres14" => "Alt default.postgres14",
+    "default.postgres13" => "default.postgres13",
+    "default.mysql8.0" => "default.mysql8.0",
+    "default.mysql5.7" => "default.mysql5.7",
+    "default.mariadb10.5" => "default.mariadb10.5"
+];
+
+// Obtener el valor seleccionado directamente
+$valorSeleccionado = $datos[$a4] ?? ''; // Default vacío si no está seteado
+?>
+
+<!-- Crear el select con las opciones dinámicas -->
+<select name="GParametreBD" required>
+    <?php
+    foreach ($opciones as $value => $label) {
+        $selected = ($value === $valorSeleccionado) ? 'selected' : '';
+        echo "<option value=\"$value\" $selected>$label</option>";
+    }
+    ?>
+</select><br><br>
+
 
         <label>
             <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1" onchange="toggleRetentionPeriod()">
             Copia de seguretat
         </label><br><br>
         
-        <div id="retentionPeriod" style="display: none;">
+        <div id="periodeRetencioCS" style="display: none;">
             Període retenció:
-            <select name="<?php echo $a5; ?>">
+            <select name="<?php echo $a5; ?>" required>
                 <option value="7">1 setmana</option>
                 <option value="14">2 setmanes</option>
                 <option value="30">1 mes</option>
@@ -79,43 +98,36 @@ if ($resultado && $resultado->num_rows > 0) {
         </div><br><br>
 
 
-        Motor base de dades:
-        <select name="<?php echo $a7; ?>">
-            <option value="MariaDB" <?php echo $datos[$a7] == "MariaDB" ? 'selected' : ''; ?>>MariaDB</option>
-            <option value="MySQL" <?php echo $datos[$a7] == "MySQL" ? 'selected' : ''; ?>>MySQL</option>
-            <option value="PostgreSQL" <?php echo $datos[$a7] == "PostgreSQL" ? 'selected' : ''; ?>>PostgreSQL</option>
-            <option value="SQLITE" <?php echo $datos[$a7] == "SQLITE" ? 'selected' : ''; ?>>SQLITE</option>
+
+                
+                    <?php
+            // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
+            $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
+            $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
+            $arr4 = ['2', '3', '4', '2'];
+            $arr5 = ['1', '2', '4', '8'];
+            $arr6 = ['2,085', '5,00', '5,000', '10'];
+
+            // Separamos las partes del valor seleccionado (si está definido)
+            $valorSeleccionadoArray = explode('|', $configSeleccionada);
+            ?>
+
+        Configuració
+        <select name="config" required>
+            <?php
+            // Recorremos todas las opciones y las mostramos, agregando el atributo 'selected' si coincide
+            for ($i = 0; $i < count($arr3); $i++) {
+                $valor = "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}";
+                $selected = ($valor === $configSeleccionada) ? 'selected' : '';  // Verifica si esta opción es la seleccionada
+                echo "<option value='$valor' $selected>
+                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
+                    </option>";
+            }
+            ?>
         </select><br><br>
 
-        Subxarxa:
-        <select name="<?php echo $a8; ?>">
-            <option value="1" <?php echo $datos[$a8] == 1 ? 'selected' : ''; ?>>Subxarxa 1</option>
-            <option value="2" <?php echo $datos[$a8] == 2 ? 'selected' : ''; ?>>Subxarxa 2</option>
-            <option value="3" <?php echo $datos[$a8] == 3 ? 'selected' : ''; ?>>Subxarxa 3</option>
-        </select><br><br>
 
-        Configuració:
-        <select name="<?php echo $a9; ?>">
-            <option value="2" <?php echo $datos[$a9] == 2 ? 'selected' : ''; ?>>Bàsica</option>
-            <option value="1" <?php echo $datos[$a9] == 1 ? 'selected' : ''; ?>>Avançada</option>
-        </select><br><br>
 
-        Grup de seguretat:
-        <select name="<?php echo $a10; ?>">
-            <option value="1" <?php echo $datos[$a10] == 1 ? 'selected' : ''; ?>>WebServerGroup</option>
-            <option value="2" <?php echo $datos[$a10] == 2 ? 'selected' : ''; ?>>DBGroup</option>
-            <option value="3" <?php echo $datos[$a10] == 3 ? 'selected' : ''; ?>>DNSGroup</option>
-            <option value="4" <?php echo $datos[$a10] == 4 ? 'selected' : ''; ?>>PingGroup</option>
-        </select><br><br>
-
-        Emmagatzament:
-        <select name="<?php echo $a11; ?>">
-            <option value="2" <?php echo $datos[$a11] == 2 ? 'selected' : ''; ?>>GP1</option>
-            <option value="1" <?php echo $datos[$a11] == 1 ? 'selected' : ''; ?>>GP2</option>
-            <option value="3" <?php echo $datos[$a11] == 3 ? 'selected' : ''; ?>>GP3</option>
-            <option value="4" <?php echo $datos[$a11] == 4 ? 'selected' : ''; ?>>IO1</option>
-        </select><br><br>
-
-    <input type="submit" value="MODIFICAR">
-    </form>
-</body>
+            <input type="submit" value="MODIFICAR">
+            </form>
+        </body>

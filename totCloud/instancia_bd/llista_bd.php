@@ -16,27 +16,27 @@ include "../header.php";
 <body>
     <?php
     // Consulta principal
-    $consulta = "SELECT i.$pk, i.$a3 AS NomBD, i.$a2 AS NomMaster, i.$a4 AS ParametresBD, 
-             i.$a5 AS CopiaSeguretat, i.$a7 AS MotorBD, s.nomSubxarxa AS Subxarxa, 
-             c.nom AS Configuracio, gs.nom AS GrupSeguretat, e.tipus AS Emmagatzematge
-             FROM instancia_bd i
-             JOIN subxarxa s ON i.idSubXar = s.idSubxar
-             JOIN configuracio c ON i.idConfig = c.idConfig
-             JOIN grup_seguretat gs ON i.idGS = gs.idGS
-             JOIN emmagatzamatge e ON i.idEmmg = e.idEmmg";
+    $consulta = "SELECT  i.$pk, i.nomBD,i.nomMaster,i.tipusMotor, i.grupParametresBD, 
+             i.periodeRetencioCS AS periodeRetencio, s.nomSubXarxa, s.descripcio, s.nomReg, 
+             s.idVPC, e.tipus, e.emgAssignat  from instancia_bd i JOIN subxarxa s ON s.idSubXar = i.idSubXar
+             join emmagatzamatge e on e.idEmmg = i.idEmmg";
+
     $resultat = mysqli_query($conn, $consulta);
 
     // Encabezados personalizados
     $columns = [
         "Nom BD",
         "Nom Master",
+        "Motor BD",
         "Paràmetres BD",
         "Copia Seguretat (dies)",
-        "Motor BD",
-        "Subxarxa",
-        "Configuració",
-        "Grup Seguretat",
-        "Emmagatzament"
+        "nomSubxarxa",
+        "descripcioSubxarxa",
+        "Regio",
+        "idVPC",
+        "tipus Emmagatzematge",
+        "Memoria assignada",
+       
     ];
 
     // Construir la tabla HTML
@@ -54,23 +54,25 @@ include "../header.php";
     // Filas de datos
     while ($reg = mysqli_fetch_assoc($resultat)) {
         echo "<TR>";
-        // Mostrar columnas específicas
-        echo "<TD>" . $reg['NomBD'] . "</TD>";
-        echo "<TD>" . $reg['NomMaster'] . "</TD>";
-        echo "<TD>" . $reg['ParametresBD'] . "</TD>";
-        echo "<TD>" . ($reg['CopiaSeguretat'] ? $reg['CopiaSeguretat'] : "No") . "</TD>";
-        echo "<TD>" . $reg['MotorBD'] . "</TD>";
-        echo "<TD>" . $reg['Subxarxa'] . "</TD>";
-        echo "<TD>" . $reg['Configuracio'] . "</TD>";
-        echo "<TD>" . $reg['GrupSeguretat'] . "</TD>";
-        echo "<TD>" . $reg['Emmagatzematge'] . "</TD>";
+        // Mostrar las columnas específicas
+        echo "<TD>" . $reg['nomBD'] . "</TD>";
+        echo "<TD>" . $reg['nomMaster'] . "</TD>";
+        echo "<TD>" . $reg['tipusMotor'] . "</TD>";
+        echo "<TD>" . $reg['grupParametresBD'] . "</TD>";
+        echo "<TD>" . $reg['periodeRetencio'] . "</TD>";
+        echo "<TD>" . $reg['nomSubXarxa'] . "</TD>";
+        echo "<TD>" . $reg['descripcio'] . "</TD>";
+        echo "<TD>" . $reg['nomReg'] . "</TD>";
+        echo "<TD>" . $reg['idVPC'] . "</TD>";
+        echo "<TD>" . $reg['tipus'] . "</TD>";
+        echo "<TD>" . $reg['emgAssignat'] . "</TD>";
 
         // Generar URLs de modificación y eliminación
         $k = $reg[$pk];
-        $modifyUrl = "<a class='modify-link' href='/php/TOTCLOUD/totcloud/instancia_bd/modifica_bd.php?$pk=$k'>
+        $modifyUrl = "<a class='modify-link' href='modifica_bd.php?$pk=$k'>
                     <span class='modify'>&#9999;</span>
                     </a>";
-        $deleteUrl = "<a class='delete-link' href='/php/TOTCLOUD/totcloud/instancia_bd/delete_bd.php?$pk=$k'>
+        $deleteUrl = "<a class='delete-link' href='delete_bd.php?$pk=$k'>
                     <span class='delete'>&#10060;</span>
                     </a>";
         echo "<TD>$modifyUrl</TD>";
