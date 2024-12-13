@@ -60,7 +60,7 @@
     }
     ?>
     <title>Crear Servidor</title>
-    <link rel="stylesheet" type="text/css" href="../estils/new.css">
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/estils/new.css">
 </head>
 
 <body>
