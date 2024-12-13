@@ -77,8 +77,8 @@
 
                 <option value=" default.oracle-ee-19"> default.oracle-ee-19</option>
                 <option value="default.sqlserver-se-15">default.sqlserver-se-15</option>
-                <option value="default.postgres14">default.postgres14</option>
-                <option value="default.postgres13">default.postgres13</option>
+                <option value="default.GETgres14">default.GETgres14</option>
+                <option value="default.GETgres13">default.GETgres13</option>
                 <option value="default.mysql8.0">default.mysql8.0</option>
                 <option value="default.mysql5.7">default.mysql5.7</option>
                 <option value="default.mariadb10.5">default.mariadb10.5</option>
@@ -105,7 +105,7 @@
 
             Subxarxa<br><br>
 
-            <!-- <select name="<?php echo $a8; ?>">
+            <!-- <select name="<?//php echo $a8; ?>">
                 <option value="1">Subxarxa 1</option>
                 <option value="2">Subxarxa 2</option>
                 <option value="3">Subxarxa 3</option>
@@ -159,6 +159,8 @@
             }
             ?>
         </select><br><br>
+
+        IP <input name="IP" required> </select><br><br>
 
             Grup de seguretat <br><br>
         Nom:

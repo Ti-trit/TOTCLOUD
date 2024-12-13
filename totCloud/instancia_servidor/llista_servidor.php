@@ -71,10 +71,10 @@ include "../header.php";
 
         // Generar URLs de modificación y eliminación
         $k = $reg[$pk];
-        $modifyUrl = "<a class='modify-link' href='/php/TOTCLOUD/totcloud/instancia_servidor/modifica_servidor.php?$pk=$k'>
+        $modifyUrl = "<a class='modify-link' href='modifica_servidor.php?$pk=$k'>
                     <span class='modify'>&#9999;</span>
                     </a>";
-        $deleteUrl = "<a class='delete-link' href='/php/TOTCLOUD/totcloud/instancia_servidor/delete_servidor.php?$pk=$k'>
+        $deleteUrl = "<a class='delete-link' href='delete_servidor.php?$pk=$k'>
                     <span class='delete'>&#10060;</span>
                     </a>";
         echo "<TD>$modifyUrl</TD>";

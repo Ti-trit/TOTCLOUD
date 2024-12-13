@@ -26,7 +26,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
     $array[] = $reg[$a3];
 }
 ?>
-    <form action="insert_bucket.php" method="POST">
+    <form action="insert_bucket.php" method="GET">
 
         Nom bucket
         <input name="<?php echo $a1; ?>"><br><br>
