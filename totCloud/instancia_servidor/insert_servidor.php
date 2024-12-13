@@ -10,7 +10,7 @@ include "../atributsClasses/grup_seguretat.php";
 $db = new Database($conn);
 $file = "llista_servidor.php";
 
-    list($nomConfig, $numCPU, $RAM, $preuPerHora) = explode('|', $_POST["configS"]);
+    list($nomConfig, $numCPU, $RAM, $preuPerHora) = explode('|', $_GET["configS"]);
 
 
     
@@ -18,28 +18,28 @@ $file = "llista_servidor.php";
 
     // Crear la consulta SQL
     $re1 = "INSERT INTO configuracio (numCPU, RAM, preuPerHora, nom, IP)
-    VALUES ('$numCPU', '$RAM', '$preuPerHora','$nomConfig' ,'{$_POST["IPS"]}')";
+    VALUES ('$numCPU', '$RAM', '$preuPerHora','$nomConfig' ,'{$_GET["IPS"]}')";
 
     $db->consultar($re1);
     $idConfigS = mysqli_insert_id($db->conn); 
 
 
-    $query = "SELECT tipusSource FROM source WHERE source = '{$_POST['sourceS']}'";
+    $query = "SELECT tipusSource FROM source WHERE source = '{$_GET['sourceS']}'";
     $result1 = $db->consultar($query);
     $row1 = $result1->fetch_assoc();
 
     //obtener clave del protocol
-    $query2 = "SELECT tipus FROM protocol WHERE Protocol = '{$_POST['protocolS']}'";
+    $query2 = "SELECT tipus FROM protocol WHERE Protocol = '{$_GET['protocolS']}'";
     $result2 = $db->consultar($query2);
     $row2 = $result2->fetch_assoc();
 
 
-    // Recoger valores POST
-    $f1 = $_POST["nomGSS"];
-    $f2 = $_POST["descripcioGSS"];
+    // Recoger valores GET
+    $f1 = $_GET["nomGSS"];
+    $f2 = $_GET["descripcioGSS"];
     $f4 = $row1['tipusSource'];
     $f5 = $row2['tipus'];
-    $f6 = $_POST["protocolS"];
+    $f6 = $_GET["protocolS"];
 
    // Crear la consulta SQL
    $re1 = "INSERT INTO grup_seguretat (nom, descripcio, tipusSource, tipus, Protocol)
@@ -48,9 +48,9 @@ $file = "llista_servidor.php";
     $db->consultar($re1);
     $idGSS = mysqli_insert_id($db->conn);
 
-    // Recoger valores POST
-    $h1 = $_POST["tipusEmgS"];
-    $h2 = $_POST["MemoriaEMGS"];
+    // Recoger valores GET
+    $h1 = $_GET["tipusEmgS"];
+    $h2 = $_GET["MemoriaEMGS"];
 
     // Crear la consulta SQL
     $re1 = "INSERT INTO emmagatzamatge ($g1, $g2)
@@ -63,16 +63,16 @@ VALUES ('$h1', '$h2')";
 
 
 $re1 = "INSERT INTO SUBXARXA (nomSubxarxa, descripcio, idVPC, nomReg)
-VALUES ('{$_POST["nomSUBXS"]}', '{$_POST["descripcioSUBXS"]}', '{$_POST["idVPCS"]}', '{$_POST["nomRegSUBXS"]}')";
+VALUES ('{$_GET["nomSUBXS"]}', '{$_GET["descripcioSUBXS"]}', '{$_GET["idVPCS"]}', '{$_GET["nomRegSUBXS"]}')";
 $db->consultar($re1);
 $idSubxarS = mysqli_insert_id($db->conn); 
 
 
 
-    // Recoger valores POST
-    $k1 = $_POST["nomFitxer"];
-    $k2 = $_POST["tipusClau"];
-    $k3 = $_POST["nomClau"];
+    // Recoger valores GET
+    $k1 = $_GET["nomFitxer"];
+    $k2 = $_GET["tipusClau"];
+    $k3 = $_GET["nomClau"];
 
     // Crear la consulta SQL
     $re1 = "INSERT INTO clau_sessio (nomFitxer, tipusClau, nomClau)
@@ -81,7 +81,7 @@ $idSubxarS = mysqli_insert_id($db->conn);
     $db->consultar($re1);
     $idClauSessio = mysqli_insert_id($db->conn); 
 
-    list($descripcioAMI, $arquitectura) = explode('|', $_POST["AMI"]);
+    list($descripcioAMI, $arquitectura) = explode('|', $_GET["AMI"]);
     $query = "SELECT idAMI FROM AMI WHERE descripcioAMI = '$descripcioAMI'
                 AND arquitectura = '$arquitectura'";
 
@@ -93,7 +93,7 @@ $idSubxarS = mysqli_insert_id($db->conn);
 
     // Crear la consulta INSERT
     $re1 = "INSERT INTO instancia_servidor (nomServ, dataCreacio, idServidorInfra,idGS,  idSubXar, idConfig, idEmmg, idClauSessio, idAMI) 
-        VALUES ('{$_POST["nomServidor"]}', CURRENT_TIMESTAMP, '1', '$idGSS' , '$idSubxarS','$idConfigS', '$idEmmgS', '$idClauSessio',  '$b9')";
+        VALUES ('{$_GET["nomServidor"]}', CURRENT_TIMESTAMP, '1', '$idGSS' , '$idSubxarS','$idConfigS', '$idEmmgS', '$idClauSessio',  '$b9')";
 
     $db->consultar($re1);
 // }

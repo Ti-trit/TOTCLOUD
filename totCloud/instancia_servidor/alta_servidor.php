@@ -74,7 +74,7 @@
             </div>
         </div>
     </section>
-    <form action="insert_servidor.php" method="POST">
+    <form action="insert_servidor.php" method="GET">
 
         Nom servidor
         <input name="nomServidor" required><br><br>

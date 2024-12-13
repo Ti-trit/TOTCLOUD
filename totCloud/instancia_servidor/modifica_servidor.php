@@ -11,11 +11,11 @@ include "../header.php";
 
 $db = new Database($conn);
 
-if (!isset($_POST[$pk]) || empty($_POST[$pk])) {
+if (!isset($_GET[$pk]) || empty($_GET[$pk])) {
     die("Error: No se ha proporcionado un ID válido.");
 }
 
-$k = $_POST[$pk];
+$k = $_GET[$pk];
 
 // Consultar datos para los select
 $query = "SELECT * FROM instancia_servidor WHERE $pk = $k";
@@ -89,8 +89,8 @@ while ($reg = mysqli_fetch_assoc($result)) {
             </div>
         </div>
     </section>
-    <form action="update_servidor.php" method="POST">
-        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $_POST[$pk]; ?>">
+    <form action="update_servidor.php" method="GET">
+        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $GET[$pk]; ?>">
 
         Nom servidor:
         <input name="<?php echo $a1; ?>" value="<?php echo $datos[$a1]; ?>" ><br><br>
@@ -116,7 +116,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
                 $valor = "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}";
                 $selected = ($valor === $configSeleccionada) ? 'selected' : '';  // Verifica si esta opción es la seleccionada
                 echo "<option value='$valor' $selected>
-                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
+                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | PreuPerHora: {$arr6[$i]}
                     </option>";
             }
             ?>
