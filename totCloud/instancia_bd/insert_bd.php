@@ -6,10 +6,24 @@ include "../atributsClasses/configuracio.php";
 include "../atributsClasses/emmagatzematge.php";
 include "../atributsClasses/grup_seguretat.php";
 include "../header.php";
+?>
+<!DOCTYPE html>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php
 
 $db = new Database($conn);
 $file = "llista_bd.php";
 
+function validarIP($IP) {
+    return filter_var($IP, FILTER_VALIDATE_IP) !== false;
+}
+
+
+function esIdentificadorVPCValido($idVPC) {
+    //  el identificador debe tener  el formato "vpc-xxxxxxxxxxxxxxxxx"
+    return preg_match('/^vpc-[a-f0-9]{17}$/', $idVPC);
+}
 
     list($nomConfig, $numCPU, $RAM, $xarxa) = explode('|', $_GET["config"]);
 
@@ -18,6 +32,23 @@ $file = "llista_bd.php";
     $d2 = $RAM;
     $d3 = $xarxa;
     $d5 = $nomConfig;
+    $IPBD = $_GET["IP"];
+    if (!validarIP($IPBD)){
+      //  echo " IP NO VALIDA ";
+        echo '<div class="alert alert-danger" role = "alert"> IP NO VALIDA 
+        LA IP DEBE SER IPv4/IPv6 </div>';
+
+
+        exit;
+
+    }
+    if (!esIdentificadorVPCValido($_GET["idVPC"])){
+        echo '<div class="alert alert-danger" role = "alert"> Identifcador de VPC NO VALIDO 
+        El VPC TIENE EL SIGUIENTE FORMATO vpc-xxxxxxxxxxxxxxxxx, con letras de a-f y números de 0-9
+        </div>';
+        exit;
+
+    }
 
 
 

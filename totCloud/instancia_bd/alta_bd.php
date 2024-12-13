@@ -88,8 +88,8 @@
 
             <option value=" default.oracle-ee-19"> default.oracle-ee-19</option>
             <option value="default.sqlserver-se-15">default.sqlserver-se-15</option>
-            <option value="default.postgres14">default.postgres14</option>
-            <option value="default.postgres13">default.postgres13</option>
+            <option value="default.GETgres14">default.GETgres14</option>
+            <option value="default.GETgres13">default.GETgres13</option>
             <option value="default.mysql8.0">default.mysql8.0</option>
             <option value="default.mysql5.7">default.mysql5.7</option>
             <option value="default.mariadb10.5">default.mariadb10.5</option>
@@ -115,122 +115,130 @@
 
 
 
-        Subxarxa<br><br>
+        <<<<<<< HEAD Subxarxa<br><br>
 
-        <!-- <select name="<?php echo $a8; ?>">
+            <!-- <select name="<?php echo $a8; ?>">
+=======
+            <!-- <select name="<?//php echo $a8; ?>">
+>>>>>>> f35c74e748e134bb3893b721b6fe84059dbeefc1
                 <option value="1">Subxarxa 1</option>
                 <option value="2">Subxarxa 2</option>
                 <option value="3">Subxarxa 3</option>
             </select><br><br> -->
-        nom
-        <input name="nomSUBX" required><br><br>
+            nom
+            <input name="nomSUBX" required><br><br>
 
-        descripcio
-        <input name="descripcioSUBX" required><br><br>
-        id VPC
-        <input name="idVPC" required><br><br>
-        Nom regió:
-        <?php
-        include "../connexio.php";
-        include "../funcions.php";
-        include "../atributsClasses/instancia_bucket.php";
-        //include "../header.php";
-        
-        $db = new Database($conn);
-        $query = "SELECT $a3 FROM regio WHERE disponible = 1";
-        $result = $db->consultar($query);
-        $array = array();
-
-        while ($reg = mysqli_fetch_assoc($result)) {
-            $array[] = $reg[$a3];
-        }
-        ?>
-        <select name="nomRegSUBX" required>
+            descripcio
+            <input name="descripcioSUBX" required><br><br>
+            id VPC
+            <input name="idVPC" required><br><br>
+            Nom regió:
             <?php
-            foreach ($array as $region) {
-                echo "<option value='$region'>$region</option>";
-            }
-            ?>
-        </select><br><br>
-
-        Configuració
-
-        <select name="config" required>
-            <?php
-            // $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
-            //$result = $db->consultar($query);
-            $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
-            $arr4 = ['2', '3', '4', '2'];
-            $arr5 = ['1', '2', '4', '8'];
-            $arr6 = ['2,085', '5,00', '5,000', '10'];
-
-            for ($i = 0; $i < count($arr3); $i++) {
-                echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}'>
-                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
-                      </option>";
-            }
-            ?>
-        </select><br><br>
-
-        Grup de seguretat <br><br>
-        Nom:
-        <input name="nomGS" required><br><br>
-        Descripcio:
-        <input name="descripcioGS"><br><br>
-        Source:
-        <select name="source" required>
-            <?php
-            $query = "SELECT source FROM source";
+            include "../connexio.php";
+            include "../funcions.php";
+            include "../atributsClasses/instancia_bucket.php";
+            //include "../header.php";
+            
+            $db = new Database($conn);
+            $query = "SELECT $a3 FROM regio WHERE disponible = 1";
             $result = $db->consultar($query);
-            $arr7 = array();
+            $array = array();
 
             while ($reg = mysqli_fetch_assoc($result)) {
-                $arr7[] = $reg["source"];
+                $array[] = $reg[$a3];
             }
+            ?>
+            <select name="nomRegSUBX" required>
+                <?php
+                foreach ($array as $region) {
+                    echo "<option value='$region'>$region</option>";
+                }
+                ?>
+            </select><br><br>
 
-            for ($i = 0; $i < count($arr7); $i++) {
-                echo "<option value='{$arr7[$i]}'>
+            Configuració
+
+            <select name="config" required>
+                <?php
+                // $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
+                //$result = $db->consultar($query);
+                $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
+                $arr4 = ['2', '3', '4', '2'];
+                $arr5 = ['1', '2', '4', '8'];
+                $arr6 = ['2,085', '5,00', '5,000', '10'];
+
+                for ($i = 0; $i < count($arr3); $i++) {
+                    echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}'>
+                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
+                      </option>";
+                }
+                ?>
+            </select><br><br>
+
+            <<<<<<< HEAD Grup de seguretat <br><br>
+                =======
+                IP <input name="IP" required> </select><br><br>
+
+                Grup de seguretat <br><br>
+                >>>>>>> f35c74e748e134bb3893b721b6fe84059dbeefc1
+                Nom:
+                <input name="nomGS" required><br><br>
+                Descripcio:
+                <input name="descripcioGS"><br><br>
+                Source:
+                <select name="source" required>
+                    <?php
+                    $query = "SELECT source FROM source";
+                    $result = $db->consultar($query);
+                    $arr7 = array();
+
+                    while ($reg = mysqli_fetch_assoc($result)) {
+                        $arr7[] = $reg["source"];
+                    }
+
+                    for ($i = 0; $i < count($arr7); $i++) {
+                        echo "<option value='{$arr7[$i]}'>
                         {$arr7[$i]}
                       </option>";
-            }
-            ?>
-        </select><br><br>
-        Protocol
-        <?php
+                    }
+                    ?>
+                </select><br><br>
+                Protocol
+                <?php
 
 
-        $query = "SELECT Protocol FROM protocol";
-        $result = $db->consultar($query);
-        $arr8 = array();
+                $query = "SELECT Protocol FROM protocol";
+                $result = $db->consultar($query);
+                $arr8 = array();
 
-        while ($reg = mysqli_fetch_assoc($result)) {
-            $arr8[] = $reg["Protocol"];
-        } ?>
+                while ($reg = mysqli_fetch_assoc($result)) {
+                    $arr8[] = $reg["Protocol"];
+                } ?>
 
-        <select name="protocol" required>
-            <?php
-            for ($i = 0; $i < count($arr8); $i++) {
-                echo "<option value='{$arr8[$i]}'>
+                <select name="protocol" required>
+                    <?php
+                    for ($i = 0; $i < count($arr8); $i++) {
+                        echo "<option value='{$arr8[$i]}'>
                         {$arr8[$i]}
                       </option>";
-            }
-            ?>
-        </select><br><br>
+                    }
+                    ?>
+                </select><br><br>
 
-        Emmagatzament
+                Emmagatzament
 
-        <select name="tipusEmg" required>
-            <option value="GP1 (General Purpose SSD)">GP1 (General Purpose SSD)</option>
-            <option value="GP2 (General Purpose SSD)">GP2 (General Purpose SSD)</option>
-            <option value="GP3 (General Purpose SSD">GP3 (General Purpose SSD)</option>
-            <option value="IO1 (Provisioned IOPS SSD)">IO1 (Provisioned IOPS SSD)</option>
-        </select><br><br>
+                <select name="tipusEmg" required>
+                    <option value="GP1 (General Purpose SSD)">GP1 (General Purpose SSD)</option>
+                    <option value="GP2 (General Purpose SSD)">GP2 (General Purpose SSD)</option>
+                    <option value="GP3 (General Purpose SSD">GP3 (General Purpose SSD)</option>
+                    <option value="IO1 (Provisioned IOPS SSD)">IO1 (Provisioned IOPS SSD)</option>
+                </select><br><br>
 
-        Memoria assignada (GiB)
-        <input name="MemoriaEMG" required><br><br>
+                Memoria assignada (GiB)
+                <input name="MemoriaEMG" required><br><br>
 
 
-        <input type="submit" value="AFEGIR">
+                <input type="submit" value="AFEGIR">
     </form>
 </body>
 

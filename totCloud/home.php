@@ -1,6 +1,6 @@
-<?php require "connexio.php";
-//require "LogIn.php";
-session_start();
+<?php //require "connexio.php";
+include "LogIn.php";
+//session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">

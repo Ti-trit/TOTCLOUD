@@ -37,4 +37,11 @@ class Database
     {
         mysqli_close($this->conn);
     }
+
+    function validarIP($IP) {
+        return filter_var($IP, FILTER_VALIDATE_IP) !== false;
+    }
+    
+   
+    
 }

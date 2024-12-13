@@ -34,7 +34,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
             </div>
         </div>
     </section>
-    <form action="insert_bucket.php" method="POST">
+    <form action="insert_bucket.php" method="GET">
         <label>Nom bucket</label><br>
         <input name="<?php echo $a1; ?>"><br><br>
 

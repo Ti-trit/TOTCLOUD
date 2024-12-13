@@ -1,7 +1,7 @@
 <?php
-
-require "connexio.php";
 session_start();
+
+include "connexio.php";
 
 
 
@@ -27,6 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION["loggedin"] = true;
             $_SESSION["correo"] = $email;
+            $stmt = $conn->prepare("SELECT p.nom 
+            FROM persona p
+            where p.correuAcces = '$email'");
+
+          
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $datos = $result->fetch_object();
+            $_SESSION["nomAdmin"]=$datos->nom;
+
 
             header("Location: home.php");
 

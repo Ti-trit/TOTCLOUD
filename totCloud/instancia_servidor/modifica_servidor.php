@@ -11,11 +11,11 @@ include "../header.php";
 
 $db = new Database($conn);
 
-if (!isset($_GET[$pk]) || empty($_GET[$pk])) {
+if (!isset($_POST[$pk]) || empty($_POST[$pk])) {
     die("Error: No se ha proporcionado un ID válido.");
 }
 
-$k = $_GET[$pk];
+$k = $_POST[$pk];
 
 // Consultar datos para los select
 $query = "SELECT * FROM instancia_servidor WHERE $pk = $k";
@@ -89,20 +89,35 @@ while ($reg = mysqli_fetch_assoc($result)) {
             </div>
         </div>
     </section>
-    <form action="update_servidor.php" method="GET">
-        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $_GET[$pk]; ?>">
+    <form action="update_servidor.php" method="POST">
+        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $_POST[$pk]; ?>">
 
         Nom servidor:
-        <input name="<?php echo $a1; ?>" value="<?php echo $datos[$a1]; ?>"><br><br>
+        <input name="<?php echo $a1; ?>" value="<?php echo $datos[$a1]; ?>" ><br><br>
 
-        Configuració:
+        Configuració
+        <?php
+            // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
+            $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
+            $arr3 = ['db.t3.micro', 'db.t3.small','db.t3.medium','db.m5.large'];
+            $arr4 =['2','3', '4', '2'];
+            $arr5 = ['1', '2', '4', '8'];
+            $arr6 = ['3,00$', '5,00$','5,00$', '10,00$'];
+
+            // Separamos las partes del valor seleccionado (si está definido)
+            $valorSeleccionadoArray = explode('|', $configSeleccionada);
+            ?>
+
+
         <select name="<?php echo $a5; ?>">
-            <?php
+        <?php
+            // Recorremos todas las opciones y las mostramos, agregando el atributo 'selected' si coincide
             for ($i = 0; $i < count($arr3); $i++) {
-                $selected = ($datos[$a5] == "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}") ? "selected" : "";
-                echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}' $selected>
-                        Nom: {$arr3[$i]} | Nº CPU: {$arr4[$i]} | RAM: {$arr5[$i]} | Xarxa: {$arr6[$i]}
-                      </option>";
+                $valor = "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}";
+                $selected = ($valor === $configSeleccionada) ? 'selected' : '';  // Verifica si esta opción es la seleccionada
+                echo "<option value='$valor' $selected>
+                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
+                    </option>";
             }
             ?>
         </select><br><br>

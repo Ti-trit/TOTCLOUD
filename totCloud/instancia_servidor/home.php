@@ -43,7 +43,7 @@ $db->close();
 
         consultarLink.addEventListener("click", function (event) {
             if (numRows > 0) {
-                window.location.href = "./llista_servidor.php/";
+                window.location.href = "llista_servidor.php";
             } else {
                 alert("Encara no tens cap servidor creat.");
                 event.preventDefault();

@@ -7,14 +7,14 @@ if (!isset($_SESSION["nomAdmin"])) {
 <header>
     <nav class="navbar">
         <ul>
-            <a href="/php/TOTCLOUD/totcloud/home.php" class="style1">
+            <a href="home.php" class="style1">
                 <strong>TotCloud</strong>
             </a>
             <li class="welcome-message">
                 Admin <span class="style1"><?php echo $_SESSION["nomAdmin"]; ?></span>
             </li>
             <li class="logout">
-                <a href="/php/TOTCLOUD/totcloud/LogOut.php">
+                <a href="<?php echo dirname(__DIR__) . '/LogOut.php'; ?>">
                     <span class="icon-user">&#128100;</span> <strong>Log Out</strong>
                 </a>
             </li>
