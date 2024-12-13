@@ -142,7 +142,7 @@ if (
     // Crear la consulta INSERT
     $re1 = "INSERT INTO instancia_servidor ($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8, $a9) 
         VALUES ('$b1', '$b2', 1, '$b4', '$b5', '$b6', '$b7', '$b8', '$b9')";
-    // echo $re1;
+
     $db->consultar($re1);
 }
 

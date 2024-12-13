@@ -116,7 +116,6 @@
             }
             ?>
         </select><br>
-
         IP:
         <input name="<?php echo $c6; ?>"><br><br>
 
