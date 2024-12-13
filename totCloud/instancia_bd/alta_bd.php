@@ -1,164 +1,201 @@
 <html>
-
-<head>
-    <?php
-    include "../atributsClasses/instancia_bd.php";
-    include "../atributsClasses/configuracio.php";
-    include "../atributsClasses/emmagatzematge.php";
-    include "../atributsClasses/grup_seguretat.php";
-    include "../header.php";
-    include "../connexio.php";
-    include "../funcions.php";
-
-    $db = new Database($conn);
-
-    $query = "SELECT nomSubXarxa, idVPC, nomReg FROM subxarxa";
-    $result = $db->consultar($query);
-    $arr0 = array();
-    $arr1 = array();
-    $arr2 = array();
-
-    while ($reg = mysqli_fetch_assoc($result)) {
-        $arr0[] = $reg["nomSubXarxa"];
-        $arr1[] = $reg["idVPC"];
-        $arr2[] = $reg["nomReg"];
-    }
-
-    $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
-    $result = $db->consultar($query);
-    $arr3 = array();
-    $arr4 = array();
-    $arr5 = array();
-    $arr6 = array();
-
-    while ($reg = mysqli_fetch_assoc($result)) {
-        $arr3[] = $reg["nom"];
-        $arr4[] = $reg["numCPU"];
-        $arr5[] = $reg["RAM"];
-        $arr6[] = $reg["xarxa"];
-    }
-
-    $query = "SELECT source FROM source";
-    $result = $db->consultar($query);
-    $arr7 = array();
-
-    while ($reg = mysqli_fetch_assoc($result)) {
-        $arr7[] = $reg["source"];
-    }
-
-    $query = "SELECT Protocol FROM protocol";
-    $result = $db->consultar($query);
-    $arr8 = array();
-
-    while ($reg = mysqli_fetch_assoc($result)) {
-        $arr8[] = $reg["Protocol"];
-    }
-
-    $query = "SELECT tipus FROM emmagatzamatge";
-    $result = $db->consultar($query);
-    $arr9 = array();
-
-    while ($reg = mysqli_fetch_assoc($result)) {
-        $arr9[] = $reg["tipus"];
-    }
-    ?>
-    <title>CREAR BASE DE DADES</title>
-    <link rel="stylesheet" type="text/css" href="../home.css">
-    <script>
-        function toggleRetentionPeriod() {
-            const checkbox = document.getElementById('backupCheckbox');
-            const retentionPeriod = document.getElementById('retentionPeriod');
-            if (checkbox.checked) {
-                retentionPeriod.style.display = 'block';
-            } else {
-                retentionPeriod.style.display = 'none';
+    <head>
+        <?php
+        include "../atributsClasses/instancia_bd.php"; 
+        include "../header.php";
+        ?>
+        <title>CREAR BASE DE DADES</title>
+        <link rel="stylesheet" type="text/css" href="../home.css">
+        <script>
+            function toggleRetentionPeriod() {
+                const checkbox = document.getElementById('backupCheckbox');
+                const retentionPeriod = document.getElementById('retentionPeriod');
+                if (checkbox.checked) {
+                    retentionPeriod.style.display = 'block';
+                } else {
+                    retentionPeriod.style.display = 'none';
+                }
             }
-        }
-    </script>
+        </script>
+    <body>
+        <h2>Crear base de dades</h2>
+        <form action="insert_bd.php" method="GET">
 
-<body>
-    <h2>Crear base de dades</h2>
-    <form action="insert_bd.php" method="GET">
+            Nom master
+            <input name="nomMaster" required><br><br>
 
-        Nom master:
-        <input name="<?php echo $a2; ?>"><br><br>
+            Nom base de dades
+            <input name="nomBD"required><br><br>
 
-        Nom base de dades:
-        <input name="<?php echo $a3; ?>"><br><br>
+            Motor base de dades
+            <?php 
+            require "../connexio.php";
+            $sql = "SELECT tipusMotor FROM MOTOR_BD";
+            $result = $conn->query($sql);
+            ?>
+           <select name="motor_tipus" id="motor" required>
+            <?php
+            // Iterar sobre los resultados de la consulta
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<option value="' . htmlspecialchars($row['tipusMotor']) . '">' . htmlspecialchars($row['tipusMotor']) . '</option>';
+                }
+            } 
+                ?>
+            </select><br><br>
 
-        Grup de paràmetres:
-        <select name="<?php echo $a4; ?>">
-            <option value="default">Per defecte</option>
-            <option value="optimized">Optimitzat</option>
-            <option value="high-performance">Alt rendiment</option>
-            <option value="secure">Segur</option>
-            <option value="balanced">Balancejat</option>
-        </select><br><br>
+            Versio: 
+            <?php
+            require "../connexio.php";
+            $sql = "SELECT tipusMotor, nomVersio FROM versio";
+            $stmt = $conn->prepare($sql);
+           // $stmt->bind_param("s", $motor); // Vinculamos el motor a la consulta
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $versiones = array();
+            ?>
+            <select name="versio" id="versioMotor" required>
+            <?php     
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    // Concatenamos tipusMotor y nomVersio para mostrar como "nomMotor versio"
+                    $version = htmlspecialchars($row['tipusMotor']) . " " . htmlspecialchars($row['nomVersio']);
+                    // Almacenamos cada opción en el array versions[]
+                    $versions[] = $version;
+                }
+            }
+            
+            // Devolver las opciones en el formato HTML
+            foreach ($versions as $version) {
+                echo '<option value="' . htmlspecialchars($version) . '">' . htmlspecialchars($version) . '</option>';
+            }
+            ?>
+             </select><br><br>
+
+            Grup de paràmetres
+            <select name="GParametreBD" id="" required>
+
+                <option value=" default.oracle-ee-19"> default.oracle-ee-19</option>
+                <option value="default.sqlserver-se-15">default.sqlserver-se-15</option>
+                <option value="default.postgres14">default.postgres14</option>
+                <option value="default.postgres13">default.postgres13</option>
+                <option value="default.mysql8.0">default.mysql8.0</option>
+                <option value="default.mysql5.7">default.mysql5.7</option>
+                <option value="default.mariadb10.5">default.mariadb10.5</option>
+            </select>
+         
+               
+            </select><br><br>
 
         <label>
-            <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1"
-                onchange="toggleRetentionPeriod()">
+            <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1" onchange="toggleRetentionPeriod()" >
             Copia de seguretat
         </label><br><br>
-
+        
         <div id="retentionPeriod" style="display: none;">
-            Període retenció:
-            <select name="<?php echo $a5; ?>">
+            Període retenció
+            <select name="periodeRetencio" required>
                 <option value="7">1 setmana</option>
                 <option value="14">2 setmanes</option>
                 <option value="30">1 mes</option>
             </select>
         </div><br><br>
 
-        Motor base de dades:
-        <select name="<?php echo $a7; ?>">
-            <option value="MariaDB">MariaDB</option>
-            <option value="MySQL">MySQL</option>
-            <option value="PostgreSQL">PostgreSQL</option>
-            <option value="SQLITE">SQLITE</option>
-        </select><br><br>
+          
 
-        Subxarxa:
-        <select name="<?php echo $a8; ?>">
-            <?php
-            for ($i = 0; $i < count($arr0); $i++) {
-                echo "<option value='{$arr0[$i]}|{$arr1[$i]}|{$arr2[$i]}'>
-                        Nom: {$arr0[$i]} | VPC: {$arr1[$i]} | Regió: {$arr2[$i]}
-                      </option>";
-            }
-            ?>
-        </select><br><br>
+            Subxarxa<br><br>
 
-        Configuració:
-        <select name="<?php echo $a9; ?>">
+            <!-- <select name="<?php echo $a8; ?>">
+                <option value="1">Subxarxa 1</option>
+                <option value="2">Subxarxa 2</option>
+                <option value="3">Subxarxa 3</option>
+            </select><br><br> -->
+                nom 
+                <input name="nomSUBX" required><br><br >
+
+                descripcio 
+                <input name="descripcioSUBX" required><br><br >
+                id VPC 
+                <input name="idVPC" required><br><br>
+                Nom regió:
+                <?php
+                    include "../connexio.php";
+                    include "../funcions.php";
+                    include "../atributsClasses/instancia_bucket.php";
+                    //include "../header.php";
+
+                    $db = new Database($conn);
+                    $query = "SELECT $a3 FROM regio WHERE disponible = 1";
+                    $result = $db->consultar($query);
+                    $array = array();
+
+                    while ($reg = mysqli_fetch_assoc($result)) {
+                        $array[] = $reg[$a3];
+                    }
+                    ?>
+                    <select name="nomRegSUBX" required>
+                        <?php
+                        foreach ($array as $region) {
+                            echo "<option value='$region'>$region</option>";
+                        }
+                        ?>
+                    </select><br><br>
+       
+            Configuració       
+
+            <select name="config" required>
             <?php
+             // $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
+              //$result = $db->consultar($query);
+              $arr3 = ['db.t3.micro', 'db.t3.small','db.t3.medium','db.m5.large'];
+              $arr4 =['2','3', '4', '2'];
+              $arr5 = ['1', '2', '4', '8'];
+              $arr6 = ['2,085', '5,00','5,000', '10'];
+
             for ($i = 0; $i < count($arr3); $i++) {
                 echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}'>
-                        Nom: {$arr3[$i]} | Nº CPU: {$arr4[$i]} | RAM: {$arr5[$i]} | Xarxa: {$arr6[$i]}
+                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | Network: {$arr6[$i]}
                       </option>";
             }
             ?>
-        </select><br>
-        IP:
-        <input name="<?php echo $c6; ?>"><br><br>
+        </select><br><br>
 
-        Grup de seguretat:
+            Grup de seguretat <br><br>
         Nom:
-        <input name="<?php echo $e1; ?>"><br>
+        <input name="nomGS" required><br><br>
         Descripcio:
-        <input name="<?php echo $e2; ?>"><br>
+        <input name="descripcioGS"><br><br>
         Source:
-        <select name="<?php echo $e7; ?>">
+        <select name="source" required>
             <?php
+            $query = "SELECT source FROM source";
+            $result = $db->consultar($query);
+            $arr7 = array();
+        
+            while ($reg = mysqli_fetch_assoc($result)) {
+                $arr7[] = $reg["source"];
+            }
+        
             for ($i = 0; $i < count($arr7); $i++) {
                 echo "<option value='{$arr7[$i]}'>
                         {$arr7[$i]}
                       </option>";
             }
             ?>
-        </select><br>
-        Protocol:
-        <select name="<?php echo $e6; ?>">
+        </select><br><br>
+        Protocol
+        <?php 
+
+         
+         $query = "SELECT Protocol FROM protocol";
+         $result = $db->consultar($query);
+         $arr8 = array();
+     
+         while ($reg = mysqli_fetch_assoc($result)) {
+             $arr8[] = $reg["Protocol"];
+         }?>
+         
+        <select name="protocol"required>
             <?php
             for ($i = 0; $i < count($arr8); $i++) {
                 echo "<option value='{$arr8[$i]}'>
@@ -168,22 +205,20 @@
             ?>
         </select><br><br>
 
-        Emmagatzematge:
-        Quantitat:
-        <input name="<?php echo $g2; ?>"> GiB<br>
-        Tipus:
-        <select name="<?php echo $g1; ?>">
-            <?php
-            for ($i = 0; $i < count($arr9); $i++) {
-                echo "<option value='{$arr9[$i]}'>
-                        {$arr9[$i]}
-                      </option>";
-            }
-            ?>
-        </select><br><br>
+            Emmagatzament
+            
+            <select name="tipusEmg" required>
+                <option value="GP1 (General Purpose SSD)">GP1 (General Purpose SSD)</option>
+                <option value="GP2 (General Purpose SSD)">GP2 (General Purpose SSD)</option>
+                <option value="GP3 (General Purpose SSD">GP3 (General Purpose SSD)</option>
+                <option value="IO1 (Provisioned IOPS SSD)">IO1 (Provisioned IOPS SSD)</option>
+            </select><br><br>
 
-        <input type="submit" value="AFEGIR">
-    </form>
-</body>
+            Memoria assignada (GiB)
+            <input name="MemoriaEMG" required><br><br>
 
+
+            <input type="submit" value="AFEGIR">
+        </form>
+    </body>
 </html>
