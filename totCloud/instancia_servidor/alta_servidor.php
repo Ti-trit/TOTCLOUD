@@ -64,7 +64,7 @@
 </head>
 
 <body>
-    <form action="insert_servidor.php" method="POST">
+    <form action="insert_servidor.php" method="GET">
         <h2>Crear servidor</h2>
 
         Nom servidor
