@@ -3,14 +3,90 @@
 <head>
     <?php
     include "../atributsClasses/instancia_servidor.php";
+    include "../atributsClasses/clau_sessio.php";
+    include "../atributsClasses/configuracio.php";
+    include "../atributsClasses/emmagatzematge.php";
+    include "../atributsClasses/grup_seguretat.php";
     include "../header.php";
+    include "../connexio.php";
+    include "../funcions.php";
+
+    $db = new Database($conn);
+
+    $query = "SELECT nomSubXarxa, idVPC, nomReg FROM subxarxa";
+    $result = $db->consultar($query);
+    $arr0 = array();
+    $arr1 = array();
+    $arr2 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr0[] = $reg["nomSubXarxa"];
+        $arr1[] = $reg["idVPC"];
+        $arr2[] = $reg["nomReg"];
+    }
+
+    $query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
+    $result = $db->consultar($query);
+    $arr3 = array();
+    $arr4 = array();
+    $arr5 = array();
+    $arr6 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr3[] = $reg["nom"];
+        $arr4[] = $reg["numCPU"];
+        $arr5[] = $reg["RAM"];
+        $arr6[] = $reg["xarxa"];
+    }
+
+    $query = "SELECT source FROM source";
+    $result = $db->consultar($query);
+    $arr7 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr7[] = $reg["source"];
+    }
+
+    $query = "SELECT Protocol FROM protocol";
+    $result = $db->consultar($query);
+    $arr8 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr8[] = $reg["Protocol"];
+    }
+
+    $query = "SELECT tipus FROM emmagatzamatge";
+    $result = $db->consultar($query);
+    $arr9 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr9[] = $reg["tipus"];
+    }
+
+    $query = "SELECT tipus FROM tipus_clau";
+    $result = $db->consultar($query);
+    $arr10 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr10[] = $reg["tipus"];
+    }
+
+    $query = "SELECT descripcioAMI, arquitectura FROM AMI";
+    $result = $db->consultar($query);
+    $arr11 = array();
+    $arr12 = array();
+
+    while ($reg = mysqli_fetch_assoc($result)) {
+        $arr11[] = $reg["descripcioAMI"];
+        $arr12[] = $reg["arquitectura"];
+    }
     ?>
     <title>Crear Servidor</title>
     <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
 </head>
 
 <body>
-    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/insert_servidor.php" method="GET">    
+    <form action="/php/TOTCLOUD/totcloud/instancia_servidor/insert_servidor.php" method="GET">
         <h2>Crear servidor</h2>
 
         Nom servidor:
@@ -21,47 +97,94 @@
 
         Subxarxa:
         <select name="<?php echo $a4; ?>">
-            <option value="1">Subxarxa 1</option>
-            <option value="2">Subxarxa 2</option>
-            <option value="3">Subxarxa 3</option>
+            <?php
+            for ($i = 0; $i < count($arr0); $i++) {
+                echo "<option value='{$arr0[$i]}|{$arr1[$i]}|{$arr2[$i]}'>
+                        Nom: {$arr0[$i]} | VPC: {$arr1[$i]} | Regió: {$arr2[$i]}
+                      </option>";
+            }
+            ?>
         </select><br><br>
 
         Configuració:
         <select name="<?php echo $a5; ?>">
-            <option value="2">Bàsica</option>
-            <option value="1">Avançada</option>
-            <option value="3">Completa</option>
-        </select><br><br>
+            <?php
+            for ($i = 0; $i < count($arr3); $i++) {
+                echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}'>
+                        Nom: {$arr3[$i]} | Nº CPU: {$arr4[$i]} | RAM: {$arr5[$i]} | Xarxa: {$arr6[$i]}
+                      </option>";
+            }
+            ?>
+        </select><br>
+
+        IP:
+        <input name="<?php echo $c6; ?>"><br><br>
 
         Grup de seguretat:
-        <select name="<?php echo $a6; ?>">
-            <option value="1">WebServerGroup</option>
-            <option value="2">DBGroup</option>
-            <option value="3">DNSGroup</option>
-            <option value="4">PingGroup</option>
+        Nom:
+        <input name="<?php echo $e1; ?>"><br>
+        Descripcio:
+        <input name="<?php echo $e2; ?>"><br>
+        Source:
+        <select name="<?php echo $e7; ?>">
+            <?php
+            for ($i = 0; $i < count($arr7); $i++) {
+                echo "<option value='{$arr7[$i]}'>
+                        {$arr7[$i]}
+                      </option>";
+            }
+            ?>
+        </select><br>
+        Protocol:
+        <select name="<?php echo $e6; ?>">
+            <?php
+            for ($i = 0; $i < count($arr8); $i++) {
+                echo "<option value='{$arr8[$i]}'>
+                        {$arr8[$i]}
+                      </option>";
+            }
+            ?>
         </select><br><br>
 
-        Emmagatzament:
-        <select name="<?php echo $a7; ?>">
-            <option value="2">GP1</option>
-            <option value="1">GP2</option>
-            <option value="3">GP3</option>
-            <option value="4">IO1</option>
+        Emmagatzematge:
+        Quantitat:
+        <input name="<?php echo $g2; ?>"> GiB<br>
+        Tipus:
+        <select name="<?php echo $g1; ?>">
+            <?php
+            for ($i = 0; $i < count($arr9); $i++) {
+                echo "<option value='{$arr9[$i]}'>
+                        {$arr9[$i]}
+                      </option>";
+            }
+            ?>
         </select><br><br>
 
         Clau de sessió:
-        <select name="<?php echo $a8; ?>">
-            <option value="1">RSA</option>
-            <option value="2">ED25519</option>
-        </select><br><br>
+        Nom fitxer:
+        <input name="<?php echo $j1; ?>"><br>
+        Tipus clau:
+        <select name="<?php echo $j2; ?>">
+            <?php
+            for ($i = 0; $i < count($arr10); $i++) {
+                echo "<option value='{$arr10[$i]}'>
+                        {$arr10[$i]}
+                      </option>";
+            }
+            ?>
+        </select><br>
+        Nom clau:
+        <input name="<?php echo $j3; ?>"><br><br>
 
         AMI:
         <select name="<?php echo $a9; ?>">
-            <option value="1">Amazon Linux 2 AMI</option>
-            <option value="4">Amazon Linux 2 ARM</option>
-            <option value="5">Ubuntu 18.04 LTS</option>
-            <option value="2">Ubuntu 20.04 LTS</option>
-            <option value="3">Windows Server 2019</option>
+            <?php
+            for ($i = 0; $i < count($arr11); $i++) {
+                echo "<option value='{$arr11[$i]}|{$arr12[$i]}'>
+                        Nom: {$arr11[$i]} | Arquitectura: {$arr12[$i]}
+                      </option>";
+            }
+            ?>
         </select><br><br>
 
         <input type="submit" value="AFEGIR">
