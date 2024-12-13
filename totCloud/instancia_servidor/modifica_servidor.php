@@ -3,6 +3,10 @@
 include "../connexio.php";
 include "../funcions.php";
 include "../atributsClasses/instancia_servidor.php";
+include "../atributsClasses/clau_sessio.php";
+include "../atributsClasses/configuracio.php";
+include "../atributsClasses/emmagatzematge.php";
+include "../atributsClasses/grup_seguretat.php";
 include "../header.php";
 
 $db = new Database($conn);
@@ -13,6 +17,7 @@ if (!isset($_GET[$pk]) || empty($_GET[$pk])) {
 
 $k = $_GET[$pk];
 
+// Consultar datos para los select
 $query = "SELECT * FROM instancia_servidor WHERE $pk = $k";
 $resultado = $db->consultar($query);
 
@@ -21,6 +26,46 @@ if ($resultado && $resultado->num_rows > 0) {
 } else {
     die("Error: No se encontró el servidor con el ID especificado.");
 }
+
+$query = "SELECT nom, descripcio FROM grup_seguretat gs JOIN instancia_servidor i 
+ON gs.idGS = i.idGS";
+$resultado = $db->consultar($query);
+$datosGS = $resultado->fetch_assoc();
+
+$query = "SELECT emgAssignat FROM emmagatzamatge em JOIN instancia_servidor i 
+ON em.idEmmg = i.idEmmg";
+$resultado = $db->consultar($query);
+$datosEM = $resultado->fetch_assoc();
+
+$query = "SELECT nomFitxer, nomClau FROM clau_sessio cs JOIN instancia_servidor i 
+ON cs.idClauSessio = i.idClauSessio";
+$resultado = $db->consultar($query);
+$datosCS = $resultado->fetch_assoc();
+
+$query = "SELECT numCPU, RAM, xarxa, nom FROM configuracio";
+$result = $db->consultar($query);
+$arr3 = $arr4 = $arr5 = $arr6 = [];
+while ($reg = mysqli_fetch_assoc($result)) {
+    $arr3[] = $reg["nom"];
+    $arr4[] = $reg["numCPU"];
+    $arr5[] = $reg["RAM"];
+    $arr6[] = $reg["xarxa"];
+}
+
+$query = "SELECT source FROM source";
+$result = $db->consultar($query);
+$arr7 = [];
+while ($reg = mysqli_fetch_assoc($result)) {
+    $arr7[] = $reg["source"];
+}
+
+$query = "SELECT Protocol FROM protocol";
+$result = $db->consultar($query);
+$arr8 = [];
+while ($reg = mysqli_fetch_assoc($result)) {
+    $arr8[] = $reg["Protocol"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -36,58 +81,55 @@ if ($resultado && $resultado->num_rows > 0) {
 <body>
     <h1>Modificar servidor</h1>
     <form action="update_servidor.php" method="GET">
-        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
+        <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $_GET[$pk]; ?>">
 
         Nom servidor:
-        <input name="<?php echo $a1; ?>" value="<?php echo htmlspecialchars($datos[$a1]); ?>"><br><br>
-
-        Data de creació:
-        <input type="date" name="<?php echo $a2; ?>" value="<?php echo $datos[$a2]; ?>"><br><br>
-
-        Subxarxa:
-        <select name="<?php echo $a4; ?>">
-            <option value="1" <?php echo $datos[$a4] == 1 ? 'selected' : ''; ?>>Subxarxa 1</option>
-            <option value="2" <?php echo $datos[$a4] == 2 ? 'selected' : ''; ?>>Subxarxa 2</option>
-            <option value="3" <?php echo $datos[$a4] == 3 ? 'selected' : ''; ?>>Subxarxa 3</option>
-        </select><br><br>
+        <input name="<?php echo $a1; ?>" value="<?php echo $datos[$a1]; ?>"><br><br>
 
         Configuració:
         <select name="<?php echo $a5; ?>">
-            <option value="2" <?php echo $datos[$a5] == 2 ? 'selected' : ''; ?>>Bàsica</option>
-            <option value="1" <?php echo $datos[$a5] == 1 ? 'selected' : ''; ?>>Avançada</option>
-            <option value="3" <?php echo $datos[$a5] == 3 ? 'selected' : ''; ?>>Completa</option>
+            <?php
+            for ($i = 0; $i < count($arr3); $i++) {
+                $selected = ($datos[$a5] == "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}") ? "selected" : "";
+                echo "<option value='{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}' $selected>
+                        Nom: {$arr3[$i]} | Nº CPU: {$arr4[$i]} | RAM: {$arr5[$i]} | Xarxa: {$arr6[$i]}
+                      </option>";
+            }
+            ?>
         </select><br><br>
-
+        
         Grup de seguretat:
-        <select name="<?php echo $a6; ?>">
-            <option value="1" <?php echo $datos[$a6] == 1 ? 'selected' : ''; ?>>WebServerGroup</option>
-            <option value="2" <?php echo $datos[$a6] == 2 ? 'selected' : ''; ?>>DBGroup</option>
-            <option value="3" <?php echo $datos[$a6] == 3 ? 'selected' : ''; ?>>DNSGroup</option>
-            <option value="4" <?php echo $datos[$a6] == 4 ? 'selected' : ''; ?>>PingGroup</option>
+        Nom:
+        <input name="<?php echo $e1; ?>" value="<?php echo $datosGS['nom']; ?>"><br>
+        Descripcio:
+        <input name="<?php echo $e2; ?>" value="<?php echo $datosGS['descripcio']; ?>"><br>
+        Source:
+        <select name="<?php echo $e7; ?>">
+            <?php
+            foreach ($arr7 as $source) {
+                $selected = ($datos[$e7] == $source) ? "selected" : "";
+                echo "<option value='$source' $selected>$source</option>";
+            }
+            ?>
+        </select><br>
+        Protocol:
+        <select name="<?php echo $e6; ?>">
+            <?php
+            foreach ($arr8 as $protocol) {
+                $selected = ($datos[$e6] == $protocol) ? "selected" : "";
+                echo "<option value='$protocol' $selected>$protocol</option>";
+            }
+            ?>
         </select><br><br>
 
-        Emmagatzament:
-        <select name="<?php echo $a7; ?>">
-            <option value="2" <?php echo $datos[$a7] == 2 ? 'selected' : ''; ?>>GP1</option>
-            <option value="1" <?php echo $datos[$a7] == 1 ? 'selected' : ''; ?>>GP2</option>
-            <option value="3" <?php echo $datos[$a7] == 3 ? 'selected' : ''; ?>>GP3</option>
-            <option value="4" <?php echo $datos[$a7] == 4 ? 'selected' : ''; ?>>IO1</option>
-        </select><br><br>
+        Quantitat emmagatzematge:
+        <input name="<?php echo $g2; ?>" value="<?php echo $datosEM[$g2]; ?>"> GiB<br><br>
 
         Clau de sessió:
-        <select name="<?php echo $a8; ?>">
-            <option value="1" <?php echo $datos[$a8] == 1 ? 'selected' : ''; ?>>RSA</option>
-            <option value="2" <?php echo $datos[$a8] == 2 ? 'selected' : ''; ?>>ED25519</option>
-        </select><br><br>
-
-        AMI:
-        <select name="<?php echo $a9; ?>">
-            <option value="1" <?php echo $datos[$a9] == 1 ? 'selected' : ''; ?>>Amazon Linux 2 AMI</option>
-            <option value="4" <?php echo $datos[$a9] == 4 ? 'selected' : ''; ?>>Amazon Linux 2 ARM</option>
-            <option value="5" <?php echo $datos[$a9] == 5 ? 'selected' : ''; ?>>Ubuntu 18.04 LTS</option>
-            <option value="2" <?php echo $datos[$a9] == 2 ? 'selected' : ''; ?>>Ubuntu 20.04 LTS</option>
-            <option value="3" <?php echo $datos[$a9] == 3 ? 'selected' : ''; ?>>Windows Server 2019</option>
-        </select><br><br>
+        Nom fitxer:
+        <input name="<?php echo $j1; ?>" value="<?php echo $datosCS[$j1]; ?>"><br>
+        Nom clau:
+        <input name="<?php echo $j3; ?>" value="<?php echo $datosCS[$j3]; ?>"><br>
 
         <input type="submit" value="MODIFICAR">
     </form>

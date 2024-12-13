@@ -51,13 +51,6 @@ if ($resultado && $resultado->num_rows > 0) {
             <option value="365" <?php echo $datos[$a2] == 365 ? 'selected' : ''; ?>>1 any</option>
         </select><br><br>
 
-        Nom regió:
-        <select name="<?php echo $a3; ?>">
-            <option value="eu-west-1" <?php echo $datos[$a4] == "eu-west-1" ? 'selected' : ''; ?>>eu-west 1</option>
-            <option value="eu-west-2" <?php echo $datos[$a4] == "eu-west-2" ? 'selected' : ''; ?>>eu-west 2</option>
-            <option value="eu-west-3" <?php echo $datos[$a4] == "eu-west-3" ? 'selected' : ''; ?>>eu-west 3</option>
-        </select><br><br>
-
         <input type="submit" value="MODIFICAR">
     </form>
 </body>
