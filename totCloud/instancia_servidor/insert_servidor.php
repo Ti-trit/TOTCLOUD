@@ -32,8 +32,6 @@ if (!validarIP($_GET["IPS"])){
 
   
 
-
-
 // Crear la consulta SQL
 $re1 = "INSERT INTO configuracio (numCPU, RAM, preuPerHora, nom, IP)
     VALUES ('$numCPU', '$RAM', '$preuPerHora','$nomConfig' ,'{$_GET["IPS"]}')";

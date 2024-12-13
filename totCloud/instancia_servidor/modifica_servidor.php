@@ -96,34 +96,48 @@ while ($reg = mysqli_fetch_assoc($result)) {
         <input name="<?php echo $a1; ?>" value="<?php echo $datos[$a1]; ?>" ><br><br>
 
         Configuració
-        <?php
-            // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
-            $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
-            $arr3 = ['db.t3.micro', 'db.t3.small','db.t3.medium','db.m5.large'];
-            $arr4 =['2','3', '4', '2'];
-            $arr5 = ['1', '2', '4', '8'];
-            $arr6 = ['3,00$', '5,00$','5,00$', '10,00$'];
+                        <?php
+                // Obtener la configuración actual
+                $query = "SELECT c.nom, c.numCPU, c.RAM, c.PreuPerHora FROM CONFIGURACIO c 
+                        JOIN instancia_servidor i ON i.idConfig = c.idConfig AND i.idInstancia_servidor = '$k'";
+                $result = $db->consultar($query);
 
-            // Separamos las partes del valor seleccionado (si está definido)
-            $valorSeleccionadoArray = explode('|', $configSeleccionada);
-            ?>
+                $reg = mysqli_fetch_assoc($result);
+
+                // Crear la cadena con el formato adecuado para la comparación
+                $formattedOption = trim("{$reg['nom']}|{$reg['numCPU']}|{$reg['RAM']}|{$reg['PreuPerHora']}"); // Sin $ al final
+
+                echo "$formattedOption";  // Verifica el valor de formattedOption
+                ?>
+
+                <select name="<?php echo $a5; ?>">
+                <?php
+                // Arreglos con las opciones disponibles
+                $arr3 = ['db.t3.micro','db.t3.small','db.t3.medium','db.m5.large'];
+                $arr4 = ['2','3', '4', '2'];
+                $arr5 = ['1', '2', '4','8'];
+                $arr6 = ['3.00', '5.00','5.00', '10.00'];
 
 
-        <select name="<?php echo $a5; ?>">
-        <?php
-            // Recorremos todas las opciones y las mostramos, agregando el atributo 'selected' si coincide
-            for ($i = 0; $i < count($arr3); $i++) {
-                $valor = "{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}";
-                $selected = ($valor === $configSeleccionada) ? 'selected' : '';  // Verifica si esta opción es la seleccionada
-                echo "<option value='$valor' $selected>
-                        Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | PreuPerHora: {$arr6[$i]}
-                    </option>";
-            }
-            ?>
-        </select><br><br>
+                // Recorrer todas las opciones y mostrar cada una
+                for ($i = 0; $i < count($arr3); $i++) {
+                    // Crear el valor con el mismo formato que $formattedOption
+                    $valor = trim("{$arr3[$i]}|{$arr4[$i]}|{$arr5[$i]}|{$arr6[$i]}");
+
+                    // Verificar si esta opción es la seleccionada
+                    $selected = ($valor === $formattedOption) ? 'selected' : '';  
+
+                    // Mostrar la opción
+                    echo "<option value='$valor' $selected>
+                            Nom: {$arr3[$i]} | vCPUs: {$arr4[$i]} |  GiB RAM: {$arr5[$i]} | PreuPerHora: {$arr6[$i]}$
+                        </option>";
+                }
+                ?>
+                </select><br><br>
+
         
-        Grup de seguretat:
-        Nom:
+        Grup de seguretat <br><strong></strong><br>
+        Nom
         <input name="<?php echo $e1; ?>" value="<?php echo $datosGS['nom']; ?>"><br>
         Descripcio:
         <input name="<?php echo $e2; ?>" value="<?php echo $datosGS['descripcio']; ?>"><br>
@@ -136,7 +150,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
             }
             ?>
         </select><br>
-        Protocol:
+        Protocol
         <select name="<?php echo $e6; ?>">
             <?php
             foreach ($arr8 as $protocol) {
@@ -146,11 +160,10 @@ while ($reg = mysqli_fetch_assoc($result)) {
             ?>
         </select><br><br>
 
-        Quantitat emmagatzematge:
-        <input name="<?php echo $g2; ?>" value="<?php echo $datosEM[$g2]; ?>"> GiB<br><br>
+        Memoria assignada (GiB)
+        <input name="<?php echo $g2; ?>" value="<?php echo $datosEM[$g2]; ?>"> <br><br>
 
-        Clau de sessió:
-        Nom fitxer:
+        Nom fitxer
         <input name="<?php echo $j1; ?>" value="<?php echo $datosCS[$j1]; ?>"><br>
         Nom clau:
         <input name="<?php echo $j3; ?>" value="<?php echo $datosCS[$j3]; ?>"><br>
