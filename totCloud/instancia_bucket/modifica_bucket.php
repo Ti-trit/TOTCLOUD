@@ -32,11 +32,20 @@ if ($resultado && $resultado->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Bucket</title>
-    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" type="text/css" href="../estils/new.css">
 </head>
 
 <body>
-    <h1>Modificar bucket</h1>
+    <section>
+        <a href="home.php">
+            <h2>Bucket</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Aquí pots canviar els valors modificables del bucket
+            </div>
+        </div>
+    </section>
     <form action="update_bucket.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $datos[$pk]; ?>">
 
@@ -51,6 +60,6 @@ if ($resultado && $resultado->num_rows > 0) {
             <option value="365" <?php echo $datos[$a2] == 365 ? 'selected' : ''; ?>>1 any</option>
         </select><br><br>
 
-        <input type="submit" value="MODIFICAR">
+        <input type="submit" value="MODIFICAR" class="custom-button">
     </form>
 </body>

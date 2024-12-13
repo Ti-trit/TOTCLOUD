@@ -23,15 +23,15 @@ $db->close();
 <body>
     <section>
         <h2>Base de dades</h2>
-        <div class="bd">
+        <div class="saas">
             <div>
                 Pots crear i consultar les teves bases de dades disponibles
             </div>
-            <div class="manteniment_bd">
-                <div class="crear_bd">
+            <div class="services">
+                <div class="saas_content">
                     <a href="alta_bd.php">CREAR BASE DE DADES</a>
                 </div>
-                <div class="consultar_bd">
+                <div class="paas_content">
                     <a href="#" id="consultarBD">CONSULTAR BASES DE DADES</a>
                 </div>
             </div>

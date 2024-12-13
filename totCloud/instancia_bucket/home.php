@@ -23,17 +23,16 @@ $db->close();
 <body>
     <section>
         <h2>Buckets</h2>
-        <div class="buckets">
+        <div class="saas">
             <div>
                 Pots crear i consultar els teus buckets disponibles
             </div>
-           
 
-            <div class="manteniment_buckets">
-                <div class="crear_bucket">
+            <div class="services">
+                <div class="saas_content">
                     <a href="./alta_bucket.php">CREAR BUCKET</a>
                 </div>
-                <div class="consultar_buckets">
+                <div class="paas_content">
                     <a href="#" id="consultarBucket">CONSULTAR BUCKETS</a>
                 </div>
             </div>

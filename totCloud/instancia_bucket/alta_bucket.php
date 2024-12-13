@@ -4,18 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../home.css">
-
-    <!-- <title>CREAR BUCKET</title> -->
+    <link rel="stylesheet" type="text/css" href="../estils/new.css">
+    <title>CREAR BUCKET</title>
 </head>
-
-<body>
-    <h2>Crear bucket</h2>
 <?php
 include "../connexio.php";
 include "../funcions.php";
 include "../atributsClasses/instancia_bucket.php";
-//include "../header.php";
+include "../header.php";
 
 $db = new Database($conn);
 $query = "SELECT $a3 FROM regio WHERE disponible = 1";
@@ -26,12 +22,23 @@ while ($reg = mysqli_fetch_assoc($result)) {
     $array[] = $reg[$a3];
 }
 ?>
-    <form action="insert_bucket.php" method="POST">
 
-        Nom bucket
+<body>
+    <section>
+        <a href="home.php">
+            <h2>Bucket</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Aquí pots crear els buckets on emmagatzemar els arxius i carpetes
+            </div>
+        </div>
+    </section>
+    <form action="insert_bucket.php" method="POST">
+        <label>Nom bucket</label><br>
         <input name="<?php echo $a1; ?>"><br><br>
 
-        Periode bloqueig
+        <label>Periode bloqueig</label><br>
         <select name="<?php echo $a2; ?>">
             <option value="NULL">Sense</option>
             <option value="30">30 dies</option>
@@ -39,7 +46,7 @@ while ($reg = mysqli_fetch_assoc($result)) {
             <option value="365">1 any</option>
         </select><br><br>
 
-        Nom regió:
+        <label>Nom regió:</label><br>
         <select name="<?php echo $a3; ?>">
             <?php
             foreach ($array as $region) {

@@ -2,7 +2,7 @@
 
 include "../connexio.php";
 include "../funcions.php";
-include "../atributsClasses/instancia_bd.php"; 
+include "../atributsClasses/instancia_bd.php";
 include "../header.php";
 
 $db = new Database($conn);
@@ -27,11 +27,12 @@ if ($resultado && $resultado->num_rows > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar BD</title>
-    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" type="text/css" href="../estils/new.css">
     <script>
         function toggleRetentionPeriod() {
             const checkbox = document.getElementById('backupCheckbox');
@@ -44,11 +45,21 @@ if ($resultado && $resultado->num_rows > 0) {
         }
     </script>
 </head>
+
 <body>
-    <h1>Modificar base de dades</h1>
+    <section>
+        <a href="home.php">
+            <h2>Base de dades</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Aquí pots canviar els valors modificables de les bases de dades
+            </div>
+        </div>
+    </section>
     <form action="update_bd.php" method="GET">
-        <input type = "hidden" name = <?php echo $pk; ?> value = <?php echo $k; ?> >
-        
+        <input type="hidden" name=<?php echo $pk; ?> value=<?php echo $k; ?>>
+
         Nom master:
         <input name="nomMaster" value="<?php echo htmlspecialchars($datos[$a2]); ?>" requiered> <br><br>
 
@@ -57,37 +68,38 @@ if ($resultado && $resultado->num_rows > 0) {
 
         Grup de paràmetres:
         <?php
-// Definir las opciones como un array
-$opciones = [
-    "default.oracle-ee-19" => "default.oracle-ee-19",
-    "default.sqlserver-se-15" => "default.sqlserver-se-15",
-    "default.postgres14" => "Alt default.postgres14",
-    "default.postgres13" => "default.postgres13",
-    "default.mysql8.0" => "default.mysql8.0",
-    "default.mysql5.7" => "default.mysql5.7",
-    "default.mariadb10.5" => "default.mariadb10.5"
-];
+        // Definir las opciones como un array
+        $opciones = [
+            "default.oracle-ee-19" => "default.oracle-ee-19",
+            "default.sqlserver-se-15" => "default.sqlserver-se-15",
+            "default.postgres14" => "Alt default.postgres14",
+            "default.postgres13" => "default.postgres13",
+            "default.mysql8.0" => "default.mysql8.0",
+            "default.mysql5.7" => "default.mysql5.7",
+            "default.mariadb10.5" => "default.mariadb10.5"
+        ];
 
-// Obtener el valor seleccionado directamente
-$valorSeleccionado = $datos[$a4] ?? ''; // Default vacío si no está seteado
-?>
+        // Obtener el valor seleccionado directamente
+        $valorSeleccionado = $datos[$a4] ?? ''; // Default vacío si no está seteado
+        ?>
 
-<!-- Crear el select con las opciones dinámicas -->
-<select name="GParametreBD" required>
-    <?php
-    foreach ($opciones as $value => $label) {
-        $selected = ($value === $valorSeleccionado) ? 'selected' : '';
-        echo "<option value=\"$value\" $selected>$label</option>";
-    }
-    ?>
-</select><br><br>
+        <!-- Crear el select con las opciones dinámicas -->
+        <select name="GParametreBD" required>
+            <?php
+            foreach ($opciones as $value => $label) {
+                $selected = ($value === $valorSeleccionado) ? 'selected' : '';
+                echo "<option value=\"$value\" $selected>$label</option>";
+            }
+            ?>
+        </select><br><br>
 
 
         <label>
-            <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1" onchange="toggleRetentionPeriod()">
+            <input type="checkbox" id="backupCheckbox" name="<?php echo $a6; ?>" value="1"
+                onchange="toggleRetentionPeriod()">
             Copia de seguretat
         </label><br><br>
-        
+
         <div id="periodeRetencioCS" style="display: none;">
             Període retenció:
             <select name="<?php echo $a5; ?>" required>
@@ -99,18 +111,18 @@ $valorSeleccionado = $datos[$a4] ?? ''; // Default vacío si no está seteado
 
 
 
-                
-                    <?php
-            // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
-            $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
-            $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
-            $arr4 = ['2', '3', '4', '2'];
-            $arr5 = ['1', '2', '4', '8'];
-            $arr6 = ['2,085', '5,00', '5,000', '10'];
 
-            // Separamos las partes del valor seleccionado (si está definido)
-            $valorSeleccionadoArray = explode('|', $configSeleccionada);
-            ?>
+        <?php
+        // Suponiendo que este es el valor actual de la configuración que el usuario ha elegido previamente
+        $configSeleccionada = $datos[$a4] ?? '';  // Se obtiene el valor de la configuración actual
+        $arr3 = ['db.t3.micro', 'db.t3.small', 'db.t3.medium', 'db.m5.large'];
+        $arr4 = ['2', '3', '4', '2'];
+        $arr5 = ['1', '2', '4', '8'];
+        $arr6 = ['2,085', '5,00', '5,000', '10'];
+
+        // Separamos las partes del valor seleccionado (si está definido)
+        $valorSeleccionadoArray = explode('|', $configSeleccionada);
+        ?>
 
         Configuració
         <select name="config" required>
@@ -128,6 +140,6 @@ $valorSeleccionado = $datos[$a4] ?? ''; // Default vacío si no está seteado
 
 
 
-            <input type="submit" value="MODIFICAR">
-            </form>
-        </body>
+        <input type="submit" value="MODIFICAR">
+    </form>
+</body>

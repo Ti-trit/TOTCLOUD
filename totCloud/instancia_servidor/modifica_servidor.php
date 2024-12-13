@@ -75,11 +75,20 @@ while ($reg = mysqli_fetch_assoc($result)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Servidor</title>
-    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" type="text/css" href="../estils/new.css">
 </head>
 
 <body>
-    <h1>Modificar servidor</h1>
+<section>
+        <a href="home.php">
+            <h2>Servidor</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Canvia els valors que necessitis pel teu servidor
+            </div>
+        </div>
+    </section>
     <form action="update_servidor.php" method="GET">
         <input type="hidden" name="<?php echo $pk; ?>" value="<?php echo $_GET[$pk]; ?>">
 

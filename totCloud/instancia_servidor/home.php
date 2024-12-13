@@ -23,16 +23,16 @@ $db->close();
 <body>
     <section>
         <h2>Servidors</h2>
-        <div class="servidors">
+        <div class="saas">
             <div>
                 Pots crear i consultar els teus servidors disponibles
             </div>
-            <div class="manteniment_servidors">
-                <div class="crear_servidor">
+            <div class="services">
+                <div class="saas_content">
                     <a href="./alta_servidor.php/">CREAR SERVIDOR</a>
                 </div>
-                <div class="consultar_servidor">
-                    <a href="#" id="consultarServidor">CONSULTAR SERVIDORES</a>
+                <div class="paas_content">
+                    <a href="#" id="consultarServidor">CONSULTAR SERVIDORS</a>
                 </div>
             </div>
         </div>

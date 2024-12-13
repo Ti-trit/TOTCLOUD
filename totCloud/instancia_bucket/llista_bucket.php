@@ -10,10 +10,20 @@ include "../header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instancia Bucket</title>
-    <link rel="stylesheet" href="../home.css">
+    <link rel="stylesheet" type="text/css" href="../estils/new.css">
 </head>
 
 <body>
+    <section>
+        <a href="home.php">
+            <h2>Bucket</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Aquest es el llistat de buckets que tens actualment
+            </div>
+        </div>
+    </section>
     <?php
     // Consulta principal
     $consulta = "SELECT i.$pk, i.$a1 AS NomBucket, i.$a2 AS PeriodeBloqueig, 

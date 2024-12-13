@@ -10,10 +10,20 @@ include "../header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instancia Servidor</title>
-    <link rel="stylesheet" href="../home.css">
+    <link rel="stylesheet" href="/php/TOTCLOUD/totcloud/estils/new.css">
 </head>
 
 <body>
+    <section>
+        <a href="home.php">
+            <h2>Servidor</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Aquí pots consultar els servidors que tens actualment
+            </div>
+        </div>
+    </section>
     <?php
     // Consulta principal
     $consulta = "SELECT i.$pk, i.$a1 AS NomServidor, i.$a2 AS DataCreacio, s.nomSubxarxa AS Subxarxa, 

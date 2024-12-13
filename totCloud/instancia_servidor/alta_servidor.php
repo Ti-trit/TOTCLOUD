@@ -82,12 +82,21 @@
     }
     ?>
     <title>Crear Servidor</title>
-    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/home.css">
+    <link rel="stylesheet" type="text/css" href="/php/TOTCLOUD/totcloud/estils/new.css">
 </head>
 
 <body>
+    <section>
+        <a href="home.php">
+            <h2>Servidor</h2>
+        </a>
+        <div class="subtitulo">
+            <div>
+                Crear un servidor:
+            </div>
+        </div>
+    </section>
     <form action="/php/TOTCLOUD/totcloud/instancia_servidor/insert_servidor.php" method="GET">
-        <h2>Crear servidor</h2>
 
         Nom servidor:
         <input name="<?php echo $a1; ?>"><br><br>
