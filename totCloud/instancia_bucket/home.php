@@ -27,9 +27,11 @@ $db->close();
             <div>
                 Pots crear i consultar els teus buckets disponibles
             </div>
+           
+
             <div class="manteniment_buckets">
                 <div class="crear_bucket">
-                    <a href="./alta_bucket.php/">CREAR BUCKET</a>
+                    <a href="./alta_bucket.php">CREAR BUCKET</a>
                 </div>
                 <div class="consultar_buckets">
                     <a href="#" id="consultarBucket">CONSULTAR BUCKETS</a>
@@ -43,7 +45,7 @@ $db->close();
 
         consultaLink.addEventListener("click", function (event) {
             if (numRows > 0) {
-                window.location.href = "./llista_bucket.php/";
+                window.location.href = "./llista_bucket.php";
             } else {
                 alert("Encara no tens cap bucket creat.");
                 event.preventDefault();
